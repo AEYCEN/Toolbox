@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkLoom | AEYCEN Toolbox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/linkLoom.css">
+</head>
+<body>
+
+<div class="app">
+    <header class="header">
+        <div class="logo">▸ AEYCEN Toolbox</div>
+        <h1>LinkLoom</h1>
+        <p class="subtitle">URL-Werkzeugkasten — Codieren, Analysieren, Bauen</p>
+    </header>
+
+    <!-- Input -->
+    <div class="input-section">
+        <label class="input-label" for="urlInput">⌘ Eingabe</label>
+        <input class="url-input" type="text" id="urlInput" placeholder="https://example.com/pfad?param=wert" oninput="updateCharCount()">
+        <div class="char-count" id="charCount">0 Zeichen</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs" id="tabBar">
+        <button class="tab active" data-panel="encode">Codieren</button>
+        <button class="tab" data-panel="parse">URL Parser</button>
+        <button class="tab" data-panel="base64">Base64</button>
+        <button class="tab" data-panel="utm">UTM Builder</button>
+        <button class="tab" data-panel="bulk">Bulk-Modus</button>
+    </div>
+
+    <!-- ═══════ PANEL: Encode/Decode ═══════ -->
+    <div class="panel active" id="panel-encode">
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="encodeURL()">↑ URL Codieren</button>
+            <button class="btn btn-accent2" onclick="decodeURL()">↓ URL Decodieren</button>
+            <button class="btn" onclick="encodeAll()">Komplett Codieren</button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label">Ergebnis</label>
+                <button class="copy-btn" onclick="copyResult('encodeResult', this)">⎘ Kopieren</button>
+            </div>
+            <textarea class="result-output" id="encodeResult" readonly></textarea>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: URL Parser ═══════ -->
+    <div class="panel" id="panel-parse">
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="parseURL()">⚙ URL Analysieren</button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label">Analyse</label>
+                <button class="copy-btn" onclick="copyParseResult(this)">⎘ Kopieren</button>
+            </div>
+            <div id="parseOutput">
+                <p style="color: var(--text-muted); font-style: italic; padding: 10px 0;">Gib eine URL ein und klicke auf "URL Analysieren"</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: Base64 ═══════ -->
+    <div class="panel" id="panel-base64">
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="base64Encode()">↑ Base64 Codieren</button>
+            <button class="btn btn-accent2" onclick="base64Decode()">↓ Base64 Decodieren</button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label">Ergebnis</label>
+                <button class="copy-btn" onclick="copyResult('base64Result', this)">⎘ Kopieren</button>
+            </div>
+            <textarea class="result-output" id="base64Result" readonly></textarea>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: UTM Builder ═══════ -->
+    <div class="panel" id="panel-utm">
+        <div class="result-section" style="margin-bottom: 20px;">
+            <label class="input-label" style="margin-bottom: 14px; display: block;">UTM-Parameter</label>
+            <div class="utm-grid">
+                <div class="utm-field full">
+                    <label>Basis-URL <span class="required">*</span></label>
+                    <input class="utm-input" id="utmUrl" placeholder="https://example.com/seite" oninput="buildUTM()">
+                </div>
+                <div class="utm-field">
+                    <label>utm_source <span class="required">*</span></label>
+                    <input class="utm-input" id="utmSource" placeholder="z.B. google, newsletter" oninput="buildUTM()">
+                </div>
+                <div class="utm-field">
+                    <label>utm_medium <span class="required">*</span></label>
+                    <input class="utm-input" id="utmMedium" placeholder="z.B. cpc, email, social" oninput="buildUTM()">
+                </div>
+                <div class="utm-field">
+                    <label>utm_campaign <span class="required">*</span></label>
+                    <input class="utm-input" id="utmCampaign" placeholder="z.B. spring_sale" oninput="buildUTM()">
+                </div>
+                <div class="utm-field">
+                    <label>utm_term</label>
+                    <input class="utm-input" id="utmTerm" placeholder="z.B. keyword" oninput="buildUTM()">
+                </div>
+                <div class="utm-field full">
+                    <label>utm_content</label>
+                    <input class="utm-input" id="utmContent" placeholder="z.B. banner_top, text_link" oninput="buildUTM()">
+                </div>
+            </div>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label">Generierte URL</label>
+                <button class="copy-btn" onclick="copyText(document.getElementById('utmPreview').textContent, this)">⎘ Kopieren</button>
+            </div>
+            <div class="utm-preview" id="utmPreview">Fülle die Felder oben aus …</div>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: Bulk ═══════ -->
+    <div class="panel" id="panel-bulk">
+        <div class="result-section" style="margin-bottom: 20px;">
+            <label class="input-label" style="margin-bottom: 10px; display: block;">URLs (eine pro Zeile)</label>
+            <textarea class="url-input" id="bulkInput" rows="6" placeholder="https://example.com/seite1&#10;https://example.com/seite2?foo=bar baz&#10;https://example.com/ä ö ü" oninput="updateBulkStats()"></textarea>
+            <div class="bulk-stats" id="bulkStats">
+                <span class="stat-badge"><span class="num">0</span> URLs</span>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="bulkEncode()">↑ Alle Codieren</button>
+            <button class="btn btn-accent2" onclick="bulkDecode()">↓ Alle Decodieren</button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label">Ergebnis</label>
+                <button class="copy-btn" onclick="copyResult('bulkResult', this)">⎘ Kopieren</button>
+            </div>
+            <textarea class="result-output" id="bulkResult" rows="6" readonly></textarea>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<footer>
+    LinkLoom <span data-version="linkLoom"></span> |
+    <a href="index.html">zurück zur Toolbox</a> |
+    © 2023-2026 by
+    <a href="https://github.com/AEYCEN">AEYCEN</a>
+</footer>
+
+    <script src="./js/linkLoom.js"></script>
+    <script src="./js/versions.js"></script>
+</body>
+</html>

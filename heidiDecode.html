@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeidiDecode | AEYCEN Toolbox</title>
+    <link rel="icon" type="image/png" href="./assets/img/AEYCEN.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/toolbox-theme.css">
+    <link rel="stylesheet" href="./styles/heidiDecode.css">
+</head>
+<body>
+
+<div class="app">
+
+    <div class="hero">
+        <div class="hero-tag" onclick="window.location.href='index.html'">
+            <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" class="logo" width="14">
+            AEYCEN Toolbox
+        </div>
+        <h2>HeidiDecode</h2>
+        <p class="hero-desc">Entschlüsselung von exportierten HeidiSQL-Verbindungen</p>
+        <span class="hero-version"><span data-version="heidiDecode"></span></span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" data-panel="direct">Direkteingabe</button>
+        <button class="tab" data-panel="file">Dateiextraktion</button>
+    </div>
+
+    <!-- ═══════ PANEL: Direkteingabe ═══════ -->
+    <div class="panel active" id="panel-direct">
+        <div class="input-section">
+            <label class="input-label" for="eingabe">⌘ Verschlüsseltes Passwort</label>
+            <input class="field-input" type="text" id="eingabe" placeholder="unter Servers\<SERVERNAME>\Password">
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="decodePassword()">🔓 Entschlüsseln</button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label">Blanco-Passwort</label>
+            </div>
+            <div id="directEmptyState" class="empty-state">Gib ein verschlüsseltes Passwort ein und klicke auf „Entschlüsseln"</div>
+            <div id="directResult" style="display: none;">
+                <div class="result-value-row">
+                    <div class="result-value" id="solution"></div>
+                    <button class="btn-copy-inline" onclick="copyText(document.getElementById('solution').textContent, this)">⎘ Kopieren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: Dateiextraktion ═══════ -->
+    <div class="panel" id="panel-file">
+        <div class="input-section">
+            <label class="input-label">⌘ Exportdatei</label>
+            <div class="file-drop" id="fileDrop">
+                <div class="file-drop-text">
+                    Exportierte <span class="accent">.txt</span>-Datei hier ablegen oder <span class="accent">klicken</span>
+                </div>
+                <input type="file" id="fileInput" accept=".txt">
+                <div class="file-name-display" id="fileName"></div>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-accent3" onclick="openFile()">📄 Verbindungen extrahieren</button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label" style="color: var(--accent3);">Extrahierte Verbindungen</label>
+            </div>
+            <div id="fileEmptyState" class="empty-state">Lade eine exportierte HeidiSQL-Datei hoch</div>
+            <div class="connections-grid" id="connectionContainer"></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="toast-notify" id="toast"></div>
+
+<footer>
+    <div>
+        <small>
+            HeidiDecode <span data-version="heidiDecode"></span> |
+            <a href="index.html">zurück zur Toolbox</a> |
+            © 2023-2026 by
+            <a href="https://github.com/AEYCEN">AEYCEN</a>
+        </small>
+    </div>
+</footer>
+
+<script src="./js/heidiDecode.js"></script>
+<script src="./js/versions.js"></script>
+</body>
+</html>
