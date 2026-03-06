@@ -249,8 +249,8 @@
 
         .tool-arrow {
             position: absolute;
-            right: 22px;
-            top: 50%;
+            right: 30px;
+            top: 65%;
             transform: translateY(-50%) translateX(-6px);
             color: var(--accent);
             font-size: 1.2rem;
