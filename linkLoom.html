@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkLoom | AEYCEN Toolbox</title>
+    <link rel="icon" type="image/png" href="./assets/img/AEYCEN.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/toolbox-theme.css">
     <link rel="stylesheet" href="./styles/linkLoom.css">
 </head>
 <body>
 
 <div class="app">
     <header class="header">
-        <div class="logo">▸ AEYCEN Toolbox</div>
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" width="14">
+            AEYCEN Toolbox
+        </div>
         <h1>LinkLoom</h1>
         <p class="subtitle">URL-Werkzeugkasten — Codieren, Analysieren, Bauen</p>
     </header>
@@ -144,16 +149,20 @@
 </div>
 
 <!-- Toast -->
-<div class="toast" id="toast"></div>
+<div class="toast-notify" id="toast"></div>
 
 <footer>
-    LinkLoom <span data-version="linkLoom"></span> |
-    <a href="index.html">zurück zur Toolbox</a> |
-    © 2023-2026 by
-    <a href="https://github.com/AEYCEN">AEYCEN</a>
+    <div>
+        <small>
+            LinkLoom <span data-version="linkLoom"></span> |
+            <a href="index.html">zurück zur Toolbox</a> |
+            © 2023-2026 by
+            <a href="https://github.com/AEYCEN">AEYCEN</a>
+        </small>
+    </div>
 </footer>
 
-    <script src="./js/linkLoom.js"></script>
-    <script src="./js/versions.js"></script>
+<script src="js/linkLoom.js"></script>
+<script src="js/base.js"></script>
 </body>
 </html>

@@ -1,12 +1,25 @@
-// ── Tab switching ──
+// ── Tab switching with persistence ──
+function showPanel(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
+    const tab = document.querySelector(`.tab[data-panel="${name}"]`)
+    if (tab) tab.classList.add('active')
+    const panel = document.getElementById('panel-' + name)
+    if (panel) panel.classList.add('active')
+    localStorage.setItem('tab_calcul8tr', name)
+}
+
 document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
-        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
-        tab.classList.add('active')
-        document.getElementById('panel-' + tab.dataset.panel).classList.add('active')
-    })
+    tab.addEventListener('click', () => showPanel(tab.dataset.panel))
 })
+
+// Restore last active tab
+;(() => {
+    const saved = localStorage.getItem('tab_calcul8tr')
+    if (saved && document.querySelector(`.tab[data-panel="${saved}"]`)) {
+        showPanel(saved)
+    }
+})()
 
 // ══════════════════════════════════
 //  Expression Calculator
@@ -217,6 +230,10 @@ const UNITS = {
     }
 }
 
+// ── Unit swap tracking ──
+let _prevUnitFrom = ''
+let _prevUnitTo = ''
+
 function populateUnits() {
     const cat = document.getElementById('unitCategory').value
     const units = UNITS[cat].units
@@ -225,6 +242,30 @@ function populateUnits() {
     document.getElementById('unitFrom').innerHTML = optHtml
     document.getElementById('unitTo').innerHTML = optHtml
     if (keys.length > 1) document.getElementById('unitTo').selectedIndex = 1
+    _prevUnitFrom = document.getElementById('unitFrom').value
+    _prevUnitTo = document.getElementById('unitTo').value
+    convertUnit()
+}
+
+function onUnitFromChange() {
+    const fromEl = document.getElementById('unitFrom')
+    const toEl = document.getElementById('unitTo')
+    if (fromEl.value === toEl.value) {
+        toEl.value = _prevUnitFrom
+    }
+    _prevUnitFrom = fromEl.value
+    _prevUnitTo = toEl.value
+    convertUnit()
+}
+
+function onUnitToChange() {
+    const fromEl = document.getElementById('unitFrom')
+    const toEl = document.getElementById('unitTo')
+    if (toEl.value === fromEl.value) {
+        fromEl.value = _prevUnitTo
+    }
+    _prevUnitFrom = fromEl.value
+    _prevUnitTo = toEl.value
     convertUnit()
 }
 

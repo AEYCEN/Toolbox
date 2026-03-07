@@ -1,12 +1,25 @@
-// ── Tab switching ──
+// ── Tab switching with persistence ──
+function showPanel(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
+    const tab = document.querySelector(`.tab[data-panel="${name}"]`)
+    if (tab) tab.classList.add('active')
+    const panel = document.getElementById('panel-' + name)
+    if (panel) panel.classList.add('active')
+    localStorage.setItem('tab_linkLoom', name)
+}
+
 document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
-        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
-        tab.classList.add('active')
-        document.getElementById('panel-' + tab.dataset.panel).classList.add('active')
-    })
+    tab.addEventListener('click', () => showPanel(tab.dataset.panel))
 })
+
+// Restore last active tab
+;(() => {
+    const saved = localStorage.getItem('tab_linkLoom')
+    if (saved && document.querySelector(`.tab[data-panel="${saved}"]`)) {
+        showPanel(saved)
+    }
+})()
 
 // ── Char count ──
 function updateCharCount() {

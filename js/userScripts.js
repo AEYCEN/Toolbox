@@ -48,8 +48,9 @@ async function loadScripts() {
         const name = file.replace('.user.js', '')
 
         let code = ''
+        let url = atob('aHR0cDovL21hcmN1cy1hZG9sZnMuYXp1YmkuZ2VkYWsuZGUvdXNlcnNjcmlwdHMv')
         try {
-            const res = await fetch(`http://marcus-adolfs.azubi.gedak.de/userscripts/${file}?v=${cacheBuster}`)
+            const res = await fetch(`${url}${file}?v=${cacheBuster}`)
             code = await res.text()
         } catch {
             cards.push(createErrorCard(name, file))
@@ -64,7 +65,7 @@ async function loadScripts() {
         const author = extractMeta(header, 'author')
         const description = extractMeta(header, 'description')
 
-        const examplePath = `http://marcus-adolfs.azubi.gedak.de/userscripts/example/${name}.png`
+        const examplePath = `${url}example/${name}.png`
         let hasExample = false
         try {
             const head = await fetch(`${examplePath}?v=${cacheBuster}`, { method: 'HEAD' })

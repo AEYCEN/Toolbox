@@ -43,17 +43,28 @@ if (phpResultData) {
         `<span class="meta-badge">Länge <span class="val">${phpResultData.hash.length} Zeichen</span></span>`
 }
 
-// ── Tab switching ──
+// Tab switching with persistence
+function showPanel(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
+    const tab = document.querySelector(`.tab[data-panel="${name}"]`)
+    if (tab) tab.classList.add('active')
+    const panel = document.getElementById('panel-' + name)
+    if (panel) panel.classList.add('active')
+    localStorage.setItem('tab_hashForge', name)
+}
+
 document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => showPanel(tab.dataset.panel))
 })
 
-function showPanel(name) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
-    document.querySelector(`.tab[data-panel="${name}"]`).classList.add('active')
-    document.getElementById('panel-' + name).classList.add('active')
-}
+// Restore last active tab
+;(() => {
+    const saved = localStorage.getItem('tab_hashForge')
+    if (saved && document.querySelector(`.tab[data-panel="${saved}"]`)) {
+        showPanel(saved)
+    }
+})()
 
 // ══════════════════════════════════
 //  SHA Hashing (Web Crypto API)

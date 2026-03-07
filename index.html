@@ -4,10 +4,10 @@
     <title>AEYCEN Toolbox</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="./assets/img/AEYCEN.png">
+    <link rel="icon" type="image/png" href="assets/img/AEYCEN.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="styles/indexMenu.css">
 </head>
 <body>
 
@@ -16,7 +16,7 @@
     <!-- Hero -->
     <div class="hero">
         <div class="hero-tag" onclick="window.location.href='https://github.com/AEYCEN'">
-            <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" class="logo" width="14">
+            <img src="assets/img/AEYCEN.png" alt="AEYCEN Logo" class="logo" width="14">
             AEYCEN
         </div>
         <h1>Toolbox</h1>
@@ -24,8 +24,8 @@
         <span class="hero-version"><span data-version="toolbox"></span></span>
     </div>
 
-    <!-- Browser-Tools -->
-    <div class="category cat-browser">
+    <!-- Browser-Tools (nur sichtbar wenn UserScripts-Server erreichbar) -->
+    <div class="category cat-browser" id="catBrowser" style="display: none;">
         <div class="category-label">Browser-Tools</div>
         <div class="tool-list">
             <a href="userScripts.html" class="tool-card">
@@ -33,7 +33,7 @@
                     <span class="tool-name">GitLab UserScripts für Tampermonkey</span>
                     <span class="tool-version"><span data-version="userScripts"></span></span>
                 </div>
-                <div class="tool-desc">Hilfreiche Anzeige-Erweiterungen für GitLab</div>
+                <div class="tool-desc">Tampermonkey-Scripts für ein besseres GitLab-Erlebnis</div>
                 <span class="tool-arrow">→</span>
             </a>
         </div>
@@ -48,7 +48,7 @@
                     <span class="tool-name">HeidiDecode</span>
                     <span class="tool-version"><span data-version="heidiDecode"></span></span>
                 </div>
-                <div class="tool-desc">Entschlüsselung von exportierten HeidiSQL-Verbindungen</div>
+                <div class="tool-desc">Passwörter aus HeidiSQL-Exports entschlüsseln — einzeln oder als Datei</div>
                 <span class="tool-arrow">→</span>
             </a>
             <a href="hashForge.html" class="tool-card">
@@ -56,7 +56,7 @@
                     <span class="tool-name">HashForge</span>
                     <span class="tool-version"><span data-version="hashForge"></span></span>
                 </div>
-                <div class="tool-desc">Textverschlüsselung durch PHP password_hash()</div>
+                <div class="tool-desc">Hashing, Stärketest, Passwort-Generator und Hash-Vergleich in einem</div>
                 <span class="tool-arrow">→</span>
             </a>
             <a href="linkLoom.html" class="tool-card">
@@ -64,7 +64,7 @@
                     <span class="tool-name">LinkLoom</span>
                     <span class="tool-version"><span data-version="linkLoom"></span></span>
                 </div>
-                <div class="tool-desc">URL-Codierer und -Decodierer zum Umwandeln von Sonderzeichen</div>
+                <div class="tool-desc">URLs codieren, parsen, Base64 umwandeln und UTM-Links bauen</div>
                 <span class="tool-arrow">→</span>
             </a>
         </div>
@@ -79,7 +79,7 @@
                     <span class="tool-name">WordWatch</span>
                     <span class="tool-version"><span data-version="wordWatch"></span></span>
                 </div>
-                <div class="tool-desc">Textanalyse von Wortanzahl, Buchstabenanzahl, Lesbarkeit und Schlüsselwörtern</div>
+                <div class="tool-desc">Texte analysieren, transformieren und Schlüsselwörter extrahieren</div>
                 <span class="tool-arrow">→</span>
             </a>
         </div>
@@ -94,7 +94,7 @@
                     <span class="tool-name">Calcul8tr</span>
                     <span class="tool-version"><span data-version="calcul8tr"></span></span>
                 </div>
-                <div class="tool-desc">3-Faktorieller Taschenrechner</div>
+                <div class="tool-desc">Rechner, Zahlensysteme, Einheiten, Prozent, Statistik und Datumsrechner</div>
                 <span class="tool-arrow">→</span>
             </a>
         </div>
@@ -111,6 +111,7 @@
     </div>
 </footer>
 
-    <script src="./js/versions.js"></script>
+<script src="js/indexMenu.js"></script>
+<script src="js/base.js"></script>
 </body>
 </html>

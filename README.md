@@ -1,13 +1,6 @@
-# <img src="assets/img/AEYCEN.png" width="26" style="margin-right: 8px"> AEYCEN Toolbox
+# <img src="assets/img/AEYCEN.png" width="26" style="margin-right: 16px"> AEYCEN Toolbox
 
 A collection of small, self-contained web tools for everyday developer tasks — fully client-side, no backend required.
-
-![Version](https://img.shields.io/badge/Calcul8tr-v2.0-00e5ff?style=flat)
-![Version](https://img.shields.io/badge/HashForge-v3.0-00e5ff?style=flat)
-![Version](https://img.shields.io/badge/HeidiDecode-v1.2-00e5ff?style=flat)
-![Version](https://img.shields.io/badge/LinkLoom-v2.0-00e5ff?style=flat)
-![Version](https://img.shields.io/badge/UserScriptsReleasePage-v2.0-00e5ff?style=flat)
-![Version](https://img.shields.io/badge/WordWatch-v2.0-00e5ff?style=flat)
 
 ![License](https://img.shields.io/badge/License-GPL3.0-333?style=flat)
 ![HTML](https://img.shields.io/badge/HTML-JS-f59e0b?style=flat-square)
@@ -18,40 +11,24 @@ A collection of small, self-contained web tools for everyday developer tasks —
 
 The AEYCEN Toolbox is a curated set of utilities that simplify recurring tasks in development and administration. Every tool runs entirely in the browser — no data is ever sent to a server.
 
-### 🖥️ Browser Tools
+### Tools
 
-| Tool | Description |
-|------|-------------|
-| **[UserScripts](userScripts.html)** | GitLab extensions for Tampermonkey — useful display enhancements right in the browser |
-
-### 🔐 Encoding Tools
-
-| Tool | Description |
-|------|-------------|
-| **[HeidiDecode](heidiDecode.html)** | Decrypt exported HeidiSQL connections (direct input or file import) |
-| **[HashForge](hashForge.html)** | Password hashing (bcrypt), SHA checksums, strength tester, generator and hash comparison |
-| **[LinkLoom](linkLoom.html)** | URL encoding/decoding, URL parser, Base64, UTM builder and bulk mode |
-
-### 📝 Text Tools
-
-| Tool | Description |
-|------|-------------|
-| **[WordWatch](wordWatch.html)** | Text analysis with word/character count, Flesch readability index, keyword extraction, transformations and find & replace |
-
-### 🔢 Math Tools
-
-| Tool | Description |
-|------|-------------|
-| **[Calcul8tr](calcul8tr.html)** | Expression calculator, number base converter, unit converter, percentage calculator, statistics and date difference |
+| Tool                                                                              | Version         | Categorie | Description                                                                                                               |
+|-----------------------------------------------------------------------------------|-----------------|-----------|---------------------------------------------------------------------------------------------------------------------------|
+| **[HeidiDecode](https://aeycen.github.io/toolbox/heidiDecode.html)**              | v1.2 *(7.3.26)* | Encoding  | Decrypt exported HeidiSQL connections (direct input or file import)                                                       |
+| **[HashForge](https://aeycen.github.io/toolbox/hashForge.html)**                  | v3.0 *(7.3.26)* | Encoding  | Password hashing (bcrypt), SHA checksums, strength tester, generator and hash comparison                                  |
+| **[LinkLoom](https://aeycen.github.io/toolbox/linkLoom.html)**                    | v2.0 *(7.3.26)* | Encoding  | URL encoding/decoding, URL parser, Base64, UTM builder and bulk mode                                                      |
+| **[WordWatch](https://aeycen.github.io/toolbox/wordWatch.html)**                  | v2.0 *(7.3.26)* | Text      | Text analysis with word/character count, Flesch readability index, keyword extraction, transformations and find & replace |
+| **[Calcul8tr](https://aeycen.github.io/toolbox/calcul8tr.html)**                  | v2.1 *(7.3.26)* | Math      | Expression calculator, number base converter, unit converter, percentage calculator, statistics and date difference       |
 
 ---
 
 ### External Dependencies
 
-| Library | Usage | Loaded via |
-|---|---|---|
-| [bcrypt.js](https://github.com/nicolo-ribaudo/dcodeio-bcryptjs) | Password hashing in HashForge | CDN (`cdnjs`) |
-| [Google Fonts](https://fonts.google.com/) | JetBrains Mono + Outfit | CDN |
+| Library                                                          | Usage                          | Loaded via     |
+|------------------------------------------------------------------|--------------------------------|----------------|
+| [bcrypt.js](https://github.com/nicolo-ribaudo/dcodeio-bcryptjs)  | Password hashing in HashForge  | CDN  (`cdnjs`) |
+| [Google Fonts](https://fonts.google.com/)                        | JetBrains Mono + Outfit        | CDN            |
 
 Everything else relies exclusively on native browser APIs (`Web Crypto API`, `URL API`, `FileReader`, `Clipboard API`, etc.).
 
@@ -105,12 +82,6 @@ Mathematical multi-tool:
 - **Percentage** — Four calculation modes (portion, ratio, change, markup/markdown)
 - **Statistics** — Mean, median, mode, variance, standard deviation, geometric mean
 - **Date** — Difference in days, weeks, months, business days, calendar weeks and more
-
-### UserScripts
-
-! Not available to the open web (only in intranet).
-
-Release page for GitLab Tampermonkey extensions. Reads the available `.user.js` files, displays metadata (version, author, description) and allows copying the script code directly.
 
 ---
 

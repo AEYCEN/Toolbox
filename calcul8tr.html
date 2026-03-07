@@ -14,15 +14,14 @@
 
 <div class="app">
 
-    <div class="hero">
-        <div class="hero-tag" onclick="window.location.href='index.html'">
-            <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" class="logo" width="14">
+    <header class="header">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" width="14">
             AEYCEN Toolbox
         </div>
-        <h2>Calcul8tr</h2>
-        <p class="hero-desc">Mathe-Werkzeuge jenseits vom Taschenrechner — Zahlensysteme, Statistik, Einheiten & mehr</p>
-        <span class="hero-version"><span data-version="calcul8tr"></span></span>
-    </div>
+        <h1>Calcul8tr</h1>
+        <p class="subtitle">Mathe-Werkzeuge jenseits vom Taschenrechner — Zahlensysteme, Statistik, Einheiten &amp; mehr</p>
+    </header>
 
     <div class="tabs">
         <button class="tab active" data-panel="expr">Rechner</button>
@@ -128,7 +127,7 @@
                     </div>
                     <div class="field-group">
                         <label class="input-label">Von</label>
-                        <select class="field-select" id="unitFrom" onchange="convertUnit()"></select>
+                        <select class="field-select" id="unitFrom" onchange="onUnitFromChange()"></select>
                     </div>
                 </div>
                 <div class="conv-arrow">→</div>
@@ -139,7 +138,7 @@
                     </div>
                     <div class="field-group">
                         <label class="input-label">Nach</label>
-                        <select class="field-select" id="unitTo" onchange="convertUnit()"></select>
+                        <select class="field-select" id="unitTo" onchange="onUnitToChange()"></select>
                     </div>
                 </div>
             </div>
@@ -263,7 +262,7 @@
     </div>
 </footer>
 
-<script src="./js/calcul8tr.js"></script>
-<script src="./js/versions.js"></script>
+<script src="js/calcul8tr.js"></script>
+<script src="js/base.js"></script>
 </body>
 </html>
