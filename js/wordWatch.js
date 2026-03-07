@@ -52,7 +52,7 @@ function getParagraphs(text) {
 // ══════════════════════════════════
 function fullAnalysis() {
     const text = document.getElementById('textInput').value
-    if (!text.trim()) { showToast('Bitte einen Text eingeben'); return; }
+    if (!text.trim()) { showToast(t('common.no_input')); return; }
 
     document.getElementById('analyzeEmptyState').style.display = 'none'
     document.getElementById('analyzeResult').style.display = 'block'
@@ -77,27 +77,27 @@ function fullAnalysis() {
     const flesch = Math.max(0, Math.min(100, 180 - asl - (58.5 * asw)))
 
     document.getElementById('statsGrid').innerHTML = `
-            <div class="stat-card"><div class="stat-value">${words.length}</div><div class="stat-label">Wörter</div></div>
-            <div class="stat-card pink"><div class="stat-value">${chars}</div><div class="stat-label">Zeichen</div></div>
-            <div class="stat-card purple"><div class="stat-value">${charsNoSpace}</div><div class="stat-label">Ohne Leerzeichen</div></div>
-            <div class="stat-card green"><div class="stat-value">${sentences}</div><div class="stat-label">Sätze</div></div>
-            <div class="stat-card yellow"><div class="stat-value">${paragraphs}</div><div class="stat-label">Absätze</div></div>
-            <div class="stat-card"><div class="stat-value">${lines}</div><div class="stat-label">Zeilen</div></div>
-            <div class="stat-card pink"><div class="stat-value">${uniqueWords}</div><div class="stat-label">Einzigartige Wörter</div></div>
-            <div class="stat-card purple"><div class="stat-value">${avgWordLen.toFixed(1)}</div><div class="stat-label">⌀ Wortlänge</div></div>
-            <div class="stat-card green"><div class="stat-value">${avgSentLen.toFixed(1)}</div><div class="stat-label">⌀ Satzlänge</div></div>
-            <div class="stat-card yellow"><div class="stat-value">~${readTimeMin}</div><div class="stat-label">Min. Lesezeit</div></div>
-            <div class="stat-card"><div class="stat-value">~${speakTime}</div><div class="stat-label">Min. Sprechzeit</div></div>
-            <div class="stat-card pink"><div class="stat-value">${syllables}</div><div class="stat-label">Silben</div></div>
+            <div class="stat-card"><div class="stat-value">${words.length}</div><div class="stat-label">${t('wordWatch.stat_words')}</div></div>
+            <div class="stat-card pink"><div class="stat-value">${chars}</div><div class="stat-label">${t('wordWatch.stat_chars')}</div></div>
+            <div class="stat-card purple"><div class="stat-value">${charsNoSpace}</div><div class="stat-label">${t('wordWatch.stat_no_space')}</div></div>
+            <div class="stat-card green"><div class="stat-value">${sentences}</div><div class="stat-label">${t('wordWatch.stat_sentences')}</div></div>
+            <div class="stat-card yellow"><div class="stat-value">${paragraphs}</div><div class="stat-label">${t('wordWatch.stat_paragraphs')}</div></div>
+            <div class="stat-card"><div class="stat-value">${lines}</div><div class="stat-label">${t('wordWatch.stat_lines')}</div></div>
+            <div class="stat-card pink"><div class="stat-value">${uniqueWords}</div><div class="stat-label">${t('wordWatch.stat_unique')}</div></div>
+            <div class="stat-card purple"><div class="stat-value">${avgWordLen.toFixed(1)}</div><div class="stat-label">${t('wordWatch.stat_avg_word')}</div></div>
+            <div class="stat-card green"><div class="stat-value">${avgSentLen.toFixed(1)}</div><div class="stat-label">${t('wordWatch.stat_avg_sent')}</div></div>
+            <div class="stat-card yellow"><div class="stat-value">~${readTimeMin}</div><div class="stat-label">${t('wordWatch.stat_readtime')}</div></div>
+            <div class="stat-card"><div class="stat-value">~${speakTime}</div><div class="stat-label">${t('wordWatch.stat_speaktime')}</div></div>
+            <div class="stat-card pink"><div class="stat-value">${syllables}</div><div class="stat-label">${t('wordWatch.stat_syllables')}</div></div>
         `
 
     // Readability gauge
     let gColor, gLabel, gDesc
-    if (flesch >= 80) { gColor = '#22c55e'; gLabel = 'Sehr leicht'; gDesc = 'Leicht verständlich für jeden Leser.'; }
-    else if (flesch >= 60) { gColor = '#00e5ff'; gLabel = 'Leicht'; gDesc = 'Gut verständlich, normales Sprachniveau.'; }
-    else if (flesch >= 40) { gColor = '#f59e0b'; gLabel = 'Mittel'; gDesc = 'Durchschnittlich komplex, erfordert Aufmerksamkeit.'; }
-    else if (flesch >= 20) { gColor = '#ff2d75'; gLabel = 'Schwer'; gDesc = 'Komplexer Text, akademisches Niveau.'; }
-    else { gColor = '#ef4444'; gLabel = 'Sehr schwer'; gDesc = 'Sehr komplex, wissenschaftliches/juristisches Niveau.'; }
+    if (flesch >= 80) { gColor = '#22c55e'; gLabel = t('wordWatch.flesch_very_easy'); gDesc = t('wordWatch.flesch_very_easy_desc'); }
+    else if (flesch >= 60) { gColor = '#00e5ff'; gLabel = t('wordWatch.flesch_easy'); gDesc = t('wordWatch.flesch_easy_desc'); }
+    else if (flesch >= 40) { gColor = '#f59e0b'; gLabel = t('wordWatch.flesch_medium'); gDesc = t('wordWatch.flesch_medium_desc'); }
+    else if (flesch >= 20) { gColor = '#ff2d75'; gLabel = t('wordWatch.flesch_hard'); gDesc = t('wordWatch.flesch_hard_desc'); }
+    else { gColor = '#ef4444'; gLabel = t('wordWatch.flesch_very_hard'); gDesc = t('wordWatch.flesch_very_hard_desc'); }
 
     const circ = 2 * Math.PI * 34
     const offset = circ - (flesch / 100) * circ
@@ -116,7 +116,7 @@ function fullAnalysis() {
                 </div>
                 <div class="gauge-info">
                     <div class="gauge-title" style="color: ${gColor};">${gLabel}</div>
-                    <div class="gauge-desc">${gDesc} (Flesch-Index, angepasst für Deutsch)</div>
+                    <div class="gauge-desc">${gDesc} ${t('wordWatch.flesch_suffix')}</div>
                 </div>
             </div>
         `
@@ -148,7 +148,7 @@ const STOP_WORDS = new Set([
 
 function extractKeywords() {
     const text = document.getElementById('textInput').value
-    if (!text.trim()) { showToast('Bitte einen Text eingeben'); return; }
+    if (!text.trim()) { showToast(t('common.no_input')); return; }
 
     const words = text.toLowerCase().match(/\b[\wäöüß]+\b/g) || []
     const freq = {}
@@ -158,7 +158,7 @@ function extractKeywords() {
     })
 
     const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 15)
-    if (!sorted.length) { showToast('Keine Schlüsselwörter gefunden'); return; }
+    if (!sorted.length) { showToast(t('wordWatch.toast_no_keywords')); return; }
 
     const maxCount = sorted[0][1]
 
@@ -179,7 +179,7 @@ function extractKeywords() {
 // ══════════════════════════════════
 function transformText(type) {
     const text = document.getElementById('textInput').value
-    if (!text.trim()) { showToast('Bitte einen Text eingeben'); return; }
+    if (!text.trim()) { showToast(t('common.no_input')); return; }
     let result = ''
 
     switch (type) {
@@ -211,7 +211,7 @@ function applyToInput() {
     if (result) {
         document.getElementById('textInput').value = result
         updateLiveStats()
-        showToast('Text übernommen')
+        showToast(t('wordWatch.toast_applied'))
     }
 }
 
@@ -227,7 +227,7 @@ function buildRegex() {
     try {
         return useRegex ? new RegExp(search, flags) : new RegExp(search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags)
     } catch (e) {
-        showToast('Ungültiger RegEx: ' + e.message)
+        showToast(t('wordWatch.toast_invalid_regex', { msg: e.message }))
         return null
     }
 }
@@ -244,7 +244,7 @@ function searchReplace() {
 
     document.getElementById('srEmptyState').style.display = 'none'
     document.getElementById('srInfo').style.display = 'block'
-    document.getElementById('srInfo').innerHTML = `<span class="n">${count}</span> Treffer ersetzt`
+    document.getElementById('srInfo').innerHTML = `<span class="n">${count}</span> ${t('wordWatch.matches_replaced')}`
     const el = document.getElementById('srResult')
     el.style.display = 'block'
     el.value = result
@@ -259,11 +259,11 @@ function highlightMatches() {
 
     document.getElementById('srEmptyState').style.display = 'none'
     document.getElementById('srInfo').style.display = 'block'
-    document.getElementById('srInfo').innerHTML = `<span class="n">${count}</span> Treffer gefunden`
+    document.getElementById('srInfo').innerHTML = `<span class="n">${count}</span> ${t('wordWatch.matches_found')}`
     const el = document.getElementById('srResult')
     el.style.display = 'none'
 
-    if (count === 0) showToast('Keine Treffer')
+    if (count === 0) showToast(t('wordWatch.toast_no_matches'))
 }
 
 function applySrToInput() {
@@ -271,7 +271,7 @@ function applySrToInput() {
     if (result) {
         document.getElementById('textInput').value = result
         updateLiveStats()
-        showToast('Text übernommen')
+        showToast(t('wordWatch.toast_applied'))
     }
 }
 
@@ -284,7 +284,7 @@ function copyText(text, btn) {
         const original = btn.innerHTML
         btn.innerHTML = '✓ Kopiert'
         btn.classList.add('copied')
-        showToast('In die Zwischenablage kopiert')
+        showToast(t('common.clipboard'))
         setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 1600)
     })
 }

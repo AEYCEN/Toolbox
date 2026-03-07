@@ -38,7 +38,7 @@ function decodeURL() {
     try {
         document.getElementById('encodeResult').value = decodeURIComponent(val)
     } catch (e) {
-        document.getElementById('encodeResult').value = '⚠ Fehler: Ungültiger codierter String'
+        document.getElementById('encodeResult').value = t('linkLoom.decode_error')
     }
 }
 
@@ -50,24 +50,24 @@ function encodeAll() {
 // ── URL Parser ──
 function parseURL() {
     const val = document.getElementById('urlInput').value.trim()
-    if (!val) { showToast('Bitte eine URL eingeben'); return; }
+    if (!val) { showToast(t('linkLoom.toast_no_url')); return; }
 
     let url
     try {
         url = new URL(val.startsWith('http') ? val : 'https://' + val)
     } catch (e) {
-        document.getElementById('parseOutput').innerHTML = '<p style="color: var(--accent2);">⚠ Ungültige URL</p>'
+        document.getElementById('parseOutput').innerHTML = '<p style="color: var(--accent2);">' + t('linkLoom.parse_invalid') + '</p>'
         return
     }
 
     const parts = [
-        ['Protokoll', url.protocol.replace(':', '')],
-        ['Host', url.hostname],
-        ['Port', url.port || '—'],
-        ['Pfad', url.pathname],
-        ['Query', url.search || '—'],
-        ['Fragment', url.hash || '—'],
-        ['Origin', url.origin],
+        [t('linkLoom.parse_protocol'), url.protocol.replace(':', '')],
+        [t('linkLoom.parse_host'), url.hostname],
+        [t('linkLoom.parse_port'), url.port || '—'],
+        [t('linkLoom.parse_path'), url.pathname],
+        [t('linkLoom.parse_query'), url.search || '—'],
+        [t('linkLoom.parse_fragment'), url.hash || '—'],
+        [t('linkLoom.parse_origin'), url.origin],
     ]
 
     let html = '<table class="parse-table">'
@@ -79,7 +79,7 @@ function parseURL() {
 
     // Query params
     if (url.searchParams && [...url.searchParams].length > 0) {
-        html += '<label class="input-label" style="margin-top:20px; display:block;">Query-Parameter</label>'
+        html += '<label class="input-label" style="margin-top:20px; display:block;">' + t('linkLoom.label_query_params') + '</label>'
         html += '<div class="param-grid">'
         url.searchParams.forEach((v, k) => {
             html += `<div class="param-row"><span class="param-key">${escapeHtml(k)}</span><span class="param-eq">=</span><span class="param-val">${escapeHtml(v)}</span></div>`
@@ -101,7 +101,7 @@ function base64Encode() {
     try {
         document.getElementById('base64Result').value = btoa(unescape(encodeURIComponent(val)))
     } catch (e) {
-        document.getElementById('base64Result').value = '⚠ Fehler beim Codieren'
+        document.getElementById('base64Result').value = t('linkLoom.b64_error_encode')
     }
 }
 
@@ -110,7 +110,7 @@ function base64Decode() {
     try {
         document.getElementById('base64Result').value = decodeURIComponent(escape(atob(val)))
     } catch (e) {
-        document.getElementById('base64Result').value = '⚠ Fehler: Kein gültiger Base64 String'
+        document.getElementById('base64Result').value = t('linkLoom.b64_error_decode')
     }
 }
 
@@ -124,7 +124,7 @@ function buildUTM() {
     const content = document.getElementById('utmContent').value.trim()
 
     if (!base) {
-        document.getElementById('utmPreview').textContent = 'Fülle die Felder oben aus …'
+        document.getElementById('utmPreview').textContent = t('linkLoom.utm_empty')
         return
     }
 
@@ -175,13 +175,13 @@ function copyText(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
         if (btn) {
             btn.classList.add('copied')
-            btn.innerHTML = '✓ Kopiert'
+            btn.innerHTML = t('common.copied')
             setTimeout(() => {
                 btn.classList.remove('copied')
-                btn.innerHTML = '⎘ Kopieren'
+                btn.innerHTML = t('common.copy')
             }, 1800)
         }
-        showToast('In die Zwischenablage kopiert')
+        showToast(t('common.clipboard'))
     })
 }
 

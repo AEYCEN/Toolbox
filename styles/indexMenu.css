@@ -65,79 +65,6 @@
             padding: 40px 24px 60px;
         }
 
-        /* ── Hero Header ── */
-        .hero {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 48px 40px 40px;
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            animation: fadeUp 0.6s ease forwards;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
-            background-size: 300% 100%;
-            animation: gradientSlide 6s linear infinite;
-        }
-
-        @keyframes gradientSlide {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 300% 50%; }
-        }
-
-        .hero-tag {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 50%, var(--accent2) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .hero p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            font-weight: 300;
-            max-width: 500px;
-            margin: 0 auto 16px;
-            line-height: 1.6;
-        }
-
-        .hero-version {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--text-muted);
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            padding: 4px 14px;
-            border-radius: 20px;
-            letter-spacing: 1px;
-        }
-
         /* ── Category Sections ── */
         .category {
             margin-bottom: 32px;
@@ -309,7 +236,5 @@
         /* ── Responsive ── */
         @media (max-width: 600px) {
             .app { padding: 24px 16px 80px; }
-            .hero { padding: 32px 24px 28px; }
-            .hero h1 { font-size: 2.2rem; }
             .tool-card { padding: 16px 18px; }
         }

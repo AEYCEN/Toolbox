@@ -3,52 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkLoom | AEYCEN Toolbox</title>
+    <title data-i18n-title="linkLoom.page_title">LinkLoom | AEYCEN Toolbox</title>
     <link rel="icon" type="image/png" href="./assets/img/AEYCEN.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/toolbox-theme.css">
     <link rel="stylesheet" href="./styles/linkLoom.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
-<body>
 
+<body>
 <div class="app">
     <header class="header">
         <div class="logo" onclick="window.location.href='index.html'">
             <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" width="14">
             AEYCEN Toolbox
         </div>
-        <h1>LinkLoom</h1>
-        <p class="subtitle">URL-Werkzeugkasten — Codieren, Analysieren, Bauen</p>
+        <h1 data-i18n="linkLoom.title"></h1>
+        <p class="subtitle" data-i18n="linkLoom.desc"></p>
     </header>
 
     <!-- Input -->
     <div class="input-section">
-        <label class="input-label" for="urlInput">⌘ Eingabe</label>
+        <label class="input-label" for="urlInput" data-i18n="linkLoom.label_input"></label>
         <input class="url-input" type="text" id="urlInput" placeholder="https://example.com/pfad?param=wert" oninput="updateCharCount()">
         <div class="char-count" id="charCount">0 Zeichen</div>
     </div>
 
     <!-- Tabs -->
     <div class="tabs" id="tabBar">
-        <button class="tab active" data-panel="encode">Codieren</button>
-        <button class="tab" data-panel="parse">URL Parser</button>
-        <button class="tab" data-panel="base64">Base64</button>
-        <button class="tab" data-panel="utm">UTM Builder</button>
-        <button class="tab" data-panel="bulk">Bulk-Modus</button>
+        <button class="tab active" data-panel="encode" data-i18n="linkLoom.tab_encode"></button>
+        <button class="tab" data-panel="parse" data-i18n="linkLoom.tab_parse"></button>
+        <button class="tab" data-panel="base64" data-i18n="linkLoom.tab_base64"></button>
+        <button class="tab" data-panel="utm" data-i18n="linkLoom.tab_utm"></button>
+        <button class="tab" data-panel="bulk" data-i18n="linkLoom.tab_bulk"></button>
     </div>
 
     <!-- ═══════ PANEL: Encode/Decode ═══════ -->
     <div class="panel active" id="panel-encode">
         <div class="btn-row">
-            <button class="btn btn-primary" onclick="encodeURL()">↑ URL Codieren</button>
-            <button class="btn btn-accent2" onclick="decodeURL()">↓ URL Decodieren</button>
-            <button class="btn" onclick="encodeAll()">Komplett Codieren</button>
+            <button class="btn btn-primary" onclick="encodeURL()" data-i18n="linkLoom.btn_encode"></button>
+            <button class="btn btn-accent2" onclick="decodeURL()" data-i18n="linkLoom.btn_decode"></button>
+            <button class="btn" onclick="encodeAll()" data-i18n="linkLoom.btn_encode_all"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label">Ergebnis</label>
-                <button class="copy-btn" onclick="copyResult('encodeResult', this)">⎘ Kopieren</button>
+                <label class="input-label" data-i18n="common.result"></label>
+                <button class="copy-btn" onclick="copyResult('encodeResult', this)" data-i18n="common.copy"></button>
             </div>
             <textarea class="result-output" id="encodeResult" readonly></textarea>
         </div>
@@ -57,12 +58,12 @@
     <!-- ═══════ PANEL: URL Parser ═══════ -->
     <div class="panel" id="panel-parse">
         <div class="btn-row">
-            <button class="btn btn-primary" onclick="parseURL()">⚙ URL Analysieren</button>
+            <button class="btn btn-primary" onclick="parseURL()" data-i18n="linkLoom.btn_parse"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label">Analyse</label>
-                <button class="copy-btn" onclick="copyParseResult(this)">⎘ Kopieren</button>
+                <label class="input-label" data-i18n="linkLoom.label_analysis"></label>
+                <button class="copy-btn" onclick="copyParseResult(this)" data-i18n="common.copy"></button>
             </div>
             <div id="parseOutput">
                 <p style="color: var(--text-muted); font-style: italic; padding: 10px 0;">Gib eine URL ein und klicke auf "URL Analysieren"</p>
@@ -73,13 +74,13 @@
     <!-- ═══════ PANEL: Base64 ═══════ -->
     <div class="panel" id="panel-base64">
         <div class="btn-row">
-            <button class="btn btn-primary" onclick="base64Encode()">↑ Base64 Codieren</button>
-            <button class="btn btn-accent2" onclick="base64Decode()">↓ Base64 Decodieren</button>
+            <button class="btn btn-primary" onclick="base64Encode()" data-i18n="linkLoom.btn_b64_encode"></button>
+            <button class="btn btn-accent2" onclick="base64Decode()" data-i18n="linkLoom.btn_b64_decode"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label">Ergebnis</label>
-                <button class="copy-btn" onclick="copyResult('base64Result', this)">⎘ Kopieren</button>
+                <label class="input-label" data-i18n="common.result"></label>
+                <button class="copy-btn" onclick="copyResult('base64Result', this)" data-i18n="common.copy"></button>
             </div>
             <textarea class="result-output" id="base64Result" readonly></textarea>
         </div>
@@ -88,7 +89,7 @@
     <!-- ═══════ PANEL: UTM Builder ═══════ -->
     <div class="panel" id="panel-utm">
         <div class="result-section" style="margin-bottom: 20px;">
-            <label class="input-label" style="margin-bottom: 14px; display: block;">UTM-Parameter</label>
+            <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="linkLoom.label_utm"></label>
             <div class="utm-grid">
                 <div class="utm-field full">
                     <label>Basis-URL <span class="required">*</span></label>
@@ -118,8 +119,8 @@
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label">Generierte URL</label>
-                <button class="copy-btn" onclick="copyText(document.getElementById('utmPreview').textContent, this)">⎘ Kopieren</button>
+                <label class="input-label" data-i18n="linkLoom.label_utm_result"></label>
+                <button class="copy-btn" onclick="copyText(document.getElementById('utmPreview').textContent, this)"data-i18n="common.copy"></button>
             </div>
             <div class="utm-preview" id="utmPreview">Fülle die Felder oben aus …</div>
         </div>
@@ -135,13 +136,13 @@
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn btn-primary" onclick="bulkEncode()">↑ Alle Codieren</button>
-            <button class="btn btn-accent2" onclick="bulkDecode()">↓ Alle Decodieren</button>
+            <button class="btn btn-primary" onclick="bulkEncode()" data-i18n="linkLoom.btn_bulk_encode"></button>
+            <button class="btn btn-accent2" onclick="bulkDecode()" data-i18n="linkLoom.btn_bulk_decode"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label">Ergebnis</label>
-                <button class="copy-btn" onclick="copyResult('bulkResult', this)">⎘ Kopieren</button>
+                <label class="input-label" data-i18n="common.result"></label>
+                <button class="copy-btn" onclick="copyResult('bulkResult', this)" data-i18n="common.copy"></button>
             </div>
             <textarea class="result-output" id="bulkResult" rows="6" readonly></textarea>
         </div>
@@ -155,7 +156,7 @@
     <div>
         <small>
             LinkLoom <span data-version="linkLoom"></span> |
-            <a href="index.html">zurück zur Toolbox</a> |
+            <a href="index.html" data-i18n="common.back"></a> |
             © 2023-2026 by
             <a href="https://github.com/AEYCEN">AEYCEN</a>
         </small>
@@ -163,6 +164,7 @@
 </footer>
 
 <script src="js/linkLoom.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/base.js"></script>
 </body>
 </html>

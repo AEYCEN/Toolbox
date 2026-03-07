@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcul8tr | AEYCEN Toolbox</title>
+    <title data-i18n-title="calcul8tr.page_title">Calcul8tr | AEYCEN Toolbox</title>
     <link rel="icon" type="image/png" href="./assets/img/AEYCEN.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/toolbox-theme.css">
     <link rel="stylesheet" href="./styles/calcul8tr.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
-<body>
 
+<body>
 <div class="app">
 
     <header class="header">
@@ -19,23 +20,23 @@
             <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" width="14">
             AEYCEN Toolbox
         </div>
-        <h1>Calcul8tr</h1>
-        <p class="subtitle">Mathe-Werkzeuge jenseits vom Taschenrechner — Zahlensysteme, Statistik, Einheiten &amp; mehr</p>
+        <h1 data-i18n="calcul8tr.title"></h1>
+        <p class="subtitle"><span data-i18n="calcul8tr.desc"></span></p>
     </header>
 
     <div class="tabs">
-        <button class="tab active" data-panel="expr">Rechner</button>
-        <button class="tab" data-panel="base">Zahlensysteme</button>
-        <button class="tab" data-panel="unit">Einheiten</button>
-        <button class="tab" data-panel="pct">Prozent</button>
-        <button class="tab" data-panel="stats">Statistik</button>
-        <button class="tab" data-panel="date">Datum</button>
+        <button class="tab active" data-panel="expr" data-i18n="calcul8tr.tab_expr"></button>
+        <button class="tab" data-panel="base" data-i18n="calcul8tr.tab_base"></button>
+        <button class="tab" data-panel="unit" data-i18n="calcul8tr.tab_unit"></button>
+        <button class="tab" data-panel="pct" data-i18n="calcul8tr.tab_pct"></button>
+        <button class="tab" data-panel="stats" data-i18n="calcul8tr.tab_stats"></button>
+        <button class="tab" data-panel="date" data-i18n="calcul8tr.tab_date"></button>
     </div>
 
     <!-- ═══════ PANEL: Expression Calculator ═══════ -->
     <div class="panel active" id="panel-expr">
         <div class="input-section">
-            <label class="input-label" for="exprInput">⌘ Ausdruck eingeben</label>
+            <label class="input-label" for="exprInput" data-i18n="calcul8tr.label_expr"></label>
             <input class="field-input big" type="text" id="exprInput" placeholder="z.B. sqrt(144) + 2^8" autocomplete="off">
             <div class="fn-grid">
                 <div class="fn-chip" onclick="insertFn('sqrt(')">√ sqrt</div>
@@ -59,13 +60,13 @@
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn btn-primary" onclick="evalExpr()">= Berechnen</button>
-            <button class="btn" onclick="document.getElementById('exprInput').value=''; document.getElementById('exprInput').focus();">C Löschen</button>
+            <button class="btn btn-primary" onclick="evalExpr()" data-i18n="calcul8tr.btn_calc"></button>
+            <button class="btn" onclick="document.getElementById('exprInput').value=''; document.getElementById('exprInput').focus();" data-i18n="calcul8tr.btn_clear"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label">Ergebnis</label>
-                <button class="copy-btn" onclick="copyText(document.getElementById('exprValue')?.textContent, this)">⎘ Kopieren</button>
+                <label class="input-label" data-i18n="calcul8tr.label_result"></label>
+                <button class="copy-btn" onclick="copyText(document.getElementById('exprValue')?.textContent, this)" data-i18n="common.copy" data-i18n="common.copy"></button>
             </div>
             <div id="exprEmptyState" class="empty-state">Unterstützt: +, -, *, /, **, %, sqrt, sin, cos, log, PI, E, fact() …</div>
             <div id="exprResultWrap" style="display:none;">
@@ -82,24 +83,24 @@
     <div class="panel" id="panel-base">
         <div class="input-section">
             <div class="field-group">
-                <label class="input-label" for="baseInput">⌘ Zahl eingeben</label>
+                <label class="input-label" for="baseInput" data-i18n="calcul8tr.label_base_input"></label>
                 <input class="field-input big" type="text" id="baseInput" placeholder="z.B. 255" oninput="convertBase()">
             </div>
             <div class="field-group">
-                <label class="input-label" for="baseFrom">Eingabe-System</label>
+                <label class="input-label" for="baseFrom" data-i18n="calcul8tr.label_base_system"></label>
                 <select class="field-select" id="baseFrom" onchange="convertBase()">
-                    <option value="10">Dezimal (10)</option>
-                    <option value="2">Binär (2)</option>
-                    <option value="8">Oktal (8)</option>
-                    <option value="16">Hexadezimal (16)</option>
+                    <option value="10" data-i18n="calcul8tr.base_decimal"></option>
+                    <option value="2" data-i18n="calcul8tr.base_binary"></option>
+                    <option value="8" data-i18n="calcul8tr.base_octal"></option>
+                    <option value="16" data-i18n="calcul8tr.base_hex"></option>
                 </select>
             </div>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label">Konvertierung</label>
+                <label class="input-label" data-i18n="calcul8tr.label_conversion"></label>
             </div>
-            <div id="baseEmptyState" class="empty-state">Gib eine Zahl ein — die Konvertierung erfolgt live</div>
+            <div id="baseEmptyState" class="empty-state"><span data-i18n="calcul8tr.empty_base"></span></div>
             <div class="base-grid" id="baseGrid" style="display:none;"></div>
         </div>
     </div>
@@ -108,25 +109,25 @@
     <div class="panel" id="panel-unit">
         <div class="input-section">
             <div class="field-group">
-                <label class="input-label" for="unitCategory">⌘ Kategorie</label>
+                <label class="input-label" for="unitCategory" data-i18n="calcul8tr.label_category"></label>
                 <select class="field-select" id="unitCategory" onchange="populateUnits()">
-                    <option value="length">Länge</option>
-                    <option value="weight">Gewicht</option>
-                    <option value="temperature">Temperatur</option>
-                    <option value="data">Daten / Speicher</option>
-                    <option value="time">Zeit</option>
-                    <option value="area">Fläche</option>
-                    <option value="speed">Geschwindigkeit</option>
+                    <option value="length" data-i18n="calcul8tr.cat_length"></option>
+                    <option value="weight" data-i18n="calcul8tr.cat_weight"></option>
+                    <option value="temperature" data-i18n="calcul8tr.cat_temperature"></option>
+                    <option value="data" data-i18n="calcul8tr.cat_data"></option>
+                    <option value="time" data-i18n="calcul8tr.cat_time"></option>
+                    <option value="area" data-i18n="calcul8tr.cat_area"></option>
+                    <option value="speed" data-i18n="calcul8tr.cat_speed"></option>
                 </select>
             </div>
             <div class="conv-layout">
                 <div>
                     <div class="field-group">
-                        <label class="input-label">Wert</label>
+                        <label class="input-label" data-i18n="calcul8tr.label_value"></label>
                         <input class="field-input" type="number" id="unitValue" placeholder="0" oninput="convertUnit()" step="any">
                     </div>
                     <div class="field-group">
-                        <label class="input-label">Von</label>
+                        <label class="input-label" data-i18n="calcul8tr.label_from" data-i18n="calcul8tr.label_date_from"></label>
                         <select class="field-select" id="unitFrom" onchange="onUnitFromChange()"></select>
                     </div>
                 </div>
@@ -137,7 +138,7 @@
                         <div class="field-input" id="unitResultField" style="color: var(--accent); font-weight: 700; min-height: 48px; display: flex; align-items: center; justify-content: flex-end;">—</div>
                     </div>
                     <div class="field-group">
-                        <label class="input-label">Nach</label>
+                        <label class="input-label" data-i18n="calcul8tr.label_to"></label>
                         <select class="field-select" id="unitTo" onchange="onUnitToChange()"></select>
                     </div>
                 </div>
@@ -149,7 +150,7 @@
     <div class="panel" id="panel-pct">
         <div class="pct-modes">
             <div class="pct-mode">
-                <div class="pct-mode-title">Was sind X% von Y?</div>
+                <div class="pct-mode-title" data-i18n="calcul8tr.pct_title1"></div>
                 <div class="pct-inline">
                     <span>Was sind</span>
                     <input type="number" id="pct1x" oninput="calcPct1()" step="any">
@@ -160,7 +161,7 @@
                 </div>
             </div>
             <div class="pct-mode">
-                <div class="pct-mode-title">X ist wieviel % von Y?</div>
+                <div class="pct-mode-title" data-i18n="calcul8tr.pct_title2"></div>
                 <div class="pct-inline">
                     <input type="number" id="pct2x" oninput="calcPct2()" step="any">
                     <span>ist</span>
@@ -170,9 +171,9 @@
                 </div>
             </div>
             <div class="pct-mode">
-                <div class="pct-mode-title">Prozentuale Änderung</div>
+                <div class="pct-mode-title" data-i18n="calcul8tr.pct_title3"></div>
                 <div class="pct-inline">
-                    <span>Von</span>
+                    <span data-i18n="calcul8tr.label_date_from"></span>
                     <input type="number" id="pct3from" oninput="calcPct3()" step="any">
                     <span>nach</span>
                     <input type="number" id="pct3to" oninput="calcPct3()" step="any">
@@ -181,7 +182,7 @@
                 </div>
             </div>
             <div class="pct-mode">
-                <div class="pct-mode-title">Aufschlag / Abschlag</div>
+                <div class="pct-mode-title" data-i18n="calcul8tr.pct_title4"></div>
                 <div class="pct-inline">
                     <input type="number" id="pct4val" oninput="calcPct4()" step="any">
                     <span>+</span>
@@ -198,18 +199,18 @@
     <div class="panel" id="panel-stats">
         <div class="input-section">
             <div class="field-group">
-                <label class="input-label" for="statsInput">⌘ Zahlen eingeben (komma- oder leerzeichengetrennt)</label>
+                <label class="input-label" for="statsInput" data-i18n="calcul8tr.label_stats_input"></label>
                 <input class="field-input" type="text" id="statsInput" placeholder="z.B. 12, 45, 67, 23, 89, 34, 56">
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn btn-accent3" onclick="calcStats()">📊 Berechnen</button>
+            <button class="btn btn-accent3" onclick="calcStats()" data-i18n="calcul8tr.btn_stats"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label" style="color: var(--accent3);">Statistik</label>
+                <label class="input-label" style="color: var(--accent3);" data-i18n="calcul8tr.label_statistics"></label>
             </div>
-            <div id="statsEmptyState" class="empty-state">Gib Zahlen ein, getrennt durch Kommas oder Leerzeichen</div>
+            <div id="statsEmptyState" class="empty-state"><span data-i18n="calcul8tr.empty_stats"></span></div>
             <div id="statsResultWrap" style="display:none;">
                 <div class="stats-grid" id="statsGrid"></div>
                 <div class="sorted-values" id="statsSorted"></div>
@@ -220,27 +221,27 @@
     <!-- ═══════ PANEL: Date Calculator ═══════ -->
     <div class="panel" id="panel-date">
         <div class="input-section">
-            <label class="input-label" style="margin-bottom: 14px; display: block;">⌘ Differenz zwischen zwei Daten</label>
+            <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="calcul8tr.label_date_diff"></label>
             <div class="conv-layout">
                 <div class="field-group">
-                    <label class="input-label">Von</label>
+                    <label class="input-label" data-i18n="calcul8tr.label_date_from"></label>
                     <input class="date-input field-input" type="date" id="dateFrom" onchange="calcDate()">
                 </div>
                 <div class="conv-arrow">↔</div>
                 <div class="field-group">
-                    <label class="input-label">Bis</label>
+                    <label class="input-label" data-i18n="calcul8tr.label_date_to"></label>
                     <input class="date-input field-input" type="date" id="dateTo" onchange="calcDate()">
                 </div>
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn" onclick="setToday()">📅 Heute einsetzen</button>
+            <button class="btn" onclick="setToday()" data-i18n="calcul8tr.btn_today"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
                 <label class="input-label" style="color: var(--warning);">Ergebnis</label>
             </div>
-            <div id="dateEmptyState" class="empty-state">Wähle zwei Daten aus</div>
+            <div id="dateEmptyState" class="empty-state" data-i18n="calcul8tr.empty_date"></div>
             <div id="dateResultWrap" style="display:none;">
                 <div class="date-result-grid" id="dateGrid"></div>
             </div>
@@ -255,7 +256,7 @@
     <div>
         <small>
             Calcul8tr <span data-version="calcul8tr"></span> |
-            <a href="index.html">zurück zur Toolbox</a> |
+            <a href="index.html" data-i18n="common.back"></a> |
             © 2022-2026 by
             <a href="https://github.com/AEYCEN">AEYCEN</a>
         </small>
@@ -263,6 +264,7 @@
 </footer>
 
 <script src="js/calcul8tr.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/base.js"></script>
 </body>
 </html>

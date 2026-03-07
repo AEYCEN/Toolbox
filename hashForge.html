@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HashForge | AEYCEN Toolbox</title>
+    <title data-i18n-title="hashForge.page_title">HashForge | AEYCEN Toolbox</title>
     <link rel="icon" type="image/png" href="./assets/img/AEYCEN.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/toolbox-theme.css">
     <link rel="stylesheet" href="./styles/hashForge.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
-<body>
 
+<body>
 <div class="app">
 
     <header class="header">
@@ -20,17 +21,17 @@
             <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" width="14">
             AEYCEN Toolbox
         </div>
-        <h1>HashForge</h1>
-        <p class="subtitle">Passwort-Hashing, Stärketest, SHA-Prüfsummen und sichere Passwort-Generierung</p>
+        <h1 data-i18n="hashForge.title"></h1>
+        <p class="subtitle" data-i18n="hashForge.desc"></p>
     </header>
 
     <!-- Tabs -->
     <div class="tabs">
         <button class="tab active" data-panel="phash">password_hash()</button>
-        <button class="tab" data-panel="sha">SHA Hashing</button>
-        <button class="tab" data-panel="strength">Stärketest</button>
-        <button class="tab" data-panel="gen">Generator</button>
-        <button class="tab" data-panel="verify">Vergleich</button>
+        <button class="tab" data-panel="sha" data-i18n="hashForge.tab_sha"></button>
+        <button class="tab" data-panel="strength" data-i18n="hashForge.tab_strength"></button>
+        <button class="tab" data-panel="gen" data-i18n="hashForge.tab_gen"></button>
+        <button class="tab" data-panel="verify" data-i18n="hashForge.tab_verify"></button>
     </div>
 
     <!-- ═══════ PANEL: PHP password_hash() ═══════ -->
@@ -38,11 +39,11 @@
         <div id="phpHashForm">
             <div class="input-section">
                 <div class="field-group">
-                    <label class="input-label" for="phpPassword">⌘ Zu verschlüsselnder Text</label>
+                    <label class="input-label" for="phpPassword" data-i18n="hashForge.label_text"></label>
                     <input class="field-input" type="text" id="phpPassword" name="password" placeholder="dein geheimes Passwort 0_0" required>
                 </div>
                 <div class="field-group">
-                    <label class="input-label" for="phpAlgo">Algorithmus</label>
+                    <label class="input-label" for="phpAlgo" data-i18n="common.algorithm" data-i18n="common.algorithm"></label>
                     <select class="field-select" id="phpAlgo" name="algorithm">
                         <option value="PASSWORD_DEFAULT">PASSWORD_DEFAULT</option>
                         <option value="PASSWORD_BCRYPT">PASSWORD_BCRYPT</option>
@@ -52,15 +53,15 @@
                 </div>
             </div>
             <div class="btn-row">
-                <button class="btn btn-primary" type="button" onclick="phpHash()">🔒 Verschlüsseln</button>
+                <button class="btn btn-primary" type="button" onclick="phpHash()" data-i18n="hashForge.btn_hash"></button>
             </div>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label">Ergebnis</label>
-                <button class="copy-btn" onclick="copyResult('phpResult', this)">⎘ Kopieren</button>
+                <label class="input-label" data-i18n="common.result"></label>
+                <button class="copy-btn" onclick="copyResult('phpResult', this)" data-i18n="common.copy" data-i18n="common.copy" data-i18n="common.copy" data-i18n="common.copy"></button>
             </div>
-            <div id="phpEmptyState" class="empty-state">Gib einen Text ein und klicke auf „Verschlüsseln"</div>
+            <div id="phpEmptyState" class="empty-state"><span data-i18n="hashForge.empty_hash"></span></div>
             <div id="phpResultWrap" style="display:none;">
                 <textarea class="result-output" id="phpResult" readonly></textarea>
                 <div class="hash-meta" id="phpMeta"></div>
@@ -72,7 +73,7 @@
     <div class="panel" id="panel-sha">
         <div class="input-section">
             <div class="field-group">
-                <label class="input-label" for="shaInput">⌘ Text eingeben</label>
+                <label class="input-label" for="shaInput" data-i18n="hashForge.label_sha_input"></label>
                 <input class="field-input" type="text" id="shaInput" placeholder="Text zum Hashen …">
             </div>
             <div class="field-group">
@@ -86,14 +87,14 @@
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn btn-accent3" onclick="computeSHA()">⚡ Hash berechnen</button>
+            <button class="btn btn-accent3" onclick="computeSHA()" data-i18n="hashForge.btn_sha"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label" style="color: var(--accent3);">Hash-Ergebnis</label>
-                <button class="copy-btn" onclick="copyResult('shaResult', this)">⎘ Kopieren</button>
+                <label class="input-label" style="color: var(--accent3);" data-i18n="hashForge.label_sha_result"></label>
+                <button class="copy-btn" onclick="copyResult('shaResult', this)" data-i18n="common.copy" data-i18n="common.copy" data-i18n="common.copy" data-i18n="common.copy"></button>
             </div>
-            <div id="shaEmptyState" class="empty-state">Gib einen Text ein und wähle einen SHA-Algorithmus</div>
+            <div id="shaEmptyState" class="empty-state"><span data-i18n="hashForge.empty_sha"></span></div>
             <div id="shaResultWrap" style="display:none;">
                 <textarea class="result-output" id="shaResult" readonly></textarea>
                 <div class="hash-meta" id="shaMeta"></div>
@@ -105,15 +106,15 @@
     <div class="panel" id="panel-strength">
         <div class="input-section">
             <div class="field-group">
-                <label class="input-label" for="strengthInput">⌘ Passwort testen</label>
+                <label class="input-label" for="strengthInput" data-i18n="hashForge.label_strength"></label>
                 <input class="field-input" type="text" id="strengthInput" placeholder="Passwort eingeben …" oninput="analyzeStrength()">
             </div>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label" style="color: var(--warning);">Analyse</label>
+                <label class="input-label" style="color: var(--warning);" data-i18n="hashForge.label_analysis"></label>
             </div>
-            <div id="strengthEmptyState" class="empty-state">Gib ein Passwort ein — die Analyse erfolgt in Echtzeit</div>
+            <div id="strengthEmptyState" class="empty-state"><span data-i18n="hashForge.empty_strength"></span></div>
             <div id="strengthResultWrap" style="display:none;">
                 <div class="strength-bar"><div class="strength-fill" id="sTestFill"></div></div>
                 <div class="strength-label">
@@ -122,7 +123,7 @@
                 </div>
                 <div class="time-display">
                     <div class="time-value" id="sTestTime"></div>
-                    <div class="time-label">geschätzte Crack-Zeit (Brute-Force)</div>
+                    <div class="time-label" data-i18n="hashForge.crack_time_label"></div>
                 </div>
                 <div class="criteria-grid" id="criteriaGrid"></div>
                 <div class="hash-meta" id="strengthMeta" style="margin-top: 16px;"></div>
@@ -133,7 +134,7 @@
     <!-- ═══════ PANEL: Passwort-Generator ═══════ -->
     <div class="panel" id="panel-gen">
         <div class="input-section">
-            <label class="input-label" style="margin-bottom: 14px; display: block;">⌘ Optionen</label>
+            <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="hashForge.label_gen_options"></label>
             <div class="length-row">
                 <label>Länge</label>
                 <input type="range" class="length-slider" id="genLength" min="4" max="128" value="24" oninput="updateLengthDisplay()">
@@ -142,31 +143,31 @@
             <div class="gen-options">
                 <div class="gen-option active" data-opt="upper" onclick="toggleOpt(this)">
                     <div class="gen-check">✓</div>
-                    <span class="gen-option-label">Großbuchstaben A–Z</span>
+                    <span class="gen-option-label" data-i18n="hashForge.gen_upper"></span>
                 </div>
                 <div class="gen-option active" data-opt="lower" onclick="toggleOpt(this)">
                     <div class="gen-check">✓</div>
-                    <span class="gen-option-label">Kleinbuchstaben a–z</span>
+                    <span class="gen-option-label" data-i18n="hashForge.gen_lower"></span>
                 </div>
                 <div class="gen-option active" data-opt="digits" onclick="toggleOpt(this)">
                     <div class="gen-check">✓</div>
-                    <span class="gen-option-label">Ziffern 0–9</span>
+                    <span class="gen-option-label" data-i18n="hashForge.gen_digits"></span>
                 </div>
                 <div class="gen-option active" data-opt="special" onclick="toggleOpt(this)">
                     <div class="gen-check">✓</div>
-                    <span class="gen-option-label">Sonderzeichen !@#$…</span>
+                    <span class="gen-option-label" data-i18n="hashForge.gen_special"></span>
                 </div>
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn btn-accent2" onclick="generatePassword()">🎲 Passwort generieren</button>
+            <button class="btn btn-accent2" onclick="generatePassword()" data-i18n="hashForge.btn_generate"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label" style="color: var(--accent2);">Generiertes Passwort</label>
-                <button class="copy-btn" onclick="copyText(document.getElementById('genOutput').textContent, this)">⎘ Kopieren</button>
+                <label class="input-label" style="color: var(--accent2);" data-i18n="hashForge.label_gen_result"></label>
+                <button class="copy-btn" onclick="copyText(document.getElementById('genOutput').textContent, this)" data-i18n="common.copy"></button>
             </div>
-            <div id="genEmptyState" class="empty-state">Konfiguriere die Optionen und generiere ein sicheres Passwort</div>
+            <div id="genEmptyState" class="empty-state"><span data-i18n="hashForge.empty_gen"></span></div>
             <div id="genResultWrap" style="display:none;">
                 <div class="generated-pw" id="genOutput"></div>
                 <div class="strength-bar"><div class="strength-fill" id="genStrengthFill"></div></div>
@@ -183,22 +184,22 @@
     <div class="panel" id="panel-verify">
         <div class="input-section">
             <div class="field-group">
-                <label class="input-label" for="verifyHash1">⌘ Hash 1</label>
+                <label class="input-label" for="verifyHash1" data-i18n="hashForge.label_hash1"></label>
                 <input class="field-input" type="text" id="verifyHash1" placeholder="Ersten Hash einfügen …">
             </div>
             <div class="field-group">
-                <label class="input-label" for="verifyHash2">Hash 2</label>
+                <label class="input-label" for="verifyHash2" data-i18n="hashForge.label_hash2"></label>
                 <input class="field-input" type="text" id="verifyHash2" placeholder="Zweiten Hash einfügen …">
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn btn-success" onclick="compareHashes()">🔍 Hashes vergleichen</button>
+            <button class="btn btn-success" onclick="compareHashes()" data-i18n="hashForge.btn_compare"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label" style="color: var(--success);">Vergleich</label>
+                <label class="input-label" style="color: var(--success);" data-i18n="hashForge.tab_verify"></label>
             </div>
-            <div id="verifyEmptyState" class="empty-state">Füge zwei Hashes ein und vergleiche sie</div>
+            <div id="verifyEmptyState" class="empty-state"><span data-i18n="hashForge.empty_compare"></span></div>
             <div id="verifyResultWrap" style="display:none;">
                 <div id="verifySummary"></div>
                 <div id="verifyDiff" style="margin-top: 14px;"></div>
@@ -215,7 +216,7 @@
     <div>
         <small>
             HashForge <span data-version="hashForge"></span> |
-            <a href="index.html">zurück zur Toolbox</a> |
+            <a href="index.html" data-i18n="common.back"></a> |
             © 2022-2026 by
             <a href="https://github.com/AEYCEN">AEYCEN</a>
         </small>
@@ -223,6 +224,7 @@
 </footer>
 
 <script src="./js/hashForge.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/base.js"></script>
 </body>
 </html>

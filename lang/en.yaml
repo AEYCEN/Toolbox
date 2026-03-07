@@ -1,0 +1,375 @@
+# ═══════════════════════════════════
+#  AEYCEN Toolbox — English
+# ═══════════════════════════════════
+
+common:
+  brand: AEYCEN Toolbox
+  back: back to Toolbox
+  copy: ⎘ Copy
+  copied: ✓ Copied
+  clipboard: Copied to clipboard
+  result: Result
+  algorithm: Algorithm
+  calculate: Calculate
+  error: Error
+  chars: characters
+  length: Length
+  no_input: Please enter some text
+
+# ═══════ Index ═══════
+index:
+  page_title: AEYCEN Toolbox
+  hero_title: Toolbox
+  hero_desc: 'A collection of small, self-built, more or less useful tools'
+  cat_browser: Browser Tools
+  cat_encoding: Encoding Tools
+  cat_text: Text Tools
+  cat_math: Math Tools
+  tool_userscripts: GitLab UserScripts for Tampermonkey
+  tool_userscripts_desc: Tampermonkey scripts for a better GitLab experience
+  tool_heididecode: HeidiDecode
+  tool_heididecode_desc: 'Decrypt passwords from HeidiSQL exports — single or batch'
+  tool_hashforge: HashForge
+  tool_hashforge_desc: 'Hashing, strength test, password generator and hash comparison in one'
+  tool_linkloom: LinkLoom
+  tool_linkloom_desc: 'Encode, parse, Base64 convert and build UTM links'
+  tool_wordwatch: WordWatch
+  tool_wordwatch_desc: 'Analyze, transform and extract keywords from text'
+  tool_calcul8tr: Calcul8tr
+  tool_calcul8tr_desc: 'Calculator, number bases, units, percentages, statistics and date calculator'
+
+# ═══════ HeidiDecode ═══════
+heidiDecode:
+  page_title: HeidiDecode | AEYCEN Toolbox
+  title: HeidiDecode
+  desc: Decrypt exported HeidiSQL connections
+  tab_direct: Direct Input
+  tab_file: File Extraction
+  label_password: ⌘ Encrypted Password
+  placeholder_password: 'from Servers\<SERVERNAME>\Password'
+  btn_decode: 🔓 Decrypt
+  label_result: Plaintext Password
+  empty_direct: Enter an encrypted password and click "Decrypt"
+  label_file: ⌘ Export File
+  file_drop: 'Drop exported <span class="accent">.txt</span> file here or <span class="accent">click</span>'
+  btn_extract: 📄 Extract Connections
+  label_connections: Extracted Connections
+  empty_file: Upload an exported HeidiSQL file
+  toast_select_file: Please select a file
+  toast_extracted: '{count} connection(s) extracted'
+  toast_no_connections: No connections found
+  conn_host: Host
+  conn_user: User
+  conn_password: Password
+  conn_no_password: '— no password —'
+  conn_copy_pw: ⎘ Copy password
+
+# ═══════ HashForge ═══════
+hashForge:
+  page_title: HashForge | AEYCEN Toolbox
+  title: HashForge
+  desc: 'Password hashing, strength test, SHA checksums and secure password generation'
+  tab_phash: password_hash()
+  tab_sha: SHA Hashing
+  tab_strength: Strength Test
+  tab_gen: Generator
+  tab_verify: Comparison
+  label_text: ⌘ Text to Encrypt
+  placeholder_text: your secret password 0_0
+  btn_hash: 🔒 Encrypt
+  empty_hash: Enter a text and click "Encrypt"
+  label_sha_input: ⌘ Enter Text
+  placeholder_sha: 'Text to hash …'
+  btn_sha: ⚡ Compute Hash
+  label_sha_result: Hash Result
+  empty_sha: Enter a text and choose a SHA algorithm
+  label_strength: ⌘ Test Password
+  placeholder_strength: 'Enter password …'
+  label_analysis: Analysis
+  empty_strength: 'Enter a password — analysis happens in real time'
+  crack_time_label: estimated crack time (brute-force)
+  criteria_min8: At least 8 characters
+  criteria_min12: At least 12 characters
+  criteria_min16: At least 16 characters
+  criteria_upper: 'Uppercase letters (A–Z)'
+  criteria_lower: 'Lowercase letters (a–z)'
+  criteria_digits: 'Digits (0–9)'
+  criteria_special: 'Special characters (!@#$…)'
+  criteria_repeat: No 3+ identical characters in a row
+  criteria_sequence: 'No simple sequence (abc, 123)'
+  criteria_common: Not a common password
+  strength_very_weak: Very weak
+  strength_weak: Weak
+  strength_medium: Medium
+  strength_strong: Strong
+  strength_very_strong: Very strong
+  label_gen_options: ⌘ Options
+  gen_length: Length
+  gen_upper: Uppercase A–Z
+  gen_lower: Lowercase a–z
+  gen_digits: Digits 0–9
+  gen_special: 'Special chars !@#$…'
+  btn_generate: 🎲 Generate Password
+  label_gen_result: Generated Password
+  empty_gen: Configure options and generate a secure password
+  toast_min_option: At least one option must be active
+  toast_no_charset: No character sets selected
+  label_hash1: ⌘ Hash 1
+  placeholder_hash1: 'Paste first hash …'
+  label_hash2: Hash 2
+  placeholder_hash2: 'Paste second hash …'
+  btn_compare: 🔍 Compare Hashes
+  label_compare: Comparison
+  empty_compare: Paste two hashes and compare them
+  toast_fill_both: Please fill in both hash fields
+  match_yes: The hashes match completely
+  match_no: 'No match — {count} differing characters'
+  meta_algo: Algorithm
+  meta_length: Length
+  meta_bits: Bits
+  meta_entropy: Entropy
+  meta_pool: Pool
+  meta_criteria: Criteria
+  meta_match: Match
+  meta_diff: Differences
+  fallback_note: '(fallback: bcrypt, client-side)'
+  toast_hash_error: 'Hashing error: {msg}'
+  crack_instant: Instant
+  crack_lt1s: < 1 second
+  crack_seconds: '{n} seconds'
+  crack_minutes: '{n} minutes'
+  crack_hours: '{n} hours'
+  crack_days: '{n} days'
+  crack_years: '{n} years'
+  crack_thousand_years: '{n}k years'
+  crack_million_years: '{n}M years'
+  crack_billion_years: '{n}B years'
+  crack_infinity: ∞ (uncrackable)
+
+# ═══════ LinkLoom ═══════
+linkLoom:
+  page_title: LinkLoom | AEYCEN Toolbox
+  title: LinkLoom
+  desc: 'URL Toolkit — Encode, Analyze, Build'
+  label_input: ⌘ Input
+  placeholder_input: 'https://example.com/path?param=value'
+  chars_count: '{n} characters'
+  tab_encode: Encode
+  tab_parse: URL Parser
+  tab_base64: Base64
+  tab_utm: UTM Builder
+  tab_bulk: Bulk Mode
+  btn_encode: ↑ URL Encode
+  btn_decode: ↓ URL Decode
+  btn_encode_all: Full Encode
+  btn_parse: ⚙ Analyze URL
+  label_analysis: Analysis
+  empty_parse: Enter a URL and click "Analyze URL"
+  parse_invalid: ⚠ Invalid URL
+  toast_no_url: Please enter a URL
+  parse_protocol: Protocol
+  parse_host: Host
+  parse_port: Port
+  parse_path: Path
+  parse_query: Query
+  parse_fragment: Fragment
+  parse_origin: Origin
+  label_query_params: Query Parameters
+  btn_b64_encode: ↑ Base64 Encode
+  btn_b64_decode: ↓ Base64 Decode
+  b64_error_encode: ⚠ Encoding error
+  b64_error_decode: '⚠ Error: Not a valid Base64 string'
+  decode_error: '⚠ Error: Invalid encoded string'
+  label_utm: UTM Parameters
+  utm_base_url: Base URL
+  utm_placeholder_url: 'https://example.com/page'
+  utm_source_ph: 'e.g. google, newsletter'
+  utm_medium_ph: 'e.g. cpc, email, social'
+  utm_campaign_ph: e.g. spring_sale
+  utm_term_ph: e.g. keyword
+  utm_content_ph: 'e.g. banner_top, text_link'
+  label_utm_result: Generated URL
+  utm_empty: 'Fill in the fields above …'
+  label_bulk: URLs (one per line)
+  btn_bulk_encode: ↑ Encode All
+  btn_bulk_decode: ↓ Decode All
+
+# ═══════ WordWatch ═══════
+wordWatch:
+  page_title: WordWatch | AEYCEN Toolbox
+  title: WordWatch
+  desc: 'Text analysis, keywords, transformations and find & replace'
+  label_input: ⌘ Enter Text
+  placeholder_input: 'Paste your text here or start typing …'
+  live_words: Words
+  live_chars: Characters
+  live_sentences: Sentences
+  live_readtime: min read time
+  tab_analyze: Analysis
+  tab_keywords: Keywords
+  tab_transform: Transform
+  tab_search: Find & Replace
+  btn_analyze: 📊 Full Analysis
+  label_stats: Statistics
+  empty_analyze: Enter a text and click "Full Analysis"
+  stat_words: Words
+  stat_chars: Characters
+  stat_no_space: Without spaces
+  stat_sentences: Sentences
+  stat_paragraphs: Paragraphs
+  stat_lines: Lines
+  stat_unique: Unique words
+  stat_avg_word: ⌀ Word length
+  stat_avg_sent: ⌀ Sentence length
+  stat_readtime: min read time
+  stat_speaktime: min speak time
+  stat_syllables: Syllables
+  flesch_very_easy: Very easy
+  flesch_easy: Easy
+  flesch_medium: Medium
+  flesch_hard: Hard
+  flesch_very_hard: Very hard
+  flesch_very_easy_desc: Easily understandable for any reader.
+  flesch_easy_desc: 'Well understandable, normal language level.'
+  flesch_medium_desc: 'Average complexity, requires attention.'
+  flesch_hard_desc: 'Complex text, academic level.'
+  flesch_very_hard_desc: 'Very complex, scientific/legal level.'
+  flesch_suffix: '(Flesch Index, adapted for German)'
+  btn_keywords: 🔑 Extract Keywords
+  label_keywords: Top Keywords
+  empty_keywords: Extracts the most common words (stop words are filtered)
+  toast_no_keywords: No keywords found
+  tf_upper: UPPERCASE
+  tf_lower: lowercase
+  tf_title: Title Case
+  tf_sentence: Sentence case
+  tf_reverse: Reverse text
+  tf_trim: Trim whitespace
+  tf_dedupe: Remove duplicate lines
+  tf_sort: Sort lines
+  tf_number: Number lines
+  tf_remove_empty: Remove empty lines
+  label_transform_result: Result
+  btn_apply: ↑ Apply
+  empty_transform: Choose a transformation
+  toast_applied: Text applied
+  label_search: Search for
+  placeholder_search: 'Search term …'
+  label_replace: Replace with
+  placeholder_replace: 'Replacement …'
+  opt_case: Case sensitive
+  opt_regex: RegEx
+  btn_search_replace: 🔍 Find & Replace
+  btn_search_only: 🔎 Find only
+  label_search_result: Result
+  empty_search: Search for text and optionally replace it
+  matches_replaced: ' match(es) replaced'
+  matches_found: ' match(es) found'
+  toast_no_matches: No matches
+  toast_invalid_regex: 'Invalid RegEx: {msg}'
+
+# ═══════ Calcul8tr ═══════
+calcul8tr:
+  page_title: Calcul8tr | AEYCEN Toolbox
+  title: Calcul8tr
+  desc: 'Math tools beyond the calculator — number bases, statistics, units & more'
+  tab_expr: Calculator
+  tab_base: Number Bases
+  tab_unit: Units
+  tab_pct: Percentage
+  tab_stats: Statistics
+  tab_date: Date
+  label_expr: ⌘ Enter Expression
+  placeholder_expr: e.g. sqrt(144) + 2^8
+  btn_calc: = Calculate
+  btn_clear: C Clear
+  empty_expr: 'Supports: +, -, *, /, **, %, sqrt, sin, cos, log, PI, E, fact() …'
+  label_result: Result
+  toast_invalid_expr: Invalid expression
+  label_base_input: ⌘ Enter Number
+  placeholder_base: e.g. 255
+  label_base_system: Input System
+  base_decimal: Decimal (10)
+  base_binary: Binary (2)
+  base_octal: Octal (8)
+  base_hex: Hexadecimal (16)
+  label_conversion: Conversion
+  empty_base: 'Enter a number — conversion happens live'
+  base_invalid: 'Invalid number for base {base}'
+  label_category: ⌘ Category
+  cat_length: Length
+  cat_weight: Weight
+  cat_temperature: Temperature
+  cat_data: Data / Storage
+  cat_time: Time
+  cat_area: Area
+  cat_speed: Speed
+  label_value: Value
+  label_from: From
+  label_to: To
+  pct_title1: What is X% of Y?
+  pct_title2: X is what % of Y?
+  pct_title3: Percentage Change
+  pct_title4: Markup / Markdown
+  pct_label1a: What is
+  pct_label1b: '% of'
+  pct_label2a: is
+  pct_label2b: '% of'
+  pct_label3a: From
+  pct_label3b: to
+  label_stats_input: ⌘ Enter numbers (comma or space separated)
+  placeholder_stats: 'e.g. 12, 45, 67, 23, 89, 34, 56'
+  btn_stats: 📊 Calculate
+  label_statistics: Statistics
+  empty_stats: Enter numbers separated by commas or spaces
+  toast_no_numbers: No valid numbers found
+  stat_count: Count
+  stat_sum: Sum
+  stat_mean: Mean ⌀
+  stat_median: Median
+  stat_mode: Mode
+  stat_mode_none: none
+  stat_min: Minimum
+  stat_max: Maximum
+  stat_range: Range
+  stat_variance: Variance
+  stat_stddev: Std. Deviation
+  stat_geomean: Geo. Mean
+  sorted_label: Sorted Values
+  label_date_diff: ⌘ Difference between two dates
+  label_date_from: From
+  label_date_to: To
+  btn_today: 📅 Set today
+  label_date_result: Result
+  empty_date: Choose two dates
+  date_days: Days
+  date_weeks: Weeks
+  date_months: Months
+  date_years: Years
+  date_hours: Hours
+  date_minutes: Minutes
+  date_seconds: Seconds
+  date_business: Business days
+  date_weekends: Weekend days
+  date_weekday_from: Weekday From
+  date_weekday_to: Weekday To
+  date_calendar_week: Calendar week
+
+# ═══════ UserScripts ═══════
+userScripts:
+  page_title: UserScripts | AEYCEN Toolbox
+  title: GitLab UserScripts
+  desc: Useful display extensions for GitLab via Tampermonkey
+  guide_title: Instructions for Chrome
+  guide_step1_html: 'Download the <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Tampermonkey browser extension</a>.'
+  guide_step2_html: 'Enable developer mode in the top right corner at <code>chrome://extensions/</code>.'
+  guide_step3: 'On the same view, click "Details" on Tampermonkey and enable "Allow access to file URLs".'
+  guide_step4: Copy the script of your choice from this page.
+  guide_step5_html: 'Create a new Tampermonkey UserScript and paste the content. Then save with <code>Ctrl+S</code>.'
+  guide_step6: Restart your browser.
+  section_scripts: Available Scripts
+  empty_scripts: No UserScripts found
+  error_loading: 'Error loading: {file}'
+  btn_example: Example
+  meta_version: Version
+  meta_author: Author

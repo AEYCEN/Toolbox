@@ -62,7 +62,7 @@ function openFile() {
         reader.onload = (e) => decodeAndDisplay(e.target.result)
         reader.readAsText(file)
     } else {
-        showToast('Bitte eine Datei auswählen')
+        showToast(t('heidiDecode.toast_select_file'))
     }
 }
 
@@ -85,14 +85,14 @@ function decodeAndDisplay(content) {
                 card.innerHTML = `
                         <div class="conn-name">${escapeHtml(serverName)}</div>
                         <div class="conn-details">
-                            <span class="conn-key">Host</span>
+                            <span class="conn-key">${t('heidiDecode.conn_host')}</span>
                             <span class="conn-val">${escapeHtml(serverData['Host'] || '–')}</span>
-                            <span class="conn-key">User</span>
+                            <span class="conn-key">${t('heidiDecode.conn_user')}</span>
                             <span class="conn-val">${escapeHtml(serverData['Username'] || '–')}</span>
-                            <span class="conn-key">Passwort</span>
-                            <span class="conn-val ${hasPassword ? 'pw' : 'empty'}">${hasPassword ? escapeHtml(decodedPassword) : '— kein Passwort —'}</span>
+                            <span class="conn-key">${t('heidiDecode.conn_password')}</span>
+                            <span class="conn-val ${hasPassword ? 'pw' : 'empty'}">${hasPassword ? escapeHtml(decodedPassword) : t('heidiDecode.conn_no_password')}</span>
                         </div>
-                        ${hasPassword ? `<button class="conn-copy" data-pw="${escapeAttr(decodedPassword)}">⎘ Passwort kopieren</button>` : ''}
+                        ${hasPassword ? `<button class="conn-copy" data-pw="${escapeAttr(decodedPassword)}">${t('heidiDecode.conn_copy_pw')}</button>` : ''}
                     `
                 container.appendChild(card)
             }
@@ -100,10 +100,10 @@ function decodeAndDisplay(content) {
         container.querySelectorAll('.conn-copy').forEach(btn => {
             btn.addEventListener('click', () => copyText(btn.dataset.pw, btn))
         })
-        showToast(Object.keys(passwords).length + ' Verbindung(en) extrahiert')
+        showToast(t('heidiDecode.toast_extracted', { count: Object.keys(passwords).length }))
     } else {
         emptyState.style.display = 'block'
-        showToast('Keine Verbindungen gefunden')
+        showToast(t('heidiDecode.toast_no_connections'))
     }
 }
 
@@ -145,7 +145,7 @@ function copyText(text, btn) {
         const original = btn.innerHTML
         btn.innerHTML = '✓ Kopiert'
         btn.classList.add('copied')
-        showToast('In die Zwischenablage kopiert')
+        showToast(t('common.clipboard'))
         setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 1600)
     })
 }

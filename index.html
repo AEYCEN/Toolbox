@@ -1,70 +1,71 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>AEYCEN Toolbox</title>
+    <title data-i18n-title="index.page_title">AEYCEN Toolbox</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="assets/img/AEYCEN.png">
+    <link rel="icon" type="image/png" href="./assets/img/AEYCEN.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/indexMenu.css">
+    <link rel="stylesheet" href="./styles/toolbox-theme.css">
+    <link rel="stylesheet" href="./styles/indexMenu.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
-<body>
 
+<body>
 <div class="app">
 
     <!-- Hero -->
-    <div class="hero">
-        <div class="hero-tag" onclick="window.location.href='https://github.com/AEYCEN'">
-            <img src="assets/img/AEYCEN.png" alt="AEYCEN Logo" class="logo" width="14">
+    <header class="header">
+        <div class="logo" onclick="window.location.href='https://github.com/AEYCEN'">
+            <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" width="14">
             AEYCEN
         </div>
-        <h1>Toolbox</h1>
-        <p>Eine Auswahl meiner kleinen eigens entwickelten mehr oder weniger hilfreichen Tools</p>
-        <span class="hero-version"><span data-version="toolbox"></span></span>
-    </div>
+        <h1 data-i18n="index.hero_title"></h1>
+        <p class="subtitle" data-i18n="index.hero_desc"></p>
+    </header>
 
-    <!-- Browser-Tools (nur sichtbar wenn UserScripts-Server erreichbar) -->
+    <!-- Browser-Tools -->
     <div class="category cat-browser" id="catBrowser" style="display: none;">
-        <div class="category-label">Browser-Tools</div>
+        <div class="category-label" data-i18n="index.cat_browser"></div>
         <div class="tool-list">
             <a href="userScripts.html" class="tool-card">
                 <div class="tool-top">
-                    <span class="tool-name">GitLab UserScripts für Tampermonkey</span>
+                    <span class="tool-name" data-i18n="index.tool_userscripts"></span>
                     <span class="tool-version"><span data-version="userScripts"></span></span>
                 </div>
-                <div class="tool-desc">Tampermonkey-Scripts für ein besseres GitLab-Erlebnis</div>
+                <div class="tool-desc" data-i18n="index.tool_userscripts_desc"></div>
                 <span class="tool-arrow">→</span>
             </a>
         </div>
     </div>
 
-    <!-- Codierungs-Tools -->
+    <!-- Encryption-Tools -->
     <div class="category cat-encoding">
-        <div class="category-label">Codierungs-Tools</div>
+        <div class="category-label" data-i18n="index.cat_encoding"></div>
         <div class="tool-list">
             <a href="heidiDecode.html" class="tool-card">
                 <div class="tool-top">
-                    <span class="tool-name">HeidiDecode</span>
+                    <span class="tool-name" data-i18n="index.tool_heididecode"></span>
                     <span class="tool-version"><span data-version="heidiDecode"></span></span>
                 </div>
-                <div class="tool-desc">Passwörter aus HeidiSQL-Exports entschlüsseln — einzeln oder als Datei</div>
+                <div class="tool-desc" data-i18n="index.tool_heididecode_desc"></div>
                 <span class="tool-arrow">→</span>
             </a>
             <a href="hashForge.html" class="tool-card">
                 <div class="tool-top">
-                    <span class="tool-name">HashForge</span>
+                    <span class="tool-name" data-i18n="index.tool_hashforge"></span>
                     <span class="tool-version"><span data-version="hashForge"></span></span>
                 </div>
-                <div class="tool-desc">Hashing, Stärketest, Passwort-Generator und Hash-Vergleich in einem</div>
+                <div class="tool-desc" data-i18n="index.tool_hashforge_desc"></div>
                 <span class="tool-arrow">→</span>
             </a>
             <a href="linkLoom.html" class="tool-card">
                 <div class="tool-top">
-                    <span class="tool-name">LinkLoom</span>
+                    <span class="tool-name" data-i18n="index.tool_linkloom"></span>
                     <span class="tool-version"><span data-version="linkLoom"></span></span>
                 </div>
-                <div class="tool-desc">URLs codieren, parsen, Base64 umwandeln und UTM-Links bauen</div>
+                <div class="tool-desc" data-i18n="index.tool_linkloom_desc"></div>
                 <span class="tool-arrow">→</span>
             </a>
         </div>
@@ -72,29 +73,29 @@
 
     <!-- Text-Tools -->
     <div class="category cat-text">
-        <div class="category-label">Text-Tools</div>
+        <div class="category-label" data-i18n="index.cat_text"></div>
         <div class="tool-list">
             <a href="wordWatch.html" class="tool-card">
                 <div class="tool-top">
-                    <span class="tool-name">WordWatch</span>
+                    <span class="tool-name" data-i18n="index.tool_wordwatch"></span>
                     <span class="tool-version"><span data-version="wordWatch"></span></span>
                 </div>
-                <div class="tool-desc">Texte analysieren, transformieren und Schlüsselwörter extrahieren</div>
+                <div class="tool-desc" data-i18n="index.tool_wordwatch_desc"></div>
                 <span class="tool-arrow">→</span>
             </a>
         </div>
     </div>
 
-    <!-- Mathematik-Tools -->
+    <!-- Math-Tools -->
     <div class="category cat-math">
-        <div class="category-label">Mathematik-Tools</div>
+        <div class="category-label" data-i18n="index.cat_math"></div>
         <div class="tool-list">
             <a href="calcul8tr.html" class="tool-card">
                 <div class="tool-top">
-                    <span class="tool-name">Calcul8tr</span>
+                    <span class="tool-name" data-i18n="index.tool_calcul8tr"></span>
                     <span class="tool-version"><span data-version="calcul8tr"></span></span>
                 </div>
-                <div class="tool-desc">Rechner, Zahlensysteme, Einheiten, Prozent, Statistik und Datumsrechner</div>
+                <div class="tool-desc" data-i18n="index.tool_calcul8tr_desc"></div>
                 <span class="tool-arrow">→</span>
             </a>
         </div>
@@ -105,13 +106,15 @@
 <footer>
     <div>
         <small>
-            AEYCEN Toolbox <span data-version="toolbox"></span> &nbsp;|&nbsp; © 2023-2026 by
+            <a href="https://github.com/AEYCEN/Toolbox">AEYCEN Toolbox</a>
+            &nbsp;|&nbsp; © 2023-2026 by
             <a href="https://github.com/AEYCEN">AEYCEN</a>
         </small>
     </div>
 </footer>
 
 <script src="js/indexMenu.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/base.js"></script>
 </body>
 </html>

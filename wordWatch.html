@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WordWatch | AEYCEN Toolbox</title>
+    <title data-i18n-title="wordWatch.page_title">WordWatch | AEYCEN Toolbox</title>
     <link rel="icon" type="image/png" href="./assets/img/AEYCEN.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/toolbox-theme.css">
     <link rel="stylesheet" href="styles/wordWatch.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
-<body>
 
+<body>
 <div class="app">
 
     <header class="header">
@@ -19,40 +20,52 @@
             <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" width="14">
             AEYCEN Toolbox
         </div>
-        <h1>WordWatch</h1>
-        <p class="subtitle">Textanalyse, Schlüsselwörter, Transformationen und Suchen &amp; Ersetzen</p>
+        <h1 data-i18n="wordWatch.title"></h1>
+        <p class="subtitle"><span data-i18n="wordWatch.desc"></span></p>
     </header>
 
     <!-- Shared Text Input -->
     <div class="input-section">
-        <label class="input-label" for="textInput">⌘ Text eingeben</label>
+        <label class="input-label" for="textInput" data-i18n="wordWatch.label_input"></label>
         <textarea class="text-area" id="textInput" placeholder="Füge deinen Text hier ein oder beginne zu tippen …" oninput="updateLiveStats()"></textarea>
         <div class="live-bar" id="liveBar">
-            <span class="live-stat"><span class="n" id="liveWords">0</span> Wörter</span>
-            <span class="live-stat"><span class="n" id="liveChars">0</span> Zeichen</span>
-            <span class="live-stat"><span class="n" id="liveSentences">0</span> Sätze</span>
-            <span class="live-stat">~<span class="n" id="liveReadTime">0</span> Min. Lesezeit</span>
+            <span class="live-stat">
+                <span class="n" id="liveWords">0</span>
+                <span data-i18n="wordWatch.live_words"></span>
+            </span>
+            <span class="live-stat">
+                <span class="n" id="liveChars">0</span>
+                <span data-i18n="wordWatch.live_chars"></span>
+            </span>
+            <span class="live-stat">
+                <span class="n" id="liveSentences">0</span>
+                <span data-i18n="wordWatch.live_sentences"></span>
+            </span>
+            <span class="live-stat">
+                ~<span class="n" id="liveReadTime">0</span>
+                <span data-i18n="wordWatch.live_readtime"></span>
+            </span>
         </div>
     </div>
 
     <!-- Tabs -->
     <div class="tabs">
-        <button class="tab active" data-panel="analyze">Analyse</button>
-        <button class="tab" data-panel="keywords">Schlüsselwörter</button>
-        <button class="tab" data-panel="transform">Transformieren</button>
-        <button class="tab" data-panel="search">Suchen & Ersetzen</button>
+        <button class="tab active" data-panel="analyze" data-i18n="wordWatch.tab_analyze"></button>
+        <button class="tab" data-panel="keywords" data-i18n="wordWatch.tab_keywords"></button>
+        <button class="tab" data-panel="transform" data-i18n="wordWatch.tab_transform"></button>
+        <button class="tab" data-panel="search" data-i18n="wordWatch.tab_search"></button>
     </div>
 
-    <!-- ═══════ PANEL: Analyse ═══════ -->
+    <!-- ═══════ PANEL: Analysis ═══════ -->
     <div class="panel active" id="panel-analyze">
         <div class="btn-row">
-            <button class="btn btn-primary" onclick="fullAnalysis()">📊 Vollständige Analyse</button>
+            <button class="btn btn-primary" onclick="fullAnalysis()" data-i18n="wordWatch.btn_analyze"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label">Statistiken</label>
+                <label class="input-label" data-i18n="wordWatch.label_stats"></label>
             </div>
-            <div id="analyzeEmptyState" class="empty-state">Gib einen Text ein und klicke auf „Vollständige Analyse"</div>
+            <div id="analyzeEmptyState" class="empty-state"><span data-i18n="wordWatch.empty_analyze"></span></div>
             <div id="analyzeResult" style="display:none;">
                 <div class="stats-grid" id="statsGrid"></div>
                 <div id="readabilityGauge"></div>
@@ -60,88 +73,118 @@
         </div>
     </div>
 
-    <!-- ═══════ PANEL: Schlüsselwörter ═══════ -->
+    <!-- ═══════ PANEL: Key words ═══════ -->
     <div class="panel" id="panel-keywords">
         <div class="btn-row">
-            <button class="btn btn-accent3" onclick="extractKeywords()">🔑 Schlüsselwörter extrahieren</button>
+            <button class="btn btn-accent3" onclick="extractKeywords()" data-i18n="wordWatch.btn_keywords"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
-                <label class="input-label" style="color: var(--accent3);">Top-Schlüsselwörter</label>
+                <label class="input-label" style="color: var(--accent3);" data-i18n="wordWatch.label_keywords"></label>
             </div>
-            <div id="kwEmptyState" class="empty-state">Extrahiert die häufigsten Wörter (Stoppwörter werden gefiltert)</div>
+            <div id="kwEmptyState" class="empty-state"><span data-i18n="wordWatch.empty_keywords"></span></div>
             <div id="kwResult" style="display:none;">
                 <div class="keyword-list" id="kwList"></div>
             </div>
         </div>
     </div>
 
-    <!-- ═══════ PANEL: Transformieren ═══════ -->
+    <!-- ═══════ PANEL: Transform ═══════ -->
     <div class="panel" id="panel-transform">
         <div class="transform-grid">
-            <button class="transform-btn" onclick="transformText('upper')"><span class="icon">⬆</span>GROSSBUCHSTABEN</button>
-            <button class="transform-btn" onclick="transformText('lower')"><span class="icon">⬇</span>kleinbuchstaben</button>
-            <button class="transform-btn" onclick="transformText('title')"><span class="icon">🔤</span>Titel-Schreibweise</button>
-            <button class="transform-btn" onclick="transformText('sentence')"><span class="icon">📝</span>Satz-Schreibweise</button>
-            <button class="transform-btn" onclick="transformText('reverse')"><span class="icon">🔄</span>Text umkehren</button>
-            <button class="transform-btn" onclick="transformText('trim')"><span class="icon">✂️</span>Whitespace trimmen</button>
-            <button class="transform-btn" onclick="transformText('dedupe-lines')"><span class="icon">🧹</span>Duplikat-Zeilen entfernen</button>
-            <button class="transform-btn" onclick="transformText('sort-lines')"><span class="icon">📑</span>Zeilen sortieren</button>
-            <button class="transform-btn" onclick="transformText('number-lines')"><span class="icon">#️⃣</span>Zeilen nummerieren</button>
-            <button class="transform-btn" onclick="transformText('remove-empty')"><span class="icon">🚫</span>Leerzeilen entfernen</button>
+            <button class="transform-btn" onclick="transformText('upper')">
+                <span class="icon">⬆</span>
+                <span data-i18n="wordWatch.tf_upper"></span>
+            </button>
+            <button class="transform-btn" onclick="transformText('lower')">
+                <span class="icon">⬇</span>
+                <span data-i18n="wordWatch.tf_lower"></span>
+            </button>
+            <button class="transform-btn" onclick="transformText('title')">
+                <span class="icon">🔤</span>
+                <span data-i18n="wordWatch.tf_title"></span>
+            </button>
+            <button class="transform-btn" onclick="transformText('sentence')">
+                <span class="icon">📝</span>
+                <span data-i18n="wordWatch.tf_sentence"></span>
+            </button>
+            <button class="transform-btn" onclick="transformText('reverse')">
+                <span class="icon">🔄</span>
+                <span data-i18n="wordWatch.tf_reverse"></span>
+            </button>
+            <button class="transform-btn" onclick="transformText('trim')">
+                <span class="icon">✂️</span>
+                <span data-i18n="wordWatch.tf_trim"></span>
+            </button>
+            <button class="transform-btn" onclick="transformText('dedupe-lines')">
+                <span class="icon">🧹</span>
+                <span data-i18n="wordWatch.tf_dedupe"></span>
+            </button>
+            <button class="transform-btn" onclick="transformText('sort-lines')">
+                <span class="icon">📑</span>
+                <span data-i18n="wordWatch.tf_sort"></span>
+            </button>
+            <button class="transform-btn" onclick="transformText('number-lines')">
+                <span class="icon">#️⃣</span>
+                <span data-i18n="wordWatch.tf_number"></span>
+            </button>
+            <button class="transform-btn" onclick="transformText('remove-empty')">
+                <span class="icon">🚫</span>
+                <span data-i18n="wordWatch.tf_remove_empty"></span>
+            </button>
         </div>
         <div class="result-section">
             <div class="result-header">
                 <label class="input-label" style="color: var(--accent2);">Ergebnis</label>
                 <div style="display:flex; gap: 8px;">
-                    <button class="copy-btn" onclick="copyResult('transformResult', this)">⎘ Kopieren</button>
-                    <button class="copy-btn" onclick="applyToInput()" style="color: var(--accent);">↑ Übernehmen</button>
+                    <button class="copy-btn" onclick="copyResult('transformResult', this)" data-i18n="common.copy"></button>
+                    <button class="copy-btn" onclick="applyToInput()" style="color: var(--accent);" data-i18n="wordWatch.btn_apply"></button>
                 </div>
             </div>
-            <div id="transformEmptyState" class="empty-state">Wähle eine Transformation</div>
+            <div id="transformEmptyState" class="empty-state" data-i18n="wordWatch.empty_transform"></div>
             <textarea class="result-output" id="transformResult" style="display:none;" readonly></textarea>
         </div>
     </div>
 
-    <!-- ═══════ PANEL: Suchen & Ersetzen ═══════ -->
+    <!-- ═══════ PANEL: Search & replace ═══════ -->
     <div class="panel" id="panel-search">
         <div class="input-section">
             <div class="sr-fields">
                 <div class="sr-field">
-                    <label class="input-label">Suchen nach</label>
+                    <label class="input-label" data-i18n="wordWatch.label_search"></label>
                     <input class="field-input" type="text" id="srSearch" placeholder="Suchbegriff …">
                 </div>
                 <div class="sr-field">
-                    <label class="input-label">Ersetzen durch</label>
+                    <label class="input-label" data-i18n="wordWatch.label_replace"></label>
                     <input class="field-input" type="text" id="srReplace" placeholder="Ersetzung …">
                 </div>
             </div>
             <div class="sr-options">
                 <div class="sr-option" onclick="this.classList.toggle('active')" id="srCaseSensitive">
                     <div class="sr-check">✓</div>
-                    <span>Groß-/Kleinschreibung</span>
+                    <span data-i18n="wordWatch.opt_case"></span>
                 </div>
                 <div class="sr-option" onclick="this.classList.toggle('active')" id="srRegex">
                     <div class="sr-check">✓</div>
-                    <span>RegEx</span>
+                    <span data-i18n="wordWatch.opt_regex"></span>
                 </div>
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn btn-success" onclick="searchReplace()">🔍 Suchen & Ersetzen</button>
-            <button class="btn" onclick="highlightMatches()">🔎 Nur suchen</button>
+            <button class="btn btn-success" onclick="searchReplace()" data-i18n="wordWatch.btn_search_replace"></button>
+            <button class="btn" onclick="highlightMatches()" data-i18n="wordWatch.btn_search_only"></button>
         </div>
         <div class="result-section">
             <div class="result-header">
                 <label class="input-label" style="color: var(--success);">Ergebnis</label>
                 <div style="display:flex; gap: 8px;">
-                    <button class="copy-btn" onclick="copyResult('srResult', this)">⎘ Kopieren</button>
-                    <button class="copy-btn" onclick="applySrToInput()" style="color: var(--accent);">↑ Übernehmen</button>
+                    <button class="copy-btn" onclick="copyResult('srResult', this)" data-i18n="common.copy"></button>
+                    <button class="copy-btn" onclick="applySrToInput()" style="color: var(--accent);" data-i18n="wordWatch.btn_apply"></button>
                 </div>
             </div>
-            <div id="srEmptyState" class="empty-state">Suche nach Text und ersetze ihn optional</div>
+            <div id="srEmptyState" class="empty-state" data-i18n="wordWatch.empty_search"></div>
             <div id="srInfo" class="sr-result-info" style="display:none;"></div>
-            <textarea class="result-output" id="srResult" style="display:none;" readonly></textarea>
+            <textarea class="result-output" rows="6" id="srResult" style="display:none;" readonly></textarea>
         </div>
     </div>
 
@@ -153,7 +196,7 @@
     <div>
         <small>
             WordWatch <span data-version="wordWatch"></span> |
-            <a href="index.html">zurück zur Toolbox</a> |
+            <a href="index.html" data-i18n="common.back"></a> |
             © 2023-2026 by
             <a href="https://github.com/AEYCEN">AEYCEN</a>
         </small>
@@ -161,6 +204,7 @@
 </footer>
 
 <script src="js/wordWatch.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/base.js"></script>
 </body>
 </html>

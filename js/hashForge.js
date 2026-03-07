@@ -5,7 +5,7 @@ async function phpHash() {
     const password = document.getElementById('phpPassword').value
     const algorithm = document.getElementById('phpAlgo').value
 
-    if (!password) { showToast('Bitte einen Text eingeben'); return; }
+    if (!password) { showToast(t('common.no_input')); return; }
 
     // Clientseitig steht nur bcrypt zur Verfügung
     // Argon2 ist ohne Server nicht nativ möglich - wir verwenden bcrypt als Fallback
@@ -105,16 +105,16 @@ function analyzeStrength() {
 
     // Criteria checks
     const criteria = [
-        { label: 'Mindestens 8 Zeichen',          pass: pw.length >= 8 },
-        { label: 'Mindestens 12 Zeichen',          pass: pw.length >= 12 },
-        { label: 'Mindestens 16 Zeichen',          pass: pw.length >= 16 },
-        { label: 'Großbuchstaben (A–Z)',           pass: /[A-Z]/.test(pw) },
-        { label: 'Kleinbuchstaben (a–z)',           pass: /[a-z]/.test(pw) },
-        { label: 'Ziffern (0–9)',                   pass: /[0-9]/.test(pw) },
-        { label: 'Sonderzeichen (!@#$…)',           pass: /[^A-Za-z0-9]/.test(pw) },
-        { label: 'Keine 3+ gleichen Zeichen in Folge', pass: !/(.)\1{2,}/.test(pw) },
-        { label: 'Keine einfache Sequenz (abc, 123)', pass: !hasSequence(pw) },
-        { label: 'Kein häufiges Passwort',           pass: !isCommonPassword(pw) },
+        { label: t('hashForge.criteria_min8'),          pass: pw.length >= 8 },
+        { label: t('hashForge.criteria_min12'),          pass: pw.length >= 12 },
+        { label: t('hashForge.criteria_min16'),          pass: pw.length >= 16 },
+        { label: t('hashForge.criteria_upper'),           pass: /[A-Z]/.test(pw) },
+        { label: t('hashForge.criteria_lower'),           pass: /[a-z]/.test(pw) },
+        { label: t('hashForge.criteria_digits'),                   pass: /[0-9]/.test(pw) },
+        { label: t('hashForge.criteria_special'),           pass: /[^A-Za-z0-9]/.test(pw) },
+        { label: t('hashForge.criteria_repeat'), pass: !/(.)\1{2,}/.test(pw) },
+        { label: t('hashForge.criteria_sequence'), pass: !hasSequence(pw) },
+        { label: t('hashForge.criteria_common'),           pass: !isCommonPassword(pw) },
     ]
 
     const grid = document.getElementById('criteriaGrid')
@@ -139,11 +139,11 @@ function analyzeStrength() {
 
     // Strength level
     let pct, color, label
-    if (score < 30)      { pct = 15;  color = '#ef4444'; label = 'Sehr schwach'; }
-    else if (score < 50) { pct = 35;  color = '#ff2d75'; label = 'Schwach'; }
-    else if (score < 70) { pct = 55;  color = '#f59e0b'; label = 'Mittel'; }
-    else if (score < 90) { pct = 78;  color = '#22c55e'; label = 'Stark'; }
-    else                 { pct = 100; color = '#00e5ff'; label = 'Sehr stark'; }
+    if (score < 30)      { pct = 15;  color = '#ef4444'; label = t('hashForge.strength_very_weak'); }
+    else if (score < 50) { pct = 35;  color = '#ff2d75'; label = t('hashForge.strength_weak'); }
+    else if (score < 70) { pct = 55;  color = '#f59e0b'; label = t('hashForge.strength_medium'); }
+    else if (score < 90) { pct = 78;  color = '#22c55e'; label = t('hashForge.strength_strong'); }
+    else                 { pct = 100; color = '#00e5ff'; label = t('hashForge.strength_very_strong'); }
 
     document.getElementById('sTestFill').style.width = pct + '%'
     document.getElementById('sTestFill').style.background = color
@@ -182,18 +182,18 @@ function isCommonPassword(pw) {
 }
 
 function formatCrackTime(sec) {
-    if (!isFinite(sec) || sec > 1e18) return '∞ (unknackbar)'
-    if (sec < 0.001) return 'Sofort'
-    if (sec < 1) return '< 1 Sekunde'
-    if (sec < 60) return Math.round(sec) + ' Sekunden'
-    if (sec < 3600) return Math.round(sec / 60) + ' Minuten'
-    if (sec < 86400) return Math.round(sec / 3600) + ' Stunden'
-    if (sec < 86400 * 365) return Math.round(sec / 86400) + ' Tage'
-    if (sec < 86400 * 365 * 1000) return Math.round(sec / (86400 * 365)) + ' Jahre'
-    if (sec < 86400 * 365 * 1e6) return Math.round(sec / (86400 * 365 * 1000)) + ' Tsd. Jahre'
-    if (sec < 86400 * 365 * 1e9) return Math.round(sec / (86400 * 365 * 1e6)) + ' Mio. Jahre'
-    if (sec < 86400 * 365 * 1e12) return Math.round(sec / (86400 * 365 * 1e9)) + ' Mrd. Jahre'
-    return '∞ (unknackbar)'
+    if (!isFinite(sec) || sec > 1e18) return t('hashForge.crack_infinity')
+    if (sec < 0.001) return t('hashForge.crack_instant')
+    if (sec < 1) return t('hashForge.crack_lt1s')
+    if (sec < 60) return t('hashForge.crack_seconds', { n: Math.round(sec) })
+    if (sec < 3600) return t('hashForge.crack_minutes', { n: Math.round(sec / 60) })
+    if (sec < 86400) return t('hashForge.crack_hours', { n: Math.round(sec / 3600) })
+    if (sec < 86400 * 365) return t('hashForge.crack_days', { n: Math.round(sec / 86400) })
+    if (sec < 86400 * 365 * 1000) return t('hashForge.crack_years', { n: Math.round(sec / (86400 * 365)) })
+    if (sec < 86400 * 365 * 1e6) return t('hashForge.crack_thousand_years', { n: Math.round(sec / (86400 * 365 * 1000)) })
+    if (sec < 86400 * 365 * 1e9) return t('hashForge.crack_million_years', { n: Math.round(sec / (86400 * 365 * 1e6)) })
+    if (sec < 86400 * 365 * 1e12) return t('hashForge.crack_billion_years', { n: Math.round(sec / (86400 * 365 * 1e9)) })
+    return t('hashForge.crack_infinity')
 }
 
 // ══════════════════════════════════
@@ -207,7 +207,7 @@ function toggleOpt(el) {
     el.classList.toggle('active')
     if (!document.querySelectorAll('.gen-option.active').length) {
         el.classList.add('active')
-        showToast('Mindestens eine Option muss aktiv sein')
+        showToast(t('hashForge.toast_min_option'))
     }
 }
 
@@ -222,7 +222,7 @@ function generatePassword() {
         if (t === 'digits') charset += '0123456789'
         if (t === 'special') charset += '!@#$%^&*()_+-=[]{}|;:,.<>?'
     })
-    if (!charset) { showToast('Keine Zeichensätze ausgewählt'); return; }
+    if (!charset) { showToast(t('hashForge.toast_no_charset')); return; }
 
     const array = new Uint32Array(length)
     crypto.getRandomValues(array)
@@ -236,11 +236,11 @@ function generatePassword() {
     const poolSize = charset.length
     const entropy = Math.log2(poolSize) * length
     let pct, color, label
-    if (entropy < 40)      { pct = 20;  color = '#ef4444'; label = 'Sehr schwach'; }
-    else if (entropy < 60) { pct = 40;  color = '#ff2d75'; label = 'Schwach'; }
-    else if (entropy < 80) { pct = 60;  color = '#f59e0b'; label = 'Mittel'; }
-    else if (entropy < 100){ pct = 80;  color = '#22c55e'; label = 'Stark'; }
-    else                   { pct = 100; color = '#00e5ff'; label = 'Sehr stark'; }
+    if (entropy < 40)      { pct = 20;  color = '#ef4444'; label = t('hashForge.strength_very_weak'); }
+    else if (entropy < 60) { pct = 40;  color = '#ff2d75'; label = t('hashForge.strength_weak'); }
+    else if (entropy < 80) { pct = 60;  color = '#f59e0b'; label = t('hashForge.strength_medium'); }
+    else if (entropy < 100){ pct = 80;  color = '#22c55e'; label = t('hashForge.strength_strong'); }
+    else                   { pct = 100; color = '#00e5ff'; label = t('hashForge.strength_very_strong'); }
 
     document.getElementById('genStrengthFill').style.width = pct + '%'
     document.getElementById('genStrengthFill').style.background = color
@@ -258,7 +258,7 @@ function generatePassword() {
 function compareHashes() {
     const h1 = document.getElementById('verifyHash1').value.trim()
     const h2 = document.getElementById('verifyHash2').value.trim()
-    if (!h1 || !h2) { showToast('Bitte beide Hash-Felder ausfüllen'); return; }
+    if (!h1 || !h2) { showToast(t('hashForge.toast_fill_both')); return; }
 
     document.getElementById('verifyEmptyState').style.display = 'none'
     document.getElementById('verifyResultWrap').style.display = 'block'
@@ -300,8 +300,8 @@ function compareHashes() {
     const isMatch = h1 === h2
 
     document.getElementById('verifySummary').innerHTML = isMatch
-        ? `<div class="verify-summary match"><span class="verify-icon">✓</span> Die Hashes stimmen vollständig überein</div>`
-        : `<div class="verify-summary no-match"><span class="verify-icon">✗</span> Keine Übereinstimmung — ${diffCount} abweichende Zeichen</div>`
+        ? `<div class="verify-summary match"><span class="verify-icon">✓</span>${t('hashForge.match_yes')}</div>`
+        : `<div class="verify-summary no-match"><span class="verify-icon">✗</span> ${t('hashForge.match_no', { count: diffCount })}</div>`
 
     if (!isMatch) {
         document.getElementById('verifyDiff').innerHTML =
@@ -328,7 +328,7 @@ function copyText(text, btn) {
         const original = btn.innerHTML
         btn.innerHTML = '✓ Kopiert'
         btn.classList.add('copied')
-        showToast('In die Zwischenablage kopiert')
+        showToast(t('common.clipboard'))
         setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 1600)
     })
 }

@@ -69,7 +69,7 @@ function evalExpr() {
 
     // Validate: only allow safe characters
     if (/[^0-9+\-*/().,%\s\w]/.test(expr.replace(/Math\.\w+/g, '').replace(/_fact/g, ''))) {
-        showToast('Ungültiger Ausdruck')
+        showToast(t('calcul8tr.toast_invalid_expr'))
         return
     }
 
@@ -89,7 +89,7 @@ function evalExpr() {
         if (exprHistoryData.length > 8) exprHistoryData.pop()
         renderHistory()
     } catch (e) {
-        showToast('Fehler: ' + e.message)
+        showToast(t('common.error') + ': ' + e.message)
     }
 }
 
@@ -346,7 +346,7 @@ function calcPct4() {
 function calcStats() {
     const raw = document.getElementById('statsInput').value
     const nums = raw.replace(/[;\s]+/g, ',').split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n))
-    if (nums.length === 0) { showToast('Keine gültigen Zahlen gefunden'); return; }
+    if (nums.length === 0) { showToast(t('calcul8tr.toast_no_numbers')); return; }
 
     const sorted = [...nums].sort((a, b) => a - b)
     const n = nums.length
@@ -364,7 +364,7 @@ function calcStats() {
     nums.forEach(x => freq[x] = (freq[x] || 0) + 1)
     const maxFreq = Math.max(...Object.values(freq))
     const modes = Object.keys(freq).filter(k => freq[k] === maxFreq)
-    const modeStr = maxFreq === 1 ? 'keiner' : modes.join(', ')
+    const modeStr = maxFreq === 1 ? t('calcul8tr.stat_mode_none') : modes.join(', ')
 
     // Geometric mean (only for positive numbers)
     const allPos = nums.every(x => x > 0)
@@ -374,17 +374,17 @@ function calcStats() {
     document.getElementById('statsResultWrap').style.display = 'block'
 
     document.getElementById('statsGrid').innerHTML = `
-            <div class="stat-card"><div class="stat-value">${n}</div><div class="stat-label">Anzahl</div></div>
-            <div class="stat-card"><div class="stat-value">${formatNumber(sum)}</div><div class="stat-label">Summe</div></div>
-            <div class="stat-card pink"><div class="stat-value">${formatNumber(mean)}</div><div class="stat-label">Mittelwert ⌀</div></div>
-            <div class="stat-card purple"><div class="stat-value">${formatNumber(median)}</div><div class="stat-label">Median</div></div>
-            <div class="stat-card yellow"><div class="stat-value">${modeStr}</div><div class="stat-label">Modus</div></div>
-            <div class="stat-card green"><div class="stat-value">${formatNumber(min)}</div><div class="stat-label">Minimum</div></div>
-            <div class="stat-card"><div class="stat-value">${formatNumber(max)}</div><div class="stat-label">Maximum</div></div>
-            <div class="stat-card pink"><div class="stat-value">${formatNumber(range)}</div><div class="stat-label">Spannweite</div></div>
-            <div class="stat-card purple"><div class="stat-value">${formatNumber(variance)}</div><div class="stat-label">Varianz</div></div>
-            <div class="stat-card yellow"><div class="stat-value">${formatNumber(stddev)}</div><div class="stat-label">Std.-Abweichung</div></div>
-            ${geoMean !== null ? `<div class="stat-card green"><div class="stat-value">${formatNumber(geoMean)}</div><div class="stat-label">Geo. Mittel</div></div>` : ''}
+            <div class="stat-card"><div class="stat-value">${n}</div><div class="stat-label">${t('calcul8tr.stat_count')}</div></div>
+            <div class="stat-card"><div class="stat-value">${formatNumber(sum)}</div><div class="stat-label">${t('calcul8tr.stat_sum')}</div></div>
+            <div class="stat-card pink"><div class="stat-value">${formatNumber(mean)}</div><div class="stat-label">${t('calcul8tr.stat_mean')}</div></div>
+            <div class="stat-card purple"><div class="stat-value">${formatNumber(median)}</div><div class="stat-label">${t('calcul8tr.stat_median')}</div></div>
+            <div class="stat-card yellow"><div class="stat-value">${modeStr}</div><div class="stat-label">${t('calcul8tr.stat_mode')}</div></div>
+            <div class="stat-card green"><div class="stat-value">${formatNumber(min)}</div><div class="stat-label">${t('calcul8tr.stat_min')}</div></div>
+            <div class="stat-card"><div class="stat-value">${formatNumber(max)}</div><div class="stat-label">${t('calcul8tr.stat_max')}</div></div>
+            <div class="stat-card pink"><div class="stat-value">${formatNumber(range)}</div><div class="stat-label">${t('calcul8tr.stat_range')}</div></div>
+            <div class="stat-card purple"><div class="stat-value">${formatNumber(variance)}</div><div class="stat-label">${t('calcul8tr.stat_variance')}</div></div>
+            <div class="stat-card yellow"><div class="stat-value">${formatNumber(stddev)}</div><div class="stat-label">${t('calcul8tr.stat_stddev')}</div></div>
+            ${geoMean !== null ? `<div class="stat-card green"><div class="stat-value">${formatNumber(geoMean)}</div><div class="stat-label">${t('calcul8tr.stat_geomean')}</div></div>` : ''}
         `
 
     // Sorted values with highlights
@@ -447,18 +447,18 @@ function calcDate() {
     document.getElementById('dateResultWrap').style.display = 'block'
 
     document.getElementById('dateGrid').innerHTML = `
-            <div class="stat-card"><div class="stat-value">${diffDays}</div><div class="stat-label">Tage</div></div>
-            <div class="stat-card pink"><div class="stat-value">${diffWeeks}</div><div class="stat-label">Wochen</div></div>
-            <div class="stat-card purple"><div class="stat-value">${diffMonths}</div><div class="stat-label">Monate</div></div>
-            <div class="stat-card green"><div class="stat-value">${diffYears}</div><div class="stat-label">Jahre</div></div>
-            <div class="stat-card yellow"><div class="stat-value">${diffHours.toLocaleString('de-DE')}</div><div class="stat-label">Stunden</div></div>
-            <div class="stat-card"><div class="stat-value">${diffMinutes.toLocaleString('de-DE')}</div><div class="stat-label">Minuten</div></div>
-            <div class="stat-card pink"><div class="stat-value">${diffSeconds.toLocaleString('de-DE')}</div><div class="stat-label">Sekunden</div></div>
-            <div class="stat-card purple"><div class="stat-value">${bizDays}</div><div class="stat-label">Arbeitstage</div></div>
-            <div class="stat-card green"><div class="stat-value">${diffDays - bizDays}</div><div class="stat-label">Wochenendtage</div></div>
-            <div class="stat-card yellow"><div class="stat-value">${esc(dayName1)}</div><div class="stat-label">Wochentag Von</div></div>
-            <div class="stat-card"><div class="stat-value">${esc(dayName2)}</div><div class="stat-label">Wochentag Bis</div></div>
-            <div class="stat-card pink"><div class="stat-value">KW ${getWeekNumber(d2)}</div><div class="stat-label">Kalenderwoche</div></div>
+            <div class="stat-card"><div class="stat-value">${diffDays}</div><div class="stat-label">${t('calcul8tr.date_days')}</div></div>
+            <div class="stat-card pink"><div class="stat-value">${diffWeeks}</div><div class="stat-label">${t('calcul8tr.date_weeks')}</div></div>
+            <div class="stat-card purple"><div class="stat-value">${diffMonths}</div><div class="stat-label">${t('calcul8tr.date_months')}</div></div>
+            <div class="stat-card green"><div class="stat-value">${diffYears}</div><div class="stat-label">${t('calcul8tr.date_years')}</div></div>
+            <div class="stat-card yellow"><div class="stat-value">${diffHours.toLocaleString('de-DE')}</div><div class="stat-label">${t('calcul8tr.date_hours')}</div></div>
+            <div class="stat-card"><div class="stat-value">${diffMinutes.toLocaleString('de-DE')}</div><div class="stat-label">${t('calcul8tr.date_minutes')}</div></div>
+            <div class="stat-card pink"><div class="stat-value">${diffSeconds.toLocaleString('de-DE')}</div><div class="stat-label">${t('calcul8tr.date_seconds')}</div></div>
+            <div class="stat-card purple"><div class="stat-value">${bizDays}</div><div class="stat-label">${t('calcul8tr.date_business')}</div></div>
+            <div class="stat-card green"><div class="stat-value">${diffDays - bizDays}</div><div class="stat-label">${t('calcul8tr.date_weekends')}</div></div>
+            <div class="stat-card yellow"><div class="stat-value">${esc(dayName1)}</div><div class="stat-label">${t('calcul8tr.date_weekday_from')}</div></div>
+            <div class="stat-card"><div class="stat-value">${esc(dayName2)}</div><div class="stat-label">${t('calcul8tr.date_weekday_to')}</div></div>
+            <div class="stat-card pink"><div class="stat-value">KW ${getWeekNumber(d2)}</div><div class="stat-label">${t('calcul8tr.date_calendar_week')}</div></div>
         `
 }
 
@@ -482,7 +482,7 @@ function copyText(text, btn) {
         const original = btn.innerHTML
         btn.innerHTML = '✓'
         btn.classList.add('copied')
-        showToast('Kopiert')
+        showToast(t('common.clipboard'))
         setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 1600)
     })
 }

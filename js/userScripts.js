@@ -1,4 +1,3 @@
-
 // ══════════════════════════════════════════════════
 // Hier die verfügbaren UserScript-Dateinamen eintragen:
 // Diese Liste muss manuell gepflegt werden, da ohne
@@ -36,7 +35,7 @@ async function loadScripts() {
         container.innerHTML = `
                 <div class="empty-state">
                     <div class="icon">📭</div>
-                    <div>Keine UserScripts gefunden</div>
+                    <div>${t('userScripts.empty_scripts')}</div>
                 </div>`
         return
     }
@@ -65,7 +64,7 @@ async function loadScripts() {
         const author = extractMeta(header, 'author')
         const description = extractMeta(header, 'description')
 
-        const examplePath = `${url}example/${name}.png`
+        const examplePath = `http://marcus-adolfs.azubi.gedak.de/userscripts/example/${name}.png`
         let hasExample = false
         try {
             const head = await fetch(`${examplePath}?v=${cacheBuster}`, { method: 'HEAD' })
@@ -165,7 +164,7 @@ function flash(btn) {
     const original = btn.innerHTML
     btn.innerHTML = '✓ Kopiert'
     btn.classList.add('copied')
-    showToast('In die Zwischenablage kopiert')
+    showToast(t('common.clipboard'))
     setTimeout(() => {
         btn.innerHTML = original
         btn.classList.remove('copied')
