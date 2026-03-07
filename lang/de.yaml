@@ -354,22 +354,3 @@ calcul8tr:
   date_weekday_from: Wochentag Von
   date_weekday_to: Wochentag Bis
   date_calendar_week: Kalenderwoche
-
-# ═══════ UserScripts ═══════
-userScripts:
-  page_title: UserScripts | AEYCEN Toolbox
-  title: GitLab UserScripts
-  desc: Hilfreiche Anzeige-Erweiterungen für GitLab via Tampermonkey
-  guide_title: Anleitung für Chrome
-  guide_step1_html: 'Lade die <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Tampermonkey-Browsererweiterung</a> herunter.'
-  guide_step2_html: 'Aktiviere unter <code>chrome://extensions/</code> oben rechts den Entwicklermodus.'
-  guide_step3: 'Klicke danach auf der gleichen Ansicht bei Tampermonkey auf „Details" und aktiviere „Nutzerscripts zulassen".'
-  guide_step4: Kopiere das Script Deiner Wahl von dieser Seite.
-  guide_step5_html: 'Erstelle ein neues Tampermonkey-UserScript über die Erweiterung und paste den Inhalt. Danach mit <code>Strg+S</code> speichern.'
-  guide_step6: Starte nun deinen Browser neu.
-  section_scripts: Verfügbare Scripts
-  empty_scripts: Keine UserScripts gefunden
-  error_loading: 'Fehler beim Laden: {file}'
-  btn_example: Beispiel
-  meta_version: Version
-  meta_author: Autor

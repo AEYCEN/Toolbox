@@ -5,7 +5,7 @@
 // ═══════════════════════════════════
 
 const I18n = (() => {
-    let _lang = localStorage.getItem('lang') || 'en'
+    let _lang = localStorage.getItem('lang') || 'de'
     let _strings = {}
     let _ready = false
     const _callbacks = []
@@ -67,6 +67,12 @@ const I18n = (() => {
         })
     }
 
+    // Resolve base path from current page location
+    const _basePath = (() => {
+        const path = window.location.pathname
+        return path.substring(0, path.lastIndexOf('/') + 1)
+    })()
+
     // Load a language YAML file
     async function load(lang) {
         _lang = lang
@@ -74,7 +80,8 @@ const I18n = (() => {
         document.documentElement.lang = lang
 
         try {
-            const res = await fetch(`../lang/${lang}.yaml?v=${Date.now()}`)
+            const res = await fetch(`${_basePath}lang/${lang}.yaml?v=${Date.now()}`)
+            if (!res.ok) throw new Error(`HTTP ${res.status}`)
             const text = await res.text()
             _strings = jsyaml.load(text)
             _ready = true

@@ -168,9 +168,12 @@ body::after {
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 8px;
-    cursor: pointer;
     opacity: 0;
     animation: fadeDown 0.6s ease forwards;
+}
+
+.header .logo .logo-href {
+    cursor: pointer;
 }
 
 .header .logo img {
