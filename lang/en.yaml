@@ -37,6 +37,9 @@ index:
   tool_wordwatch_desc: 'Analyze, transform and extract keywords from text'
   tool_calcul8tr: Calcul8tr
   tool_calcul8tr_desc: 'Calculator, number bases, units, percentages, statistics and date calculator'
+  cat_physics: Physics Tools
+  tool_sparklab: SparkLab
+  tool_sparklab_desc: "Ohm's law, wire sizing, LED resistor, color code and more"
 
 # ═══════ HeidiDecode ═══════
 heidiDecode:
@@ -263,8 +266,8 @@ wordWatch:
   btn_search_only: 🔎 Find only
   label_search_result: Result
   empty_search: Search for text and optionally replace it
-  matches_replaced: ' match(es) replaced'
-  matches_found: ' match(es) found'
+  matches_replaced: '{n} match(es) replaced'
+  matches_found: '{n} match(es) found'
   toast_no_matches: No matches
   toast_invalid_regex: 'Invalid RegEx: {msg}'
 
@@ -303,6 +306,7 @@ calcul8tr:
   cat_data: Data / Storage
   cat_time: Time
   cat_area: Area
+  cat_volume: Volume
   cat_speed: Speed
   label_value: Value
   label_from: From
@@ -354,3 +358,79 @@ calcul8tr:
   date_weekday_from: Weekday From
   date_weekday_to: Weekday To
   date_calendar_week: Calendar week
+
+# ═══════ SparkLab ═══════
+sparkLab:
+  page_title: SparkLab | AEYCEN Toolbox
+  title: SparkLab
+  desc: "Electrical tools — Ohm's law, wire sizing, color code & more"
+  tab_ohm: "Ohm's Law"
+  tab_wire: Wire Sizing
+  tab_led: LED Resistor
+  tab_resistors: Total Resistance
+  tab_energy: Energy Cost
+  tab_color: Color Code
+  voltage: Voltage
+  current: Current
+  resistance: Resistance
+  power: Power
+  btn_reset: ↺ Reset
+  ohm_desc: 'Enter any two values — the others are calculated automatically'
+  ohm_formula_label: Formula used
+  ohm_empty: 'Enter at least two values (V, A, Ω or W)'
+  toast_fill_fields: Please fill in all fields
+  wire_desc: Calculate the required wire cross-section based on VDE guidelines
+  wire_current: 'Current (A)'
+  wire_length: 'Wire length (m)'
+  wire_voltage: Nominal voltage
+  wire_drop: Max. voltage drop
+  wire_material: Conductor material
+  wire_phases: Wiring type
+  wire_single_phase: Single-phase (AC)
+  wire_three_phase: Three-phase (AC)
+  btn_calc_wire: ⚡ Calculate cross-section
+  wire_result_label: Calculation result
+  wire_empty: Enter current and wire length
+  wire_calc_cross: Calculated cross-section
+  wire_recommended: Recommended cross-section
+  wire_drop_v: Voltage drop
+  wire_drop_pct: Voltage drop %
+  wire_total_length: Total length (out+return)
+  led_desc: Calculate the series resistor for LEDs
+  led_source_v: Supply voltage (V)
+  led_forward_v: LED forward voltage (V)
+  led_current_ma: LED current (mA)
+  led_count: Number of LEDs (series)
+  btn_calc_led: 💡 Calculate resistor
+  led_result_label: LED calculation
+  led_empty: Enter supply voltage and LED specs
+  led_error_voltage: Supply voltage too low for this LED configuration!
+  led_calc_r: Calculated resistance
+  led_nearest_e24: Nearest E24 value
+  led_power_r: Resistor power dissipation
+  led_drop: Voltage drop across resistor
+  led_series_count: LEDs in series
+  led_total_vf: Total forward voltage
+  res_desc: Calculate total resistance for series or parallel circuits
+  res_series: Series circuit
+  res_parallel: Parallel circuit
+  res_add: + Add resistor
+  res_total_label: Total resistance
+  res_empty: Enter at least two resistance values
+  energy_desc: Calculate power consumption and cost of a device
+  energy_power_w: Power (W)
+  energy_hours: Operating hours / day
+  energy_price: 'Electricity price (€/kWh)'
+  energy_days: Days per year
+  energy_result_label: Consumption & cost
+  energy_empty: Enter power and operating hours
+  energy_per_day: day
+  energy_per_year: year
+  energy_cost_day: Cost / day
+  energy_cost_month: Cost / month
+  energy_cost_year: Cost / year
+  energy_amps: Current at 230 V
+  color_desc: 'Select the color bands of a resistor — 5-band color code'
+  color_multiplier: Multiplier
+  color_tolerance: Tolerance
+  color_result_label: Resistance value

@@ -3,8 +3,8 @@ const Base = {
     hashForge: '3.1 (07.03.26)',
     linkLoom: '2.1 (07.03.26)',
     wordWatch: '2.1 (07.03.26)',
-    calcul8tr: '2.1 (07.03.26)',
-    userScripts: '2.1 (07.03.26)',
+    calcul8tr: '2.2 (08.03.26)',
+    sparkLab: '1.0 (08.03.26)',
 }
 
 function injectVersions() {

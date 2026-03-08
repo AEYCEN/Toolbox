@@ -6,6 +6,8 @@ A collection of small, self-contained web tools for everyday developer tasks —
 ![HTML](https://img.shields.io/badge/HTML-JS-f59e0b?style=flat)
 ![i18n](https://img.shields.io/badge/Internationalization-DE%20%7C%20EN-00e5ff?style=flat)
 
+> [aeycen.github.io/Toolbox](https://aeycen.github.io/Toolbox)
+
 ---
 
 ## Overview
@@ -14,13 +16,14 @@ The AEYCEN Toolbox is a curated set of utilities that simplify recurring tasks i
 
 ### Tools
 
-| Tool                                                                 | Version         | Category | Description                                                                                                              |
-|----------------------------------------------------------------------|-----------------|----------|--------------------------------------------------------------------------------------------------------------------------|
-| **[HeidiDecode](https://aeycen.github.io/Toolbox/heidiDecode.html)** | v1.3 *(7.3.26)* | Encoding | Decrypt exported HeidiSQL connections (direct input or file import)                                                      |
-| **[HashForge](https://aeycen.github.io/Toolbox/hashForge.html)**     | v3.1 *(7.3.26)* | Encoding | Password hashing (bcrypt), SHA checksums, strength tester, generator and hash comparison                                 |
-| **[LinkLoom](https://aeycen.github.io/Toolbox/linkLoom.html)**       | v2.1 *(7.3.26)* | Encoding | URL encoding/decoding, URL parser, Base64, UTM builder and bulk mode                                                     |
-| **[WordWatch](https://aeycen.github.io/Toolbox/wordWatch.html)**     | v2.1 *(7.3.26)* | Text     | Text analysis with word/character count, Flesch readability index, keyword extraction, transformations and find & replace |
-| **[Calcul8tr](https://aeycen.github.io/Toolbox/calcul8tr.html)**     | v2.1 *(7.3.26)* | Math     | Expression calculator, number base converter, unit converter, percentage calculator, statistics and date difference       |
+| Tool                                                                 | Version         | Category   | Description                                                                                                              |
+|----------------------------------------------------------------------|-----------------|------------|--------------------------------------------------------------------------------------------------------------------------|
+| **[Calcul8tr](https://aeycen.github.io/Toolbox/calcul8tr.html)**     | v2.2 *(8.3.26)* | Math       | Expression calculator, number base converter, unit converter, percentage calculator, statistics and date difference      |
+| **[WordWatch](https://aeycen.github.io/Toolbox/wordWatch.html)**     | v2.1 *(7.3.26)* | Text       | Text analysis with word/character count, Flesch readability index, keyword extraction, transformations and find & replace |
+| **[SparkLab](https://aeycen.github.io/Toolbox/sparkLab.html)**       | v1.0 *(8.3.26)* | Electrical | Ohm's law, wire sizing, LED resistor, series/parallel resistance, energy cost and resistor color code                    |
+| **[HashForge](https://aeycen.github.io/Toolbox/hashForge.html)**     | v3.1 *(7.3.26)* | Encoding   | Password hashing (bcrypt), SHA checksums, strength tester, generator and hash comparison                                 |
+| **[LinkLoom](https://aeycen.github.io/Toolbox/linkLoom.html)**       | v2.1 *(7.3.26)* | Encoding   | URL encoding/decoding, URL parser, Base64, UTM builder and bulk mode                                                     |
+| **[HeidiDecode](https://aeycen.github.io/Toolbox/heidiDecode.html)** | v1.3 *(7.3.26)* | Encoding   | Decrypt exported HeidiSQL connections (direct input or file import)                                                      |
 
 ---
 
@@ -35,17 +38,48 @@ The toolbox supports multiple languages via YAML translation files loaded at run
 
 ### External Dependencies
 
-| Library                                                          | Usage                          | Loaded via     |
-|------------------------------------------------------------------|--------------------------------|----------------|
-| [bcrypt.js](https://github.com/nicolo-ribaudo/dcodeio-bcryptjs)  | Password hashing in HashForge  | CDN (`cdnjs`)  |
-| [js-yaml](https://github.com/nodeca/js-yaml)                     | YAML translation file parsing  | CDN (`cdnjs`)  |
-| [Google Fonts](https://fonts.google.com/)                        | JetBrains Mono + Outfit        | CDN            |
+| Library                                            | Usage                          | Loaded via     |
+|----------------------------------------------------|--------------------------------|----------------|
+| [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)  | Password hashing in HashForge  | CDN (`cdnjs`)  |
+| [js-yaml](https://github.com/nodeca/js-yaml)       | YAML translation file parsing  | CDN (`cdnjs`)  |
+| [Google Fonts](https://fonts.google.com/)          | JetBrains Mono + Outfit        | CDN            |
 
 Everything else relies exclusively on native browser APIs (`Web Crypto API`, `URL API`, `FileReader`, `Clipboard API`, etc.).
 
 ---
 
 ## Tool Details
+
+### Calcul8tr
+
+Mathematical multi-tool:
+
+- **Calculator** — Expressions with `sqrt`, `sin`, `log`, `fact()`, constants (π, e) and history
+- **Number Bases** — Live conversion between decimal, binary, octal and hexadecimal
+- **Units** — 8 categories with swap logic: length, weight, temperature, data, time, area, volume, speed (incl. Mach)
+- **Percentage** — Four calculation modes (portion, ratio, change, markup/markdown)
+- **Statistics** — Mean, median, mode, variance, standard deviation, geometric mean
+- **Date** — Difference in days, weeks, months, business days, calendar weeks and more
+
+### WordWatch
+
+Text analysis tool with four modules:
+
+- **Analysis** — Words, characters, sentences, paragraphs, reading/speaking time, Flesch readability index (adapted for German)
+- **Keywords** — Top-15 extraction with stop-word filter (DE + EN)
+- **Transform** — Upper/lowercase, title/sentence case, reverse, trim, sort, remove duplicates and more
+- **Find & Replace** — With optional regex support and case-sensitivity toggle
+
+### SparkLab
+
+Electrical engineering toolkit with six modules:
+
+- **Ohm's Law** — Enter any two of voltage (V), current (A), resistance (Ω), power (W) — the other two are calculated automatically with formula display
+- **Wire Sizing** — Calculate required cable cross-section per VDE guidelines: supports single/three-phase, Cu/Al, configurable voltage drop (1%/3%/5%), recommends next standard cross-section
+- **LED Resistor** — Calculate the series resistor for LEDs: supply voltage, forward voltage, current, number of LEDs in series; suggests nearest E24 standard value
+- **Series / Parallel** — Add any number of resistors, toggle between series and parallel, live total with formula breakdown
+- **Energy Cost** — Calculate kWh consumption and electricity cost per day/month/year from wattage and operating hours
+- **Color Code** — Interactive 5-band resistor color code decoder with visual resistor rendering, multiplier and tolerance selection
 
 ### HashForge
 
@@ -74,27 +108,6 @@ Decrypts passwords from exported HeidiSQL connection files.
 - **Direct input** — paste an encrypted hex string, get the plaintext password
 - **File extraction** — drag & drop an exported `.txt` file; all connections (host, user, password) are automatically extracted and decrypted
 
-
-### WordWatch
-
-Text analysis tool with four modules:
-
-- **Analysis** — Words, characters, sentences, paragraphs, reading/speaking time, Flesch readability index (adapted for German)
-- **Keywords** — Top-15 extraction with stop-word filter (DE + EN)
-- **Transform** — Upper/lowercase, title/sentence case, reverse, trim, sort, remove duplicates and more
-- **Find & Replace** — With optional regex support and case-sensitivity toggle
-
-### Calcul8tr
-
-Mathematical multi-tool:
-
-- **Calculator** — Expressions with `sqrt`, `sin`, `log`, `fact()`, constants (π, e) and history
-- **Number Bases** — Live conversion between decimal, binary, octal and hexadecimal
-- **Units** — 7 categories with swap logic: length, weight, temperature, data, time, area, speed
-- **Percentage** — Four calculation modes (portion, ratio, change, markup/markdown)
-- **Statistics** — Mean, median, mode, variance, standard deviation, geometric mean
-- **Date** — Difference in days, weeks, months, business days, calendar weeks and more
-
 ---
 
 ## Shared Features
@@ -109,7 +122,7 @@ Mathematical multi-tool:
 
 ## Privacy
 
-All processing happens exclusively in the browser. **No data is transmitted to external servers** — with the exception of the embedded Google Fonts, bcrypt.js, and js-yaml libraries, which are loaded via CDN.
+All processing happens exclusively in the browser. **No data is transmitted to external servers**. External libraries like the embedded Google Fonts, bcrypt.js, and js-yaml libraries are loaded via CDN.
 
 ---
 

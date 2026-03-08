@@ -37,6 +37,9 @@ index:
   tool_wordwatch_desc: 'Texte analysieren, transformieren und Schlüsselwörter extrahieren'
   tool_calcul8tr: Calcul8tr
   tool_calcul8tr_desc: 'Rechner, Zahlensysteme, Einheiten, Prozent, Statistik und Datumsrechner'
+  cat_physics: Physik-Tools
+  tool_sparklab: SparkLab
+  tool_sparklab_desc: 'Ohmsches Gesetz, Leitungsquerschnitt, LED-Vorwiderstand, Farbcode und mehr'
 
 # ═══════ HeidiDecode ═══════
 heidiDecode:
@@ -263,8 +266,8 @@ wordWatch:
   btn_search_only: 🔎 Nur suchen
   label_search_result: Ergebnis
   empty_search: Suche nach Text und ersetze ihn optional
-  matches_replaced: ' Treffer ersetzt'
-  matches_found: ' Treffer gefunden'
+  matches_replaced: '{n} Treffer ersetzt'
+  matches_found: '{n} Treffer gefunden'
   toast_no_matches: Keine Treffer
   toast_invalid_regex: 'Ungültiger RegEx: {msg}'
 
@@ -303,6 +306,7 @@ calcul8tr:
   cat_data: Daten / Speicher
   cat_time: Zeit
   cat_area: Fläche
+  cat_volume: Volumen
   cat_speed: Geschwindigkeit
   label_value: Wert
   label_from: Von
@@ -354,3 +358,80 @@ calcul8tr:
   date_weekday_from: Wochentag Von
   date_weekday_to: Wochentag Bis
   date_calendar_week: Kalenderwoche
+
+# ═══════ SparkLab ═══════
+sparkLab:
+  page_title: SparkLab | AEYCEN Toolbox
+  title: SparkLab
+  desc: 'Elektrik-Werkzeuge — Ohmsches Gesetz, Leitungsberechnung, Farbcode & mehr'
+  tab_ohm: Ohmsches Gesetz
+  tab_wire: Leitungsquerschnitt
+  tab_led: LED-Vorwiderstand
+  tab_resistors: Gesamtwiderstand
+  tab_energy: Stromkosten
+  tab_color: Farbcode
+  voltage: Spannung
+  current: Stromstärke
+  resistance: Widerstand
+  power: Leistung
+  btn_reset: ↺ Zurücksetzen
+  ohm_desc: 'Gib zwei beliebige Werte ein — die anderen werden automatisch berechnet'
+  ohm_formula_label: Verwendete Formel
+  ohm_empty: 'Gib mindestens zwei Werte ein (V, A, Ω oder W)'
+  toast_fill_fields: Bitte alle Felder ausfüllen
+  wire_desc: 'Berechne den benötigten Leitungsquerschnitt nach VDE-Richtwerten'
+  wire_current: 'Stromstärke (A)'
+  wire_length: 'Leitungslänge (m)'
+  wire_voltage: Nennspannung
+  wire_drop: Max. Spannungsfall
+  wire_material: Leitermaterial
+  wire_phases: Leitungsart
+  wire_single_phase: Einphasig (Wechselstrom)
+  wire_three_phase: Dreiphasig (Drehstrom)
+  btn_calc_wire: ⚡ Querschnitt berechnen
+  wire_result_label: Berechnungsergebnis
+  wire_empty: Gib Stromstärke und Leitungslänge ein
+  wire_calc_cross: Berechneter Querschnitt
+  wire_recommended: Empfohlener Querschnitt
+  wire_drop_v: Spannungsfall
+  wire_drop_pct: Spannungsfall %
+  wire_total_length: Gesamtlänge (Hin+Rück)
+  led_desc: 'Berechne den Vorwiderstand für LEDs in Reihenschaltung'
+  led_source_v: Versorgungsspannung (V)
+  led_forward_v: LED-Durchlassspannung (V)
+  led_current_ma: LED-Strom (mA)
+  led_count: Anzahl LEDs (Reihe)
+  btn_calc_led: 💡 Vorwiderstand berechnen
+  led_result_label: LED-Berechnung
+  led_empty: Gib Versorgungsspannung und LED-Daten ein
+  led_error_voltage: 'Versorgungsspannung zu niedrig für diese LED-Konfiguration!'
+  led_calc_r: Berechneter Widerstand
+  led_nearest_e24: Nächster E24-Wert
+  led_power_r: Verlustleistung Widerstand
+  led_drop: Spannungsabfall am Widerstand
+  led_series_count: LEDs in Reihe
+  led_total_vf: Gesamt-Durchlassspannung
+  res_desc: Berechne den Gesamtwiderstand von Reihen- oder Parallelschaltungen
+  res_series: Reihenschaltung
+  res_parallel: Parallelschaltung
+  res_add: + Widerstand hinzufügen
+  res_total_label: Gesamtwiderstand
+  res_empty: Gib mindestens zwei Widerstandswerte ein
+  energy_desc: Berechne Stromverbrauch und Kosten eines Geräts
+  energy_power_w: Leistung (W)
+  energy_hours: Betriebsstunden / Tag
+  energy_price: Strompreis (€/kWh)
+  energy_days: Tage pro Jahr
+  energy_result_label: Verbrauch & Kosten
+  energy_empty: Gib Leistung und Betriebsstunden ein
+  energy_per_day: Tag
+  energy_per_year: Jahr
+  energy_cost_day: Kosten / Tag
+  energy_cost_month: Kosten / Monat
+  energy_cost_year: Kosten / Jahr
+  energy_amps: 'Strom bei 230 V'
+  color_desc: 'Wähle die Farbringe eines Widerstands aus — 5-Band-Farbcode'
+  color_multiplier: Multiplikator
+  color_tolerance: Toleranz
+  color_result_label: Widerstandswert
+

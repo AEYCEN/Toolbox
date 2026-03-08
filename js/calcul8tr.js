@@ -168,9 +168,12 @@ const UNITS = {
             mg: { name: 'Milligramm', factor: 0.000001 },
             g:  { name: 'Gramm', factor: 0.001 },
             kg: { name: 'Kilogramm', factor: 1 },
-            t:  { name: 'Tonne', factor: 1000 },
+            t:  { name: 'Tonne (metrisch)', factor: 1000 },
+            st: { name: 'Short Ton (US)', factor: 907.185 },
+            lt: { name: 'Long Ton (imperial)', factor: 1016.047 },
             oz: { name: 'Unze', factor: 0.0283495 },
             lb: { name: 'Pfund', factor: 0.453592 },
+            ct: { name: 'Karat', factor: 0.0002 },
         }
     },
     temperature: {
@@ -219,13 +222,36 @@ const UNITS = {
             ac:  { name: 'Acre', factor: 4046.86 },
         }
     },
+    volume: {
+        label: 'Volumen',
+        units: {
+            ml:    { name: 'Milliliter', factor: 0.000001 },
+            cl:    { name: 'Zentiliter', factor: 0.00001 },
+            dl:    { name: 'Deziliter', factor: 0.0001 },
+            l:     { name: 'Liter', factor: 0.001 },
+            hl:    { name: 'Hektoliter', factor: 0.1 },
+            m3:    { name: 'm³', factor: 1 },
+            cm3:   { name: 'cm³', factor: 0.000001 },
+            mm3:   { name: 'mm³', factor: 0.000000001 },
+            gal:   { name: 'Gallone (US)', factor: 0.00378541 },
+            galuk: { name: 'Gallone (imperial)', factor: 0.00454609 },
+            qt:    { name: 'Quart (US)', factor: 0.000946353 },
+            pt:    { name: 'Pint (US)', factor: 0.000473176 },
+            floz:  { name: 'fl oz (US)', factor: 0.0000295735 },
+            cup:   { name: 'Cup (US)', factor: 0.000236588 },
+            tbsp:  { name: 'Esslöffel', factor: 0.0000147868 },
+            tsp:   { name: 'Teelöffel', factor: 0.00000492892 },
+            bbl:   { name: 'Barrel (Öl)', factor: 0.158987 },
+        }
+    },
     speed: {
         label: 'Geschwindigkeit',
         units: {
-            ms:  { name: 'm/s', factor: 1 },
-            kmh: { name: 'km/h', factor: 0.277778 },
-            mph: { name: 'mph', factor: 0.44704 },
-            kn:  { name: 'Knoten', factor: 0.514444 },
+            ms:   { name: 'm/s', factor: 1 },
+            kmh:  { name: 'km/h', factor: 0.277778 },
+            mph:  { name: 'mph', factor: 0.44704 },
+            kn:   { name: 'Knoten', factor: 0.514444 },
+            mach: { name: 'Mach', factor: 343 },
         }
     }
 }

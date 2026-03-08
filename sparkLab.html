@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-title="sparkLab.page_title">SparkLab | AEYCEN Toolbox</title>
+    <link rel="icon" type="image/png" href="./assets/img/AEYCEN.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/toolbox-theme.css">
+    <link rel="stylesheet" href="./styles/sparkLab.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+</head>
+
+<body>
+<div class="app">
+
+    <header class="header">
+        <div class="logo">
+            <span class="logo-href" onclick="window.location.href='index.html'">
+                <img src="./assets/img/AEYCEN.png" alt="AEYCEN Logo" width="14">
+                AEYCEN Toolbox
+            </span>
+        </div>
+        <h1 data-i18n="sparkLab.title"></h1>
+        <p class="subtitle"><span data-i18n="sparkLab.desc"></span></p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab active" data-panel="energy" data-i18n="sparkLab.tab_energy"></button>
+        <button class="tab" data-panel="ohm" data-i18n="sparkLab.tab_ohm"></button>
+        <button class="tab" data-panel="color" data-i18n="sparkLab.tab_color"></button>
+        <button class="tab" data-panel="resistors" data-i18n="sparkLab.tab_resistors"></button>
+        <button class="tab" data-panel="wire" data-i18n="sparkLab.tab_wire"></button>
+        <button class="tab" data-panel="led" data-i18n="sparkLab.tab_led"></button>
+    </div>
+
+    <!-- ═══════ PANEL: Energy Cost Calculator ═══════ -->
+    <div class="panel active" id="panel-energy">
+        <div class="input-section">
+            <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="sparkLab.energy_desc"></label>
+            <div class="elec-grid">
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.energy_power_w"></label>
+                    <input class="field-input" type="number" id="energyWatt" placeholder="z.B. 2000" step="any" oninput="calcEnergy()">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.energy_hours"></label>
+                    <input class="field-input" type="number" id="energyHours" placeholder="z.B. 8" step="any" oninput="calcEnergy()">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.energy_price"></label>
+                    <input class="field-input" type="number" id="energyPrice" placeholder="z.B. 0.30" step="any" value="0.30" oninput="calcEnergy()">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.energy_days"></label>
+                    <input class="field-input" type="number" id="energyDays" placeholder="365" step="1" value="365" oninput="calcEnergy()">
+                </div>
+            </div>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label" style="color: var(--accent);" data-i18n="sparkLab.energy_result_label"></label>
+            </div>
+            <div id="energyEmptyState" class="empty-state"><span data-i18n="sparkLab.energy_empty"></span></div>
+            <div id="energyResultWrap" style="display:none;">
+                <div class="stats-grid" id="energyGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: Ohm's Law / Power Wheel ═══════ -->
+    <div class="panel" id="panel-ohm">
+        <div class="input-section">
+            <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="sparkLab.ohm_desc"></label>
+            <div class="elec-grid">
+                <div class="elec-field">
+                    <label class="elec-label"><span class="elec-icon volt">⚡</span> <span data-i18n="sparkLab.voltage"></span> <span class="elec-unit">(V)</span></label>
+                    <input class="field-input" type="number" id="ohmV" placeholder="—" step="any" oninput="calcOhm()">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label"><span class="elec-icon amp">🔌</span> <span data-i18n="sparkLab.current"></span> <span class="elec-unit">(A)</span></label>
+                    <input class="field-input" type="number" id="ohmA" placeholder="—" step="any" oninput="calcOhm()">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label"><span class="elec-icon ohm">Ω</span> <span data-i18n="sparkLab.resistance"></span> <span class="elec-unit">(Ω)</span></label>
+                    <input class="field-input" type="number" id="ohmR" placeholder="—" step="any" oninput="calcOhm()">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label"><span class="elec-icon watt">💡</span> <span data-i18n="sparkLab.power"></span> <span class="elec-unit">(W)</span></label>
+                    <input class="field-input" type="number" id="ohmP" placeholder="—" step="any" oninput="calcOhm()">
+                </div>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn" onclick="clearOhm()" data-i18n="sparkLab.btn_reset"></button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label" style="color: var(--warning);" data-i18n="sparkLab.ohm_formula_label"></label>
+            </div>
+            <div id="ohmEmptyState" class="empty-state"><span data-i18n="sparkLab.ohm_empty"></span></div>
+            <div id="ohmResultWrap" style="display:none;">
+                <div class="elec-formula" id="ohmFormula"></div>
+                <div class="hash-meta" id="ohmMeta"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: Resistor Color Code ═══════ -->
+    <div class="panel" id="panel-color">
+        <div class="input-section">
+            <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="sparkLab.color_desc"></label>
+            <div class="color-band-row">
+                <div class="band-select-group">
+                    <label class="elec-label">Band 1</label>
+                    <select class="field-select band-select" id="band1" onchange="calcColorCode()"></select>
+                </div>
+                <div class="band-select-group">
+                    <label class="elec-label">Band 2</label>
+                    <select class="field-select band-select" id="band2" onchange="calcColorCode()"></select>
+                </div>
+                <div class="band-select-group">
+                    <label class="elec-label">Band 3</label>
+                    <select class="field-select band-select" id="band3" onchange="calcColorCode()"></select>
+                </div>
+                <div class="band-select-group">
+                    <label class="elec-label" data-i18n="sparkLab.color_multiplier"></label>
+                    <select class="field-select band-select" id="bandMul" onchange="calcColorCode()"></select>
+                </div>
+                <div class="band-select-group">
+                    <label class="elec-label" data-i18n="sparkLab.color_tolerance"></label>
+                    <select class="field-select band-select" id="bandTol" onchange="calcColorCode()"></select>
+                </div>
+            </div>
+            <div class="resistor-visual" id="resistorVisual"></div>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label" style="color: var(--warning);" data-i18n="sparkLab.color_result_label"></label>
+            </div>
+            <div id="colorResultWrap">
+                <div class="elec-formula" id="colorResult">—</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: Parallel / Series Resistance ═══════ -->
+    <div class="panel" id="panel-resistors">
+        <div class="input-section">
+            <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="sparkLab.res_desc"></label>
+            <div class="res-mode-toggle">
+                <button class="res-mode-btn active" id="resModeParallel" onclick="setResMode('parallel')" data-i18n="sparkLab.res_parallel"></button>
+                <button class="res-mode-btn" id="resModeSerial" onclick="setResMode('series')" data-i18n="sparkLab.res_series"></button>
+            </div>
+            <div class="res-inputs" id="resInputs">
+                <div class="res-row">
+                    <span class="res-label">R1</span>
+                    <input class="field-input" type="number" step="any" placeholder="Ω" oninput="calcResistors()">
+                </div>
+                <div class="res-row">
+                    <span class="res-label">R2</span>
+                    <input class="field-input" type="number" step="any" placeholder="Ω" oninput="calcResistors()">
+                </div>
+            </div>
+            <button class="btn btn-small" onclick="addResistor()" style="margin-top: 12px;" data-i18n="sparkLab.res_add"></button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label" style="color: var(--success);" data-i18n="sparkLab.res_total_label"></label>
+            </div>
+            <div id="resEmptyState" class="empty-state"><span data-i18n="sparkLab.res_empty"></span></div>
+            <div id="resResultWrap" style="display:none;">
+                <div class="elec-formula" id="resFormula"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: Wire Cross-Section ═══════ -->
+    <div class="panel" id="panel-wire">
+        <div class="input-section">
+            <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="sparkLab.wire_desc"></label>
+            <div class="elec-grid">
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_current"></label>
+                    <input class="field-input" type="number" id="wireCurrent" placeholder="z.B. 16" step="any">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_length"></label>
+                    <input class="field-input" type="number" id="wireLength" placeholder="z.B. 25" step="any">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_voltage"></label>
+                    <select class="field-select" id="wireVoltage">
+                        <option value="230">230 V (1~)</option>
+                        <option value="400">400 V (3~)</option>
+                        <option value="12">12 V DC</option>
+                        <option value="24">24 V DC</option>
+                    </select>
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_drop"></label>
+                    <select class="field-select" id="wireDrop">
+                        <option value="3">3 %</option>
+                        <option value="5">5 %</option>
+                        <option value="1">1 %</option>
+                    </select>
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_material"></label>
+                    <select class="field-select" id="wireMaterial">
+                        <option value="0.0175">Kupfer (Cu)</option>
+                        <option value="0.0283">Aluminium (Al)</option>
+                    </select>
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_phases"></label>
+                    <select class="field-select" id="wirePhases">
+                        <option value="2" data-i18n="sparkLab.wire_single_phase"></option>
+                        <option value="1.732" data-i18n="sparkLab.wire_three_phase"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="calcWire()" data-i18n="sparkLab.btn_calc_wire"></button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label" style="color: var(--accent3);" data-i18n="sparkLab.wire_result_label"></label>
+            </div>
+            <div id="wireEmptyState" class="empty-state"><span data-i18n="sparkLab.wire_empty"></span></div>
+            <div id="wireResultWrap" style="display:none;">
+                <div class="stats-grid" id="wireGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ PANEL: LED Resistor Calculator ═══════ -->
+    <div class="panel" id="panel-led">
+        <div class="input-section">
+            <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="sparkLab.led_desc"></label>
+            <div class="elec-grid">
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.led_source_v"></label>
+                    <input class="field-input" type="number" id="ledSourceV" placeholder="z.B. 12" step="any">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.led_forward_v"></label>
+                    <input class="field-input" type="number" id="ledForwardV" placeholder="z.B. 2.1" step="any">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.led_current_ma"></label>
+                    <input class="field-input" type="number" id="ledCurrentMa" placeholder="z.B. 20" step="any">
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.led_count"></label>
+                    <input class="field-input" type="number" id="ledCount" placeholder="1" step="1" min="1" value="1">
+                </div>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-accent2" onclick="calcLed()" data-i18n="sparkLab.btn_calc_led"></button>
+        </div>
+        <div class="result-section">
+            <div class="result-header">
+                <label class="input-label" style="color: var(--accent2);" data-i18n="sparkLab.led_result_label"></label>
+            </div>
+            <div id="ledEmptyState" class="empty-state"><span data-i18n="sparkLab.led_empty"></span></div>
+            <div id="ledResultWrap" style="display:none;">
+                <div class="stats-grid" id="ledGrid"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="toast-notify" id="toast"></div>
+
+<footer>
+    <div>
+        <small>
+            SparkLab <span data-version="sparkLab"></span> |
+            <a href="index.html" data-i18n="common.back"></a> |
+            © 2026 by
+            <a href="https://github.com/AEYCEN">AEYCEN</a>
+        </small>
+    </div>
+</footer>
+
+<script src="js/sparkLab.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/base.js"></script>
+</body>
+</html>
