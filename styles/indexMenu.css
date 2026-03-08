@@ -36,9 +36,9 @@ body::before {
     position: fixed;
     inset: 0;
     background:
-        radial-gradient(ellipse 600px 400px at 20% 20%, #00e5ff08, transparent),
-        radial-gradient(ellipse 500px 500px at 80% 70%, #ff2d7508, transparent),
-        radial-gradient(ellipse 400px 300px at 50% 50%, #a855f706, transparent);
+            radial-gradient(ellipse 600px 400px at 20% 20%, #00e5ff08, transparent),
+            radial-gradient(ellipse 500px 500px at 80% 70%, #ff2d7508, transparent),
+            radial-gradient(ellipse 400px 300px at 50% 50%, #a855f706, transparent);
     pointer-events: none;
     z-index: 0;
 }
@@ -49,8 +49,8 @@ body::after {
     position: fixed;
     inset: 0;
     background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            linear-gradient(var(--border) 1px, transparent 1px),
+            linear-gradient(90deg, var(--border) 1px, transparent 1px);
     background-size: 80px 80px;
     opacity: 0.04;
     pointer-events: none;
@@ -151,7 +151,7 @@ body::after {
     letter-spacing: -0.2px;
 }
 
-.tool-card:hover .tool-name { color: var(--accent); }
+.tool-card:hover .tool-name { color: var(--accent); } /* Fallback (Encoding) */
 
 .tool-version {
     font-family: var(--font-mono);
@@ -179,7 +179,7 @@ body::after {
     right: 30px;
     top: 65%;
     transform: translateY(-50%) translateX(-6px);
-    color: var(--accent);
+    color: var(--accent); /* Fallback (Encoding) */
     font-size: 1.2rem;
     opacity: 0;
     transition: all 0.3s;
@@ -191,23 +191,22 @@ body::after {
 }
 
 /* ── Category icon accents ── */
-.cat-browser .tool-card:hover { border-color: #a855f755; box-shadow: 0 8px 32px #a855f722; }
-.cat-browser .tool-card:hover .tool-name { color: var(--accent3); }
-.cat-browser .tool-card:hover .tool-arrow { color: var(--accent3); }
-
-.cat-encoding .tool-card:hover { border-color: var(--accent-mid); box-shadow: 0 8px 32px var(--accent-dim); }
+.cat-math .tool-card:hover { border-color: #a855f755; box-shadow: 0 8px 32px #a855f722; }
+.cat-math .tool-card:before { background: linear-gradient(135deg, #a855f722, transparent 60%);}
+.cat-math .tool-card:hover .tool-name { color: var(--accent3); }
+.cat-math .tool-card:hover .tool-arrow { color: var(--accent3); }
 
 .cat-text .tool-card:hover { border-color: #22c55e55; box-shadow: 0 8px 32px #22c55e22; }
+.cat-text .tool-card:before { background: linear-gradient(135deg, #22c55e22, transparent 60%);}
 .cat-text .tool-card:hover .tool-name { color: var(--success); }
 .cat-text .tool-card:hover .tool-arrow { color: var(--success); }
 
-.cat-math .tool-card:hover { border-color: #f59e0b55; box-shadow: 0 8px 32px #f59e0b22; }
-.cat-math .tool-card:hover .tool-name { color: var(--warning); }
-.cat-math .tool-card:hover .tool-arrow { color: var(--warning); }
-
 .cat-physics .tool-card:hover { border-color: #eab30855; box-shadow: 0 8px 32px #eab30822; }
+.cat-physics .tool-card:before { background: linear-gradient(135deg, #eab30822, transparent 60%);}
 .cat-physics .tool-card:hover .tool-name { color: #eab308; }
 .cat-physics .tool-card:hover .tool-arrow { color: #eab308; }
+
+.cat-encoding .tool-card:hover { border-color: var(--accent-mid); box-shadow: 0 8px 32px var(--accent-dim); }
 
 /* ── Footer ── */
 footer {
@@ -241,4 +240,12 @@ footer small {
 @media (max-width: 600px) {
     .app { padding: 24px 16px 80px; }
     .tool-card { padding: 16px 18px; }
+    .tool-name { font-size: 0.95rem; }
+    .tool-desc { font-size: 0.82rem; }
+    .tool-version { font-size: 10px; padding: 2px 8px; }
+    .category-label { font-size: 10px; letter-spacing: 2px; }
+    .header { display: flex; flex-direction: column; align-items: center; }
+    .header .logo { order: 1; width: 100%; }
+    .header h1 { order: 3; width: 100%; font-size: 2.4rem; }
+    .header .subtitle { order: 4; width: 100%; font-size: 0.85rem; }
 }

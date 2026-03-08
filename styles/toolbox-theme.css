@@ -625,16 +625,11 @@ input[type="number"]::-webkit-outer-spin-button {
    ═══════════════════════════════════ */
 .lang-switcher {
     position: absolute;
-    top: 16px;
-    right: 20px;
+    top: -6px;
+    right: 0;
     display: flex;
     gap: 4px;
     z-index: 5;
-}
-
-.hero .lang-switcher {
-    top: 20px;
-    right: 24px;
 }
 
 .lang-btn {
@@ -728,13 +723,81 @@ footer a:hover { color: var(--text-primary); }
    ═══════════════════════════════════ */
 @media (max-width: 600px) {
     .app { padding: 24px 16px 80px; }
-    .hero { padding: 32px 24px 28px; }
-    .hero h1 { font-size: 2.2rem; }
-    .hero h2 { font-size: 1.7rem; }
-    .header h1 { font-size: 2rem; }
-    .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .tabs .tab { font-size: 0.72rem; padding: 10px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ── Header: flex column for reordering ── */
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 28px;
+    }
+    .header .logo { order: 1; width: 100%; margin-bottom: 6px; }
+    .header h1 { order: 3; font-size: 2rem; width: 100%; }
+    .header .subtitle { order: 4; width: 100%; font-size: 0.85rem; }
+
+    /* ── Lang switcher: centered row between logo & title ── */
+    .lang-switcher {
+        position: relative;
+        top: auto;
+        right: auto;
+        justify-content: center;
+        order: 2;
+        margin: 6px 0 10px;
+    }
+
+    .lang-btn {
+        padding: 6px 14px;
+        font-size: 11px;
+    }
+
+    /* ── Tabs: 2-column grid ── */
+    .tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+    }
+    .tabs .tab {
+        font-size: 0.72rem;
+        padding: 10px 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* ── Buttons: full width stack ── */
     .btn-row { flex-direction: column; }
     .btn { width: 100%; text-align: center; }
+
+    /* ── Stats grid: 2 columns ── */
     .stats-grid { grid-template-columns: 1fr 1fr; }
+
+    /* ── Inputs: larger touch targets ── */
+    .field-input, .field-select {
+        padding: 14px 14px;
+        font-size: 0.9rem;
+    }
+
+    .field-input.big {
+        font-size: 1rem;
+        padding: 16px 14px;
+    }
+
+    /* ── Result sections: tighter spacing ── */
+    .result-section { padding: 14px 14px; }
+    .result-output { font-size: 0.82rem; padding: 12px 14px; }
+    .empty-state { font-size: 0.82rem; padding: 16px 12px; }
+
+    /* ── Copy button: easier to tap ── */
+    .copy-btn {
+        padding: 8px 14px;
+        font-size: 11px;
+    }
+
+    /* ── Hash meta badges: wrap nicely ── */
+    .hash-meta { gap: 6px; }
+    .meta-badge { font-size: 10px; padding: 4px 8px; }
+
+    /* ── Footer ── */
+    footer { padding: 10px 16px; }
+    footer small { font-size: 0.65rem; }
 }

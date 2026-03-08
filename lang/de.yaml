@@ -39,7 +39,7 @@ index:
   tool_calcul8tr_desc: 'Rechner, Zahlensysteme, Einheiten, Prozent, Statistik und Datumsrechner'
   cat_physics: Physik-Tools
   tool_sparklab: SparkLab
-  tool_sparklab_desc: 'Ohmsches Gesetz, Leitungsquerschnitt, LED-Vorwiderstand, Farbcode und mehr'
+  tool_sparklab_desc: 'Stromkosten, Ohmsches Gesetz, Leitungsquerschnitt, LED-Vorwiderstand und mehr'
 
 # ═══════ HeidiDecode ═══════
 heidiDecode:
@@ -363,7 +363,7 @@ calcul8tr:
 sparkLab:
   page_title: SparkLab | AEYCEN Toolbox
   title: SparkLab
-  desc: 'Elektrik-Werkzeuge — Ohmsches Gesetz, Leitungsberechnung, Farbcode & mehr'
+  desc: 'Elektrik-Werkzeuge — Stromkosten, Ohmsches Gesetz, Leitungsberechnung, Farbcode & mehr'
   tab_ohm: Ohmsches Gesetz
   tab_wire: Leitungsquerschnitt
   tab_led: LED-Vorwiderstand
@@ -375,11 +375,11 @@ sparkLab:
   resistance: Widerstand
   power: Leistung
   btn_reset: ↺ Zurücksetzen
-  ohm_desc: 'Gib zwei beliebige Werte ein — die anderen werden automatisch berechnet'
+  ohm_desc: '⌘ Gib zwei beliebige Werte ein — die anderen werden automatisch berechnet'
   ohm_formula_label: Verwendete Formel
   ohm_empty: 'Gib mindestens zwei Werte ein (V, A, Ω oder W)'
   toast_fill_fields: Bitte alle Felder ausfüllen
-  wire_desc: 'Berechne den benötigten Leitungsquerschnitt nach VDE-Richtwerten'
+  wire_desc: '⌘ Benötigter Leitungsquerschnitt nach VDE-Richtwerten'
   wire_current: 'Stromstärke (A)'
   wire_length: 'Leitungslänge (m)'
   wire_voltage: Nennspannung
@@ -396,7 +396,7 @@ sparkLab:
   wire_drop_v: Spannungsfall
   wire_drop_pct: Spannungsfall %
   wire_total_length: Gesamtlänge (Hin+Rück)
-  led_desc: 'Berechne den Vorwiderstand für LEDs in Reihenschaltung'
+  led_desc: '⌘ Vorwiderstand für LEDs in Reihenschaltung'
   led_source_v: Versorgungsspannung (V)
   led_forward_v: LED-Durchlassspannung (V)
   led_current_ma: LED-Strom (mA)
@@ -411,13 +411,13 @@ sparkLab:
   led_drop: Spannungsabfall am Widerstand
   led_series_count: LEDs in Reihe
   led_total_vf: Gesamt-Durchlassspannung
-  res_desc: Berechne den Gesamtwiderstand von Reihen- oder Parallelschaltungen
+  res_desc: ⌘ Gesamtwiderstand von Parallel- oder Reihenschaltungen
   res_series: Reihenschaltung
   res_parallel: Parallelschaltung
   res_add: + Widerstand hinzufügen
   res_total_label: Gesamtwiderstand
   res_empty: Gib mindestens zwei Widerstandswerte ein
-  energy_desc: Berechne Stromverbrauch und Kosten eines Geräts
+  energy_desc: ⌘ Stromverbrauch und Kosten eines Geräts
   energy_power_w: Leistung (W)
   energy_hours: Betriebsstunden / Tag
   energy_price: Strompreis (€/kWh)
@@ -430,7 +430,7 @@ sparkLab:
   energy_cost_month: Kosten / Monat
   energy_cost_year: Kosten / Jahr
   energy_amps: 'Strom bei 230 V'
-  color_desc: 'Wähle die Farbringe eines Widerstands aus — 5-Band-Farbcode'
+  color_desc: '⌘ Wähle die Farbringe eines Widerstands aus — 5-Band-Farbcode'
   color_multiplier: Multiplikator
   color_tolerance: Toleranz
   color_result_label: Widerstandswert

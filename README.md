@@ -74,12 +74,12 @@ Text analysis tool with four modules:
 
 Electrical engineering toolkit with six modules:
 
+- **Energy Cost** — Calculate kWh consumption and electricity cost per day/month/year from wattage and operating hours
 - **Ohm's Law** — Enter any two of voltage (V), current (A), resistance (Ω), power (W) — the other two are calculated automatically with formula display
+- **Resistor color Code** — Interactive 5-band resistor color code decoder with visual resistor rendering, multiplier and tolerance selection
+- **Total resistance** — Add any number of resistors, toggle between parallel and series, live total with formula breakdown
 - **Wire Sizing** — Calculate required cable cross-section per VDE guidelines: supports single/three-phase, Cu/Al, configurable voltage drop (1%/3%/5%), recommends next standard cross-section
 - **LED Resistor** — Calculate the series resistor for LEDs: supply voltage, forward voltage, current, number of LEDs in series; suggests nearest E24 standard value
-- **Series / Parallel** — Add any number of resistors, toggle between series and parallel, live total with formula breakdown
-- **Energy Cost** — Calculate kWh consumption and electricity cost per day/month/year from wattage and operating hours
-- **Color Code** — Interactive 5-band resistor color code decoder with visual resistor rendering, multiplier and tolerance selection
 
 ### HashForge
 
