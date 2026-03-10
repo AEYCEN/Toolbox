@@ -265,51 +265,187 @@ function calcResistors() {
 
 // ══════════════════════════════════
 //  5. Wire Cross-Section Calculator
+//     (VDE 0298-4 compliant)
 // ══════════════════════════════════
-function calcWire() {
-    const I = parseFloat(document.getElementById('wireCurrent').value)
-    const L = parseFloat(document.getElementById('wireLength').value)
-    const U = parseFloat(document.getElementById('wireVoltage').value)
-    const dropPct = parseFloat(document.getElementById('wireDrop').value)
-    const rho = parseFloat(document.getElementById('wireMaterial').value)
-    const phaseFactor = parseFloat(document.getElementById('wirePhases').value)
 
-    if (isNaN(I) || isNaN(L) || I <= 0 || L <= 0) {
+// Standard cross-sections in mm²
+const WIRE_STANDARDS = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120]
+
+// ── Current carrying capacity tables (DIN VDE 0298-4, at 30 °C reference) ──
+// Keys: "METHOD_CONDUCTORS_MATERIAL"  e.g. "B1_2_cu" = B1, 2 loaded conductors, copper
+// Values: I_r in A for cross-sections [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120]
+
+const VDE_Ir = {
+    // ── Copper ──
+    // A1: Single/multi-core in insulated wall / conduit in insulated wall
+    A1_2_cu: [15.5, 19.5, 26, 34, 46, 61, 80, 99, 119, 151, 182, 210],
+    A1_3_cu: [13.5, 18,   24, 31, 42, 56, 73, 89, 108, 136, 164, 188],
+    // A2: Multi-core cable in conduit in insulated wall
+    A2_2_cu: [13,   17.5, 23, 29, 39, 52, 68, 83, 99,  125, 150, 172],
+    A2_3_cu: [13,   17.5, 23, 29, 39, 52, 68, 83, 99,  125, 150, 172],
+    // B1: Single/multi-core in conduit on wall / in conduit in floor channel
+    B1_2_cu: [17.5, 24,   32, 41, 57, 76, 101, 125, 151, 192, 232, 269],
+    B1_3_cu: [15.5, 21,   28, 36, 50, 68, 89,  110, 134, 171, 207, 239],
+    // B2: Multi-core cable directly on wall or in cable duct
+    B2_2_cu: [16.5, 23,   30, 38, 52, 69, 90,  111, 133, 168, 201, 232],
+    B2_3_cu: [15,   20,   27, 34, 46, 62, 80,   99, 118, 149, 179, 206],
+    // C: Single/multi-core on wall (open), on non-perforated cable tray
+    C_2_cu:  [19.5, 27,   36, 46, 63, 85, 112, 138, 168, 213, 258, 299],
+    C_3_cu:  [17.5, 24,   32, 40, 57, 76, 96,  119, 144, 184, 223, 259],
+    // E: Multi-core in free air, on perforated tray / cable ladder
+    E_2_cu:  [22,   30,   40, 51, 70, 94, 119, 148, 180, 232, 282, 328],
+    E_3_cu:  [18.5, 25,   34, 43, 60, 80, 101, 126, 153, 196, 238, 276],
+
+    // ── Aluminium (available from 25 mm² upwards for most methods) ──
+    // Index offset: Al values map to cross-sections starting at 25 mm² = index 6
+    // So we pad the first 6 entries with 0 (not available)
+    A1_2_al: [0, 0, 0, 0, 0, 0, 63, 77, 93,  118, 142, 164],
+    A1_3_al: [0, 0, 0, 0, 0, 0, 57, 70, 84,  107, 129, 149],
+    A2_2_al: [0, 0, 0, 0, 0, 0, 53, 65, 78,   98, 118, 135],
+    A2_3_al: [0, 0, 0, 0, 0, 0, 53, 65, 78,   98, 118, 135],
+    B1_2_al: [0, 0, 0, 0, 0, 0, 79, 97, 118, 150, 181, 210],
+    B1_3_al: [0, 0, 0, 0, 0, 0, 70, 86, 104, 133, 161, 186],
+    B2_2_al: [0, 0, 0, 0, 0, 0, 71, 86, 104, 131, 157, 181],
+    B2_3_al: [0, 0, 0, 0, 0, 0, 63, 77, 92,  116, 139, 160],
+    C_2_al:  [0, 0, 0, 0, 0, 0, 77, 93, 118, 150, 181, 210],
+    C_3_al:  [0, 0, 0, 0, 0, 0, 63, 80, 100, 125, 150, 173],
+    E_2_al:  [0, 0, 0, 0, 0, 0, 84, 103, 125, 159, 191, 222],
+    E_3_al:  [0, 0, 0, 0, 0, 0, 65, 80,  96, 124, 150, 174],
+}
+
+// ── Correction factor f1: Ambient temperature ──
+// Reference: 30 °C, max conductor temperature 70 °C (PVC insulation)
+const VDE_F1 = {
+    10: 1.22, 15: 1.17, 20: 1.12, 25: 1.06,
+    30: 1.00, 35: 0.94, 40: 0.87, 45: 0.79,
+    50: 0.71, 55: 0.61, 60: 0.50, 65: 0.35
+}
+
+// ── Correction factor f2: Grouped / bundled installation ──
+// Row: "bundled in conduit / cable channel" (most conservative, default)
+const VDE_F2_CONDUIT   = { 1: 1.0, 2: 0.80, 3: 0.70, 4: 0.65, 5: 0.60, 6: 0.57, 7: 0.54, 8: 0.52, 9: 0.50 }
+// Row: "single layer on wall or floor"
+const VDE_F2_WALL      = { 1: 1.0, 2: 0.85, 3: 0.79, 4: 0.75, 5: 0.73, 6: 0.72, 7: 0.71, 8: 0.70, 9: 0.70 }
+// Row: "perforated cable tray"
+const VDE_F2_TRAY_PERF = { 1: 1.0, 2: 0.88, 3: 0.82, 4: 0.79, 5: 0.78, 6: 0.76, 7: 0.75, 8: 0.74, 9: 0.73 }
+// Row: "cable ladder / cable rack"
+const VDE_F2_TRAY_LADD = { 1: 1.0, 2: 0.87, 3: 0.82, 4: 0.80, 5: 0.80, 6: 0.79, 7: 0.79, 8: 0.78, 9: 0.78 }
+
+const VDE_F2_TABLES = {
+    conduit:   VDE_F2_CONDUIT,
+    wall:      VDE_F2_WALL,
+    tray_perf: VDE_F2_TRAY_PERF,
+    tray_ladd: VDE_F2_TRAY_LADD,
+}
+
+/**
+ * Look up I_r for a given cross-section, installation method, conductors, and material
+ */
+function getIr(crossIdx, method, conductors, material) {
+    const key = `${method}_${conductors}_${material}`
+    const table = VDE_Ir[key]
+    if (!table) return 0
+    return table[crossIdx] || 0
+}
+
+/**
+ * Find minimum cross-section index where derated current >= I_b
+ */
+function findMinCrossByCapacity(Ib, method, conductors, material, f1, f2) {
+    for (let i = 0; i < WIRE_STANDARDS.length; i++) {
+        const Ir = getIr(i, method, conductors, material)
+        if (Ir <= 0) continue  // not available for this cross-section
+        const Iz = Ir * f1 * f2
+        if (Iz >= Ib) return { index: i, cross: WIRE_STANDARDS[i], Ir, Iz }
+    }
+    // No standard cross-section sufficient
+    return { index: WIRE_STANDARDS.length - 1, cross: WIRE_STANDARDS[WIRE_STANDARDS.length - 1], Ir: getIr(WIRE_STANDARDS.length - 1, method, conductors, material), Iz: 0, exceeded: true }
+}
+
+function calcWire() {
+    const Ib = parseFloat(document.getElementById('wireCurrent').value)
+    const L  = parseFloat(document.getElementById('wireLength').value)
+    const U  = parseFloat(document.getElementById('wireVoltage').value)
+    const dropPct     = parseFloat(document.getElementById('wireDrop').value)
+    const rho         = parseFloat(document.getElementById('wireMaterial').value)
+    const materialKey = document.getElementById('wireMaterial').selectedOptions[0].dataset.mat
+    const phaseFactor = parseFloat(document.getElementById('wirePhases').value)
+    const method      = document.getElementById('wireMethod').value
+    const ambientTemp = parseInt(document.getElementById('wireTemp').value)
+    const groupCount  = parseInt(document.getElementById('wireGroupCount').value)
+    const groupType   = document.getElementById('wireGroupType').value
+
+    if (isNaN(Ib) || isNaN(L) || Ib <= 0 || L <= 0) {
         showToast(t('sparkLab.toast_fill_fields'))
         return
     }
 
-    const isThreePhase = phaseFactor < 2 // √3 ≈ 1.732
+    const isThreePhase = phaseFactor < 2  // √3 ≈ 1.732
+    const conductors = isThreePhase ? 3 : 2
 
-    // Max allowed voltage drop
+    // ── Correction factors ──
+    const f1 = VDE_F1[ambientTemp] || 1.0
+    const f2Table = VDE_F2_TABLES[groupType] || VDE_F2_CONDUIT
+    const f2 = f2Table[groupCount] || (groupCount > 9 ? f2Table[9] : 1.0)
+
+    // ── 1) Cross-section from voltage drop ──
     const UdropMax = U * (dropPct / 100)
+    const AcalcDrop = (phaseFactor * rho * L * Ib) / UdropMax
+    const crossDrop = WIRE_STANDARDS.find(s => s >= AcalcDrop) || WIRE_STANDARDS[WIRE_STANDARDS.length - 1]
 
-    // Required cross-section to stay within limit
-    const Acalc = (phaseFactor * rho * L * I) / UdropMax
+    // ── 2) Cross-section from current carrying capacity (VDE table) ──
+    const capResult = findMinCrossByCapacity(Ib, method, conductors, materialKey, f1, f2)
+    const crossCap = capResult.cross
 
-    // Standard cross-sections (VDE: min 1.5 mm² for fixed installation)
-    const standards = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240]
-    const recommended = standards.find(s => s >= Acalc) || standards[standards.length - 1]
+    // ── 3) Take the larger of both ──
+    const recommended = Math.max(crossDrop, crossCap)
+    const finalCross = WIRE_STANDARDS.find(s => s >= recommended) || WIRE_STANDARDS[WIRE_STANDARDS.length - 1]
+    const decisive = crossCap > crossDrop ? 'capacity' : (crossDrop > crossCap ? 'drop' : 'both')
 
-    // Actual voltage drop with the recommended (rounded up) cross-section
-    const UdropActual = (phaseFactor * rho * L * I) / recommended
+    // ── Actual voltage drop with final cross-section ──
+    const UdropActual = (phaseFactor * rho * L * Ib) / finalCross
     const dropPctActual = (UdropActual / U) * 100
 
-    // Power: P = U × I for single-phase, P = √3 × U × I for three-phase
-    const power = isThreePhase ? (Math.sqrt(3) * U * I) : (U * I)
+    // ── Power ──
+    const power = isThreePhase ? (Math.sqrt(3) * U * Ib) : (U * Ib)
 
-    // Total cable length: 2 × L for single-phase (L + N), 3 × L for three-phase (3 conductors)
-    const totalLength = isThreePhase ? (3 * L) : (2 * L)
+    // ── Total cable length ──
+    const totalLength = isThreePhase ? L : (2 * L)
 
+    // ── I_r and I_z for the final cross-section ──
+    const finalIdx = WIRE_STANDARDS.indexOf(finalCross)
+    const finalIr = getIr(finalIdx, method, conductors, materialKey)
+    const finalIz = finalIr * f1 * f2
+
+    // ── Build result ──
     document.getElementById('wireEmptyState').style.display = 'none'
     document.getElementById('wireResultWrap').style.display = 'block'
+
+    // Decisive label
+    if (decisive === 'capacity') decisiveLabel = t('sparkLab.wire_decisive_cap')
+    else if (decisive === 'drop') decisiveLabel = t('sparkLab.wire_decisive_drop')
+    else decisiveLabel = t('sparkLab.wire_decisive_both')
+
+    // Warning if capacity exceeded
+    const capWarning = capResult.exceeded ? `<div class="stat-card stat-card-error"><div class="stat-value stat-value-error">⚠</div><div class="stat-label">${t('sparkLab.wire_cap_exceeded')}</div></div>` : ''
+
     document.getElementById('wireGrid').innerHTML = `
-        <div class="stat-card"><div class="stat-value">${Acalc.toFixed(2)} mm²</div><div class="stat-label">${t('sparkLab.wire_calc_cross')}</div></div>
-        <div class="stat-card pink"><div class="stat-value">${recommended} mm²</div><div class="stat-label">${t('sparkLab.wire_recommended')}</div></div>
-        <div class="stat-card green"><div class="stat-value">${UdropActual.toFixed(2)} V</div><div class="stat-label">${t('sparkLab.wire_drop_v')}</div></div>
-        <div class="stat-card yellow"><div class="stat-value">${dropPctActual.toFixed(2)} %</div><div class="stat-label">${t('sparkLab.wire_drop_pct')}</div></div>
-        <div class="stat-card purple"><div class="stat-value">${(power / 1000).toFixed(2)} kW</div><div class="stat-label">${t('sparkLab.power')}</div></div>
+        ${capWarning}
+        <div class="stat-card pink"><div class="stat-value">${finalCross} mm²</div><div class="stat-label">${t('sparkLab.wire_recommended')}</div></div>
+        <div class="stat-card"><div class="stat-value">${AcalcDrop.toFixed(2)} mm²</div><div class="stat-label">${t('sparkLab.wire_cross_drop')}</div></div>
+        <div class="stat-card"><div class="stat-value">${crossCap} mm²</div><div class="stat-label">${t('sparkLab.wire_cross_cap')}</div></div>
+        <div class="stat-card green"><div class="stat-value">${UdropActual.toFixed(2)} V</div><div class="stat-label">${t('sparkLab.wire_drop_v')} (${dropPctActual.toFixed(2)} %)</div></div>
+        <div class="stat-card yellow"><div class="stat-value">${finalIz.toFixed(1)} A</div><div class="stat-label">${t('sparkLab.wire_iz')} (I<sub>z</sub>)</div></div>
+        <div class="stat-card purple"><div class="stat-value">${finalIr.toFixed(1)} A</div><div class="stat-label">${t('sparkLab.wire_ir')} (I<sub>r</sub>)</div></div>
+        <div class="stat-card"><div class="stat-value">${(power / 1000).toFixed(2)} kW</div><div class="stat-label">${t('sparkLab.power')}</div></div>
         <div class="stat-card"><div class="stat-value">${totalLength.toFixed(1)} m</div><div class="stat-label">${t('sparkLab.wire_total_length')}</div></div>
+    `
+    // Factors summary
+    document.getElementById('wireFactors').style.display = 'flex'
+    document.getElementById('wireFactors').innerHTML = `
+        <span class="meta-badge">f₁ = ${f1.toFixed(2)} <span class="val">(${ambientTemp} °C)</span></span>
+        <span class="meta-badge">f₂ = ${f2.toFixed(2)} <span class="val">(${groupCount}×)</span></span>
+        <span class="meta-badge">📐 ${decisiveLabel}</span>
     `
 }
 

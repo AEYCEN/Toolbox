@@ -114,6 +114,15 @@
     background: var(--accent-dim); border-radius: 8px; text-align: center;
 }
 
+/* ── Stats ── */
+
+.stats-sorted-label {
+    font-size:0.72rem;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
 /* ── Date ── */
 .date-input {
     background: var(--bg-input); border: 1px solid var(--border);

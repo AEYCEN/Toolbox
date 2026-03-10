@@ -28,6 +28,7 @@
     --accent3: #a855f7;
     --success: #22c55e;
     --warning: #f59e0b;
+    --error: #ff2323;
     --font-display: 'Outfit', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 }
@@ -599,7 +600,7 @@ input[type="number"]::-webkit-outer-spin-button {
    ═══════════════════════════════════ */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
     gap: 10px;
 }
 
@@ -613,6 +614,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .stat-card:hover { border-color: var(--accent-mid); }
 
+.stat-card.stat-card-error {
+    grid-column:1/-1;
+    border-left:3px solid var(--error);
+    border-right:3px solid var(--error);
+}
+
 .stat-value {
     font-family: var(--font-mono);
     font-size: 1.2rem;
@@ -620,6 +627,10 @@ input[type="number"]::-webkit-outer-spin-button {
     color: var(--accent);
     margin-bottom: 2px;
     word-break: break-all;
+}
+
+.stat-value.stat-value-error {
+    color:var(--error);
 }
 
 .stat-label {

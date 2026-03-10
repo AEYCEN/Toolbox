@@ -97,7 +97,7 @@ function convertBase() {
 
     let num
     try { num = parseInt(input, fromBase); } catch(e) { return; }
-    if (isNaN(num)) { grid.style.display = 'none'; empty.innerHTML = '<span style="color:var(--accent2)">Ungültige Zahl für Basis ' + fromBase + '</span>'; empty.style.display = 'block'; return; }
+    if (isNaN(num)) { grid.style.display = 'none'; empty.innerHTML = '<span style="color:var(--error)">Ungültige Zahl für Basis ' + fromBase + '</span>'; empty.style.display = 'block'; return; }
 
     const bases = [
         { label: 'DEZ', base: 10, cls: 'active', val: num.toString(10) },
@@ -393,7 +393,7 @@ function calcStats() {
     // Sorted values with highlights
     const medianIdx = n % 2 === 0 ? [n/2 - 1, n/2] : [Math.floor(n/2)]
     document.getElementById('statsSorted').innerHTML =
-        '<span style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;">Sortierte Werte</span><br>' +
+        '<span class="stats-sorted-label">Sortierte Werte</span><br>' +
         sorted.map((v, i) => {
             if (i === 0 || i === n - 1) return `<span class="highlight">${formatNumber(v)}</span>`
             if (medianIdx.includes(i)) return `<span class="median-hl">${formatNumber(v)}</span>`

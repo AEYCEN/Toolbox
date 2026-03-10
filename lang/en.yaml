@@ -20,7 +20,7 @@ common:
 index:
   page_title: AEYCEN Toolbox
   hero_title: Toolbox
-  hero_desc: 'A collection of small, self-built, more or less useful tools'
+  hero_desc: 'A selection of in-house released tools for professional and everyday use'
   cat_browser: Browser Tools
   cat_encoding: Encoding Tools
   cat_text: Text Tools
@@ -379,7 +379,7 @@ sparkLab:
   ohm_formula_label: Formula used
   ohm_empty: 'Enter at least two values (V, A, Ω or W)'
   toast_fill_fields: Please fill in all fields
-  wire_desc: ⌘ Required wire cross-section based on VDE guidelines
+  wire_desc: ⌘ Required wire cross-section based on VDE 0298-4 guidelines
   wire_current: 'Current (A)'
   wire_length: 'Wire length (m)'
   wire_voltage: Nominal voltage
@@ -388,14 +388,36 @@ sparkLab:
   wire_phases: Wiring type
   wire_single_phase: Single-phase (AC)
   wire_three_phase: Three-phase (AC)
+  wire_method: Installation method
+  wire_method_A1: 'A1 — Conduit in insulated wall'
+  wire_method_A2: 'A2 — Multi-core in conduit'
+  wire_method_B1: 'B1 — Conduit on wall / in floor duct'
+  wire_method_B2: 'B2 — Multi-core on wall / in duct'
+  wire_method_C: 'C — Directly on wall'
+  wire_method_E: 'E — Cable tray / free air'
+  wire_temp: Ambient temperature
+  wire_group_count: Grouped circuits
+  wire_group_type: Grouping type
+  wire_gtype_conduit: Bundled in conduit / channel
+  wire_gtype_wall: Single layer on wall / floor
+  wire_gtype_tray_perf: On perforated cable tray
+  wire_gtype_tray_ladd: On cable ladder / rack
   btn_calc_wire: ⚡ Calculate cross-section
   wire_result_label: Calculation result
   wire_empty: Enter current and wire length
   wire_calc_cross: Calculated cross-section
   wire_recommended: Recommended cross-section
+  wire_cross_drop: Min. (voltage drop)
+  wire_cross_cap: Min. (current capacity)
   wire_drop_v: Voltage drop
   wire_drop_pct: Voltage drop %
   wire_total_length: Total length (out+return)
+  wire_iz: Derated capacity
+  wire_ir: Table capacity (30 °C)
+  wire_decisive_drop: Decisive — voltage drop
+  wire_decisive_cap: Decisive — current capacity
+  wire_decisive_both: Both criteria equal
+  wire_cap_exceeded: No standard cross-section sufficient for this current! Check installation.
   led_desc: ⌘ Series resistor for LEDs
   led_source_v: Supply voltage (V)
   led_forward_v: LED forward voltage (V)

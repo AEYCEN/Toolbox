@@ -33,7 +33,7 @@ function parseURL() {
     try {
         url = new URL(val.startsWith('http') ? val : 'https://' + val)
     } catch (e) {
-        document.getElementById('parseOutput').innerHTML = '<p style="color: var(--accent2);">' + t('linkLoom.parse_invalid') + '</p>'
+        document.getElementById('parseOutput').innerHTML = '<p style="color: var(--error);">' + t('linkLoom.parse_invalid') + '</p>'
         return
     }
 
@@ -113,8 +113,7 @@ function buildUTM() {
     if (content) params.push('utm_content=' + encodeURIComponent(content))
 
     const sep = base.includes('?') ? '&' : '?'
-    const result = params.length ? base + sep + params.join('&') : base
-    document.getElementById('utmPreview').textContent = result
+    document.getElementById('utmPreview').textContent = params.length ? base + sep + params.join('&') : base
 }
 
 // ── Bulk Mode ──

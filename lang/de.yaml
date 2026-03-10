@@ -20,7 +20,7 @@ common:
 index:
   page_title: AEYCEN Toolbox
   hero_title: Toolbox
-  hero_desc: Eine Auswahl meiner kleinen eigens entwickelten mehr oder weniger hilfreichen Tools
+  hero_desc: Eine Auswahl meiner selbst entwickelten Tools für den professionellen und alltäglichen Gebrauch
   cat_browser: Browser-Tools
   cat_encoding: Codierungs-Tools
   cat_text: Text-Tools
@@ -379,8 +379,8 @@ sparkLab:
   ohm_formula_label: Verwendete Formel
   ohm_empty: 'Gib mindestens zwei Werte ein (V, A, Ω oder W)'
   toast_fill_fields: Bitte alle Felder ausfüllen
-  wire_desc: '⌘ Benötigter Leitungsquerschnitt nach VDE-Richtwerten'
-  wire_current: 'Stromstärke (A)'
+  wire_desc: '⌘ Benötigter Leitungsquerschnitt nach DIN VDE 0298-4'
+  wire_current: 'Betriebsstrom (A)'
   wire_length: 'Leitungslänge (m)'
   wire_voltage: Nennspannung
   wire_drop: Max. Spannungsfall
@@ -388,14 +388,36 @@ sparkLab:
   wire_phases: Leitungsart
   wire_single_phase: Einphasig (Wechselstrom)
   wire_three_phase: Dreiphasig (Drehstrom)
+  wire_method: Verlegeart
+  wire_method_A1: 'A1 — Rohr in wärmegedämmter Wand'
+  wire_method_A2: 'A2 — Mantelleitung in Rohr'
+  wire_method_B1: 'B1 — Rohr auf Wand / im Fußbodenkanal'
+  wire_method_B2: 'B2 — Mantelleitung auf Wand / im Kanal'
+  wire_method_C: 'C — Direkt auf Wand'
+  wire_method_E: 'E — Kabelpritsche / freie Luft'
+  wire_temp: Umgebungstemperatur
+  wire_group_count: Gehäufte Leitungen
+  wire_group_type: Art der Häufung
+  wire_gtype_conduit: Gebündelt im Rohr / Kanal
+  wire_gtype_wall: Einlagig auf Wand / Boden
+  wire_gtype_tray_perf: In gelochter Kabelwanne
+  wire_gtype_tray_ladd: Auf Kabelpritsche
   btn_calc_wire: ⚡ Querschnitt berechnen
   wire_result_label: Berechnungsergebnis
   wire_empty: Gib Stromstärke und Leitungslänge ein
   wire_calc_cross: Berechneter Querschnitt
   wire_recommended: Empfohlener Querschnitt
+  wire_cross_drop: Min. (Spannungsfall)
+  wire_cross_cap: Min. (Strombelastbarkeit)
   wire_drop_v: Spannungsfall
   wire_drop_pct: Spannungsfall %
   wire_total_length: Gesamtlänge (Hin+Rück)
+  wire_iz: Zulässiger Strom I_z
+  wire_ir: Tabellenstrom (30 °C)
+  wire_decisive_drop: Maßgebend — Spannungsfall
+  wire_decisive_cap: Maßgebend — Strombelastbarkeit
+  wire_decisive_both: Beide Kriterien gleich
+  wire_cap_exceeded: Kein Normquerschnitt ausreichend für diesen Strom! Installation prüfen.
   led_desc: '⌘ Vorwiderstand für LEDs in Reihenschaltung'
   led_source_v: Versorgungsspannung (V)
   led_forward_v: LED-Durchlassspannung (V)
@@ -434,4 +456,3 @@ sparkLab:
   color_multiplier: Multiplikator
   color_tolerance: Toleranz
   color_result_label: Widerstandswert
-

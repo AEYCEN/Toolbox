@@ -209,8 +209,8 @@
                 <div class="elec-field">
                     <label class="elec-label" data-i18n="sparkLab.wire_material"></label>
                     <select class="field-select" id="wireMaterial">
-                        <option value="0.0175">Kupfer (Cu)</option>
-                        <option value="0.0283">Aluminium (Al)</option>
+                        <option value="0.0175" data-mat="cu">Kupfer (Cu)</option>
+                        <option value="0.0283" data-mat="al">Aluminium (Al)</option>
                     </select>
                 </div>
                 <div class="elec-field">
@@ -218,6 +218,57 @@
                     <select class="field-select" id="wirePhases">
                         <option value="2" data-i18n="sparkLab.wire_single_phase"></option>
                         <option value="1.732" data-i18n="sparkLab.wire_three_phase"></option>
+                    </select>
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_method"></label>
+                    <select class="field-select" id="wireMethod">
+                        <option value="A1" data-i18n="sparkLab.wire_method_A1"></option>
+                        <option value="A2" data-i18n="sparkLab.wire_method_A2"></option>
+                        <option value="B1" data-i18n="sparkLab.wire_method_B1"></option>
+                        <option value="B2" selected data-i18n="sparkLab.wire_method_B2"></option>
+                        <option value="C" data-i18n="sparkLab.wire_method_C"></option>
+                        <option value="E" data-i18n="sparkLab.wire_method_E"></option>
+                    </select>
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_temp"></label>
+                    <select class="field-select" id="wireTemp">
+                        <option value="10">10 °C</option>
+                        <option value="15">15 °C</option>
+                        <option value="20">20 °C</option>
+                        <option value="25">25 °C</option>
+                        <option value="30" selected>30 °C</option>
+                        <option value="35">35 °C</option>
+                        <option value="40">40 °C</option>
+                        <option value="45">45 °C</option>
+                        <option value="50">50 °C</option>
+                        <option value="55">55 °C</option>
+                        <option value="60">60 °C</option>
+                        <option value="65">65 °C</option>
+                    </select>
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_group_count"></label>
+                    <select class="field-select" id="wireGroupCount">
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </div>
+                <div class="elec-field">
+                    <label class="elec-label" data-i18n="sparkLab.wire_group_type"></label>
+                    <select class="field-select" id="wireGroupType">
+                        <option value="conduit" data-i18n="sparkLab.wire_gtype_conduit"></option>
+                        <option value="wall" data-i18n="sparkLab.wire_gtype_wall"></option>
+                        <option value="tray_perf" data-i18n="sparkLab.wire_gtype_tray_perf"></option>
+                        <option value="tray_ladd" data-i18n="sparkLab.wire_gtype_tray_ladd"></option>
                     </select>
                 </div>
             </div>
@@ -232,6 +283,7 @@
             <div id="wireEmptyState" class="empty-state"><span data-i18n="sparkLab.wire_empty"></span></div>
             <div id="wireResultWrap" style="display:none;">
                 <div class="stats-grid" id="wireGrid"></div>
+                <div class="hash-meta" id="wireFactors" style="display:none;margin-top:10px"></div>
             </div>
         </div>
     </div>

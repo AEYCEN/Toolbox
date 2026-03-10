@@ -20,7 +20,7 @@ The AEYCEN Toolbox is a curated set of utilities that simplify recurring tasks i
 |----------------------------------------------------------------------|-----------------|------------|--------------------------------------------------------------------------------------------------------------------------|
 | **[Calcul8tr](https://aeycen.github.io/Toolbox/calcul8tr.html)**     | v2.2 *(8.3.26)* | Math       | Expression calculator, number base converter, unit converter, percentage calculator, statistics and date difference      |
 | **[WordWatch](https://aeycen.github.io/Toolbox/wordWatch.html)**     | v2.1 *(7.3.26)* | Text       | Text analysis with word/character count, Flesch readability index, keyword extraction, transformations and find & replace |
-| **[SparkLab](https://aeycen.github.io/Toolbox/sparkLab.html)**       | v1.0 *(8.3.26)* | Electrical | Ohm's law, wire sizing, LED resistor, series/parallel resistance, energy cost and resistor color code                    |
+| **[SparkLab](https://aeycen.github.io/Toolbox/sparkLab.html)**       | v1.1 *(10.3.26)* | Electrical | Ohm's law, VDE 0298-4 wire sizing, LED resistor, series/parallel resistance, energy cost and resistor color code                    |
 | **[HashForge](https://aeycen.github.io/Toolbox/hashForge.html)**     | v3.1 *(7.3.26)* | Encoding   | Password hashing (bcrypt), SHA checksums, strength tester, generator and hash comparison                                 |
 | **[LinkLoom](https://aeycen.github.io/Toolbox/linkLoom.html)**       | v2.1 *(7.3.26)* | Encoding   | URL encoding/decoding, URL parser, Base64, UTM builder and bulk mode                                                     |
 | **[HeidiDecode](https://aeycen.github.io/Toolbox/heidiDecode.html)** | v1.3 *(7.3.26)* | Encoding   | Decrypt exported HeidiSQL connections (direct input or file import)                                                      |
@@ -78,7 +78,7 @@ Electrical engineering toolkit with six modules:
 - **Ohm's Law** — Enter any two of voltage (V), current (A), resistance (Ω), power (W) — the other two are calculated automatically with formula display
 - **Resistor color Code** — Interactive 5-band resistor color code decoder with visual resistor rendering, multiplier and tolerance selection
 - **Total resistance** — Add any number of resistors, toggle between parallel and series, live total with formula breakdown
-- **Wire Sizing** — Calculate required cable cross-section per VDE guidelines: supports single/three-phase, Cu/Al, configurable voltage drop (1%/3%/5%), recommends next standard cross-section
+- **Wire Sizing** — Calculate required cable cross-section per DIN VDE 0298-4: dual check against voltage drop and current carrying capacity (I_r tables for installation methods A1, A2, B1, B2, C, E), correction factors f₁ (ambient temperature 10–65 °C) and f₂ (grouped circuits with 4 bundling types), Cu/Al support, configurable voltage drop (1%/3%/5%), shows decisive criterion and derated capacity I_z
 - **LED Resistor** — Calculate the series resistor for LEDs: supply voltage, forward voltage, current, number of LEDs in series; suggests nearest E24 standard value
 
 ### HashForge
