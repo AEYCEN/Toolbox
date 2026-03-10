@@ -118,8 +118,8 @@
             </div>
             <div id="strengthEmptyState" class="empty-state"><span data-i18n="hashForge.empty_strength"></span></div>
             <div id="strengthResultWrap" style="display:none;">
-                <div class="strength-bar"><div class="strength-fill" id="sTestFill"></div></div>
-                <div class="strength-label">
+                <div class="progress-bar"><div class="progress-fill" id="sTestFill"></div></div>
+                <div class="progress-label">
                     <span id="sTestLabel"></span>
                     <span id="sTestScore"></span>
                 </div>
@@ -143,21 +143,21 @@
                 <span class="length-value" id="genLengthVal">24</span>
             </div>
             <div class="gen-options">
-                <div class="gen-option active" data-opt="upper" onclick="toggleOpt(this)">
-                    <div class="gen-check">✓</div>
-                    <span class="gen-option-label" data-i18n="hashForge.gen_upper"></span>
+                <div class="toggle-option active" data-opt="upper" onclick="toggleOpt(this)">
+                    <div class="toggle-check">✓</div>
+                    <span class="toggle-label" data-i18n="hashForge.gen_upper"></span>
                 </div>
-                <div class="gen-option active" data-opt="lower" onclick="toggleOpt(this)">
-                    <div class="gen-check">✓</div>
-                    <span class="gen-option-label" data-i18n="hashForge.gen_lower"></span>
+                <div class="toggle-option active" data-opt="lower" onclick="toggleOpt(this)">
+                    <div class="toggle-check">✓</div>
+                    <span class="toggle-label" data-i18n="hashForge.gen_lower"></span>
                 </div>
-                <div class="gen-option active" data-opt="digits" onclick="toggleOpt(this)">
-                    <div class="gen-check">✓</div>
-                    <span class="gen-option-label" data-i18n="hashForge.gen_digits"></span>
+                <div class="toggle-option active" data-opt="digits" onclick="toggleOpt(this)">
+                    <div class="toggle-check">✓</div>
+                    <span class="toggle-label" data-i18n="hashForge.gen_digits"></span>
                 </div>
-                <div class="gen-option active" data-opt="special" onclick="toggleOpt(this)">
-                    <div class="gen-check">✓</div>
-                    <span class="gen-option-label" data-i18n="hashForge.gen_special"></span>
+                <div class="toggle-option active" data-opt="special" onclick="toggleOpt(this)">
+                    <div class="toggle-check">✓</div>
+                    <span class="toggle-label" data-i18n="hashForge.gen_special"></span>
                 </div>
             </div>
         </div>
@@ -171,9 +171,9 @@
             </div>
             <div id="genEmptyState" class="empty-state"><span data-i18n="hashForge.empty_gen"></span></div>
             <div id="genResultWrap" style="display:none;">
-                <div class="generated-pw" id="genOutput"></div>
-                <div class="strength-bar"><div class="strength-fill" id="genStrengthFill"></div></div>
-                <div class="strength-label">
+                <div class="result-accent generated-pw" id="genOutput"></div>
+                <div class="progress-bar" style="margin-top: 14px;"><div class="progress-fill" id="genStrengthFill"></div></div>
+                <div class="progress-label">
                     <span id="genStrengthLabel"></span>
                     <span id="genStrengthScore"></span>
                 </div>

@@ -1,26 +1,3 @@
-// ── Tab switching with persistence ──
-function showPanel(name) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
-    const tab = document.querySelector(`.tab[data-panel="${name}"]`)
-    if (tab) tab.classList.add('active')
-    const panel = document.getElementById('panel-' + name)
-    if (panel) panel.classList.add('active')
-    localStorage.setItem('tab_calcul8tr', name)
-}
-
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => showPanel(tab.dataset.panel))
-})
-
-// Restore last active tab
-;(() => {
-    const saved = localStorage.getItem('tab_calcul8tr')
-    if (saved && document.querySelector(`.tab[data-panel="${saved}"]`)) {
-        showPanel(saved)
-    }
-})()
-
 // ══════════════════════════════════
 //  Expression Calculator
 // ══════════════════════════════════
@@ -501,27 +478,3 @@ function getWeekNumber(d) {
     return Math.ceil((((date - yearStart) / 86400000) + 1) / 7)
 }
 
-// ── Helpers ──
-function copyText(text, btn) {
-    if (!text) return
-    navigator.clipboard.writeText(text).then(() => {
-        const original = btn.innerHTML
-        btn.innerHTML = '✓'
-        btn.classList.add('copied')
-        showToast(t('common.clipboard'))
-        setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 1600)
-    })
-}
-
-function showToast(msg) {
-    const t = document.getElementById('toast')
-    t.textContent = msg
-    t.classList.add('show')
-    setTimeout(() => t.classList.remove('show'), 2200)
-}
-
-function esc(str) {
-    const d = document.createElement('div')
-    d.textContent = str
-    return d.innerHTML
-}
