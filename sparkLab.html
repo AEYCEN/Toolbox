@@ -75,20 +75,20 @@
             <label class="input-label" style="margin-bottom: 14px; display: block;" data-i18n="sparkLab.ohm_desc"></label>
             <div class="elec-grid">
                 <div class="elec-field">
-                    <label class="elec-label"><span class="elec-icon volt">⚡</span> <span data-i18n="sparkLab.voltage"></span> <span class="elec-unit">(V)</span></label>
-                    <input class="field-input" type="number" id="ohmV" placeholder="—" step="any" oninput="calcOhm()">
+                    <label class="elec-label"><span class="elec-icon volt">U</span> <span data-i18n="sparkLab.voltage"></span> <span class="elec-unit">(V)</span></label>
+                    <input class="field-input" type="number" id="ohmV" placeholder="—" step="any" oninput="calcOhm('V')">
                 </div>
                 <div class="elec-field">
-                    <label class="elec-label"><span class="elec-icon amp">🔌</span> <span data-i18n="sparkLab.current"></span> <span class="elec-unit">(A)</span></label>
-                    <input class="field-input" type="number" id="ohmA" placeholder="—" step="any" oninput="calcOhm()">
+                    <label class="elec-label"><span class="elec-icon amp">I</span> <span data-i18n="sparkLab.current"></span> <span class="elec-unit">(A)</span></label>
+                    <input class="field-input" type="number" id="ohmA" placeholder="—" step="any" oninput="calcOhm('I')">
                 </div>
                 <div class="elec-field">
-                    <label class="elec-label"><span class="elec-icon ohm">Ω</span> <span data-i18n="sparkLab.resistance"></span> <span class="elec-unit">(Ω)</span></label>
-                    <input class="field-input" type="number" id="ohmR" placeholder="—" step="any" oninput="calcOhm()">
+                    <label class="elec-label"><span class="elec-icon ohm">R</span> <span data-i18n="sparkLab.resistance"></span> <span class="elec-unit">(Ω)</span></label>
+                    <input class="field-input" type="number" id="ohmR" placeholder="—" step="any" oninput="calcOhm('R')">
                 </div>
                 <div class="elec-field">
-                    <label class="elec-label"><span class="elec-icon watt">💡</span> <span data-i18n="sparkLab.power"></span> <span class="elec-unit">(W)</span></label>
-                    <input class="field-input" type="number" id="ohmP" placeholder="—" step="any" oninput="calcOhm()">
+                    <label class="elec-label"><span class="elec-icon watt">P</span> <span data-i18n="sparkLab.power"></span> <span class="elec-unit">(W)</span></label>
+                    <input class="field-input" type="number" id="ohmP" placeholder="—" step="any" oninput="calcOhm('P')">
                 </div>
             </div>
         </div>

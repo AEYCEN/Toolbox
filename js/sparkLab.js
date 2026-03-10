@@ -36,74 +36,101 @@ function calcEnergy() {
 // ══════════════════════════════════
 //  2. Ohm's Law / Power Wheel
 //  Enter any 2, get the other 2
+//  Tracks last 2 user-edited fields
 // ══════════════════════════════════
 let _ohmLock = false
+let _ohmUserFields = []   // ordered history of user-edited field keys: 'U','I','R','P'
 
-function calcOhm() {
+function calcOhm(editedKey) {
     if (_ohmLock) return
     _ohmLock = true
 
-    const vEl = document.getElementById('ohmV')
-    const aEl = document.getElementById('ohmA')
-    const rEl = document.getElementById('ohmR')
-    const pEl = document.getElementById('ohmP')
-
-    const V = vEl.value !== '' ? parseFloat(vEl.value) : null
-    const I = aEl.value !== '' ? parseFloat(aEl.value) : null
-    const R = rEl.value !== '' ? parseFloat(rEl.value) : null
-    const P = pEl.value !== '' ? parseFloat(pEl.value) : null
-
-    const filled = [V, I, R, P].filter(x => x !== null && !isNaN(x)).length
-    let formula = ''
-    let results = {}
-
-    if (filled >= 2) {
-        // All valid combinations
-        if (V !== null && I !== null) {
-            results = { R: V / I, P: V * I }
-            formula = 'R = V / I, P = V × I'
-        } else if (V !== null && R !== null) {
-            results = { I: V / R, P: (V * V) / R }
-            formula = 'I = V / R, P = V² / R'
-        } else if (V !== null && P !== null) {
-            results = { I: P / V, R: (V * V) / P }
-            formula = 'I = P / V, R = V² / P'
-        } else if (I !== null && R !== null) {
-            results = { V: I * R, P: I * I * R }
-            formula = 'V = I × R, P = I² × R'
-        } else if (I !== null && P !== null) {
-            results = { V: P / I, R: P / (I * I) }
-            formula = 'V = P / I, R = P / I²'
-        } else if (R !== null && P !== null) {
-            results = { V: Math.sqrt(P * R), I: Math.sqrt(P / R) }
-            formula = 'V = √(P × R), I = √(P / R)'
-        }
-
-        if (results.V !== undefined && V === null) vEl.value = fmt(results.V)
-        if (results.I !== undefined && I === null) aEl.value = fmt(results.I)
-        if (results.R !== undefined && R === null) rEl.value = fmt(results.R)
-        if (results.P !== undefined && P === null) pEl.value = fmt(results.P)
-
-        document.getElementById('ohmEmptyState').style.display = 'none'
-        document.getElementById('ohmResultWrap').style.display = 'block'
-        document.getElementById('ohmFormula').textContent = formula
-
-        const allV = parseFloat(vEl.value) || 0
-        const allI = parseFloat(aEl.value) || 0
-        const allR = parseFloat(rEl.value) || 0
-        const allP = parseFloat(pEl.value) || 0
-        document.getElementById('ohmMeta').innerHTML =
-            `<span class="meta-badge">⚡ <span class="val">${fmtUnit(allV, 'V')}</span></span>` +
-            `<span class="meta-badge">🔌 <span class="val">${fmtUnit(allI, 'A')}</span></span>` +
-            `<span class="meta-badge">Ω <span class="val">${fmtUnit(allR, 'Ω')}</span></span>` +
-            `<span class="meta-badge">💡 <span class="val">${fmtUnit(allP, 'W')}</span></span>`
+    // Track which fields the user actively touches
+    if (editedKey) {
+        // Remove previous occurrence so latest is always last
+        _ohmUserFields = _ohmUserFields.filter(k => k !== editedKey)
+        _ohmUserFields.push(editedKey)
+        // Keep only last 2
+        if (_ohmUserFields.length > 2) _ohmUserFields = _ohmUserFields.slice(-2)
     }
+
+    const els = {
+        U: document.getElementById('ohmV'),
+        I: document.getElementById('ohmA'),
+        R: document.getElementById('ohmR'),
+        P: document.getElementById('ohmP'),
+    }
+
+    const vals = {}
+    for (const k in els) vals[k] = els[k].value !== '' ? parseFloat(els[k].value) : null
+
+    // Determine the input pair: prefer the 2 user-tracked fields if both have values
+    let pair = null
+    if (_ohmUserFields.length === 2) {
+        const [a, b] = _ohmUserFields
+        if (vals[a] !== null && !isNaN(vals[a]) && vals[b] !== null && !isNaN(vals[b])) {
+            pair = new Set([a, b])
+        }
+    }
+    // Fallback: first 2 non-empty fields (initial entry)
+    if (!pair) {
+        const filled = Object.keys(vals).filter(k => vals[k] !== null && !isNaN(vals[k]))
+        if (filled.length >= 2) {
+            pair = new Set(filled.slice(0, 2))
+        }
+    }
+
+    if (!pair) { _ohmLock = false; return }
+
+    const has = (a, b) => pair.has(a) && pair.has(b)
+
+    let formula = '', results = {}
+
+    if (has('U', 'I')) {
+        results = { R: vals.U / vals.I, P: vals.U * vals.I }
+        formula = 'R = U / I, P = U × I'
+    } else if (has('U', 'R')) {
+        results = { I: vals.U / vals.R, P: (vals.U * vals.U) / vals.R }
+        formula = 'I = U / R, P = U² / R'
+    } else if (has('U', 'P')) {
+        results = { I: vals.P / vals.U, R: (vals.U * vals.U) / vals.P }
+        formula = 'I = P / U, R = U² / P'
+    } else if (has('I', 'R')) {
+        results = { U: vals.I * vals.R, P: vals.I * vals.I * vals.R }
+        formula = 'U = I × R, P = I² × R'
+    } else if (has('I', 'P')) {
+        results = { U: vals.P / vals.I, R: vals.P / (vals.I * vals.I) }
+        formula = 'U = P / I, R = P / I²'
+    } else if (has('R', 'P')) {
+        results = { U: Math.sqrt(vals.P * vals.R), I: Math.sqrt(vals.P / vals.R) }
+        formula = 'U = √(P × R), I = √(P / R)'
+    }
+
+    // Fill only the calculated (non-input) fields
+    for (const k in results) {
+        if (!pair.has(k)) els[k].value = fmt(results[k])
+    }
+
+    document.getElementById('ohmEmptyState').style.display = 'none'
+    document.getElementById('ohmResultWrap').style.display = 'block'
+    document.getElementById('ohmFormula').textContent = formula
+
+    const allV = parseFloat(els.U.value) || 0
+    const allI = parseFloat(els.I.value) || 0
+    const allR = parseFloat(els.R.value) || 0
+    const allP = parseFloat(els.P.value) || 0
+    document.getElementById('ohmMeta').innerHTML =
+        `<span class="meta-badge">U <span class="val">${fmtUnit(allV, 'V')}</span></span>` +
+        `<span class="meta-badge">I <span class="val">${fmtUnit(allI, 'A')}</span></span>` +
+        `<span class="meta-badge">R <span class="val">${fmtUnit(allR, 'Ω')}</span></span>` +
+        `<span class="meta-badge">P <span class="val">${fmtUnit(allP, 'W')}</span></span>`
 
     _ohmLock = false
 }
 
 function clearOhm() {
     ;['ohmV', 'ohmA', 'ohmR', 'ohmP'].forEach(id => document.getElementById(id).value = '')
+    _ohmUserFields = []
     document.getElementById('ohmEmptyState').style.display = 'block'
     document.getElementById('ohmResultWrap').style.display = 'none'
 }

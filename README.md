@@ -16,14 +16,14 @@ The AEYCEN Toolbox is a curated set of utilities that simplify recurring tasks i
 
 ### Tools
 
-| Tool                                                                 | Version         | Category   | Description                                                                                                              |
-|----------------------------------------------------------------------|-----------------|------------|--------------------------------------------------------------------------------------------------------------------------|
-| **[Calcul8tr](https://aeycen.github.io/Toolbox/calcul8tr.html)**     | v2.2 *(8.3.26)* | Math       | Expression calculator, number base converter, unit converter, percentage calculator, statistics and date difference      |
-| **[WordWatch](https://aeycen.github.io/Toolbox/wordWatch.html)**     | v2.1 *(7.3.26)* | Text       | Text analysis with word/character count, Flesch readability index, keyword extraction, transformations and find & replace |
-| **[SparkLab](https://aeycen.github.io/Toolbox/sparkLab.html)**       | v1.1 *(10.3.26)* | Electrical | Ohm's law, VDE 0298-4 wire sizing, LED resistor, series/parallel resistance, energy cost and resistor color code                    |
-| **[HashForge](https://aeycen.github.io/Toolbox/hashForge.html)**     | v3.1 *(7.3.26)* | Encoding   | Password hashing (bcrypt), SHA checksums, strength tester, generator and hash comparison                                 |
-| **[LinkLoom](https://aeycen.github.io/Toolbox/linkLoom.html)**       | v2.1 *(7.3.26)* | Encoding   | URL encoding/decoding, URL parser, Base64, UTM builder and bulk mode                                                     |
-| **[HeidiDecode](https://aeycen.github.io/Toolbox/heidiDecode.html)** | v1.3 *(7.3.26)* | Encoding   | Decrypt exported HeidiSQL connections (direct input or file import)                                                      |
+| Tool                                                                 | Version          | Category   | Description                                                                                                              |
+|----------------------------------------------------------------------|------------------|------------|--------------------------------------------------------------------------------------------------------------------------|
+| **[Calcul8tr](https://aeycen.github.io/Toolbox/calcul8tr.html)**     | v2.2 *(8.3.26)*  | Math       | Expression calculator, number base converter, unit converter, percentage calculator, statistics and date difference      |
+| **[WordWatch](https://aeycen.github.io/Toolbox/wordWatch.html)**     | v2.1 *(7.3.26)*  | Text       | Text analysis with word/character count, Flesch readability index, keyword extraction, transformations and find & replace |
+| **[SparkLab](https://aeycen.github.io/Toolbox/sparkLab.html)**       | v1.2 *(10.3.26)* | Electrical | Ohm's law, VDE 0298-4 wire sizing, LED resistor, series/parallel resistance, energy cost and resistor color code                    |
+| **[HashForge](https://aeycen.github.io/Toolbox/hashForge.html)**     | v3.1 *(7.3.26)*  | Encoding   | Password hashing (bcrypt), SHA checksums, strength tester, generator and hash comparison                                 |
+| **[LinkLoom](https://aeycen.github.io/Toolbox/linkLoom.html)**       | v2.1 *(7.3.26)*  | Encoding   | URL encoding/decoding, URL parser, Base64, UTM builder and bulk mode                                                     |
+| **[HeidiDecode](https://aeycen.github.io/Toolbox/heidiDecode.html)** | v1.3 *(7.3.26)*  | Encoding   | Decrypt exported HeidiSQL connections (direct input or file import)                                                      |
 
 ---
 
