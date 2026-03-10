@@ -299,24 +299,37 @@ function calcWire() {
         return
     }
 
-    const Udrop = U * (dropPct / 100)
-    const A = (phaseFactor * rho * L * I) / Udrop
-    const actualDrop = (phaseFactor * rho * L * I) / A
-    const dropV = actualDrop
+    const isThreePhase = phaseFactor < 2 // √3 ≈ 1.732
 
-    // Standard cross-sections
-    const standards = [0.75, 1, 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240]
-    const recommended = standards.find(s => s >= A) || standards[standards.length - 1]
+    // Max allowed voltage drop
+    const UdropMax = U * (dropPct / 100)
+
+    // Required cross-section to stay within limit
+    const Acalc = (phaseFactor * rho * L * I) / UdropMax
+
+    // Standard cross-sections (VDE: min 1.5 mm² for fixed installation)
+    const standards = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240]
+    const recommended = standards.find(s => s >= Acalc) || standards[standards.length - 1]
+
+    // Actual voltage drop with the recommended (rounded up) cross-section
+    const UdropActual = (phaseFactor * rho * L * I) / recommended
+    const dropPctActual = (UdropActual / U) * 100
+
+    // Power: P = U × I for single-phase, P = √3 × U × I for three-phase
+    const power = isThreePhase ? (Math.sqrt(3) * U * I) : (U * I)
+
+    // Total cable length: 2 × L for single-phase (L + N), 3 × L for three-phase (3 conductors)
+    const totalLength = isThreePhase ? (3 * L) : (2 * L)
 
     document.getElementById('wireEmptyState').style.display = 'none'
     document.getElementById('wireResultWrap').style.display = 'block'
     document.getElementById('wireGrid').innerHTML = `
-        <div class="stat-card"><div class="stat-value">${A.toFixed(2)} mm²</div><div class="stat-label">${t('sparkLab.wire_calc_cross')}</div></div>
+        <div class="stat-card"><div class="stat-value">${Acalc.toFixed(2)} mm²</div><div class="stat-label">${t('sparkLab.wire_calc_cross')}</div></div>
         <div class="stat-card pink"><div class="stat-value">${recommended} mm²</div><div class="stat-label">${t('sparkLab.wire_recommended')}</div></div>
-        <div class="stat-card green"><div class="stat-value">${Udrop.toFixed(2)} V</div><div class="stat-label">${t('sparkLab.wire_drop_v')}</div></div>
-        <div class="stat-card yellow"><div class="stat-value">${dropPct} %</div><div class="stat-label">${t('sparkLab.wire_drop_pct')}</div></div>
-        <div class="stat-card purple"><div class="stat-value">${(I * U / 1000).toFixed(2)} kW</div><div class="stat-label">${t('sparkLab.power')}</div></div>
-        <div class="stat-card"><div class="stat-value">${(2 * L).toFixed(1)} m</div><div class="stat-label">${t('sparkLab.wire_total_length')}</div></div>
+        <div class="stat-card green"><div class="stat-value">${UdropActual.toFixed(2)} V</div><div class="stat-label">${t('sparkLab.wire_drop_v')}</div></div>
+        <div class="stat-card yellow"><div class="stat-value">${dropPctActual.toFixed(2)} %</div><div class="stat-label">${t('sparkLab.wire_drop_pct')}</div></div>
+        <div class="stat-card purple"><div class="stat-value">${(power / 1000).toFixed(2)} kW</div><div class="stat-label">${t('sparkLab.power')}</div></div>
+        <div class="stat-card"><div class="stat-value">${totalLength.toFixed(1)} m</div><div class="stat-label">${t('sparkLab.wire_total_length')}</div></div>
     `
 }
 
