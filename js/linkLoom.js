@@ -1,26 +1,3 @@
-// ── Tab switching with persistence ──
-function showPanel(name) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
-    const tab = document.querySelector(`.tab[data-panel="${name}"]`)
-    if (tab) tab.classList.add('active')
-    const panel = document.getElementById('panel-' + name)
-    if (panel) panel.classList.add('active')
-    localStorage.setItem('tab_linkLoom', name)
-}
-
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => showPanel(tab.dataset.panel))
-})
-
-// Restore last active tab
-;(() => {
-    const saved = localStorage.getItem('tab_linkLoom')
-    if (saved && document.querySelector(`.tab[data-panel="${saved}"]`)) {
-        showPanel(saved)
-    }
-})()
-
 // ── Char count ──
 function updateCharCount() {
     const len = document.getElementById('urlInput').value.length
@@ -157,39 +134,6 @@ function bulkDecode() {
         try { return l.trim() ? decodeURI(l.trim()) : '' }
         catch (e) { return '⚠ ' + l.trim() }
     }).join('\n')
-}
-
-// ── Helpers ──
-function escapeHtml(str) {
-    const d = document.createElement('div')
-    d.textContent = str
-    return d.innerHTML
-}
-
-function copyResult(id, btn) {
-    copyText(document.getElementById(id).value, btn)
-}
-
-function copyText(text, btn) {
-    if (!text) return
-    navigator.clipboard.writeText(text).then(() => {
-        if (btn) {
-            btn.classList.add('copied')
-            btn.innerHTML = t('common.copied')
-            setTimeout(() => {
-                btn.classList.remove('copied')
-                btn.innerHTML = t('common.copy')
-            }, 1800)
-        }
-        showToast(t('common.clipboard'))
-    })
-}
-
-function showToast(msg) {
-    const t = document.getElementById('toast')
-    t.textContent = msg
-    t.classList.add('show')
-    setTimeout(() => t.classList.remove('show'), 2200)
 }
 
 // ── Keyboard shortcut ──

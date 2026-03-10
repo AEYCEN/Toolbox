@@ -29,43 +29,6 @@ async function phpHash() {
     }
 }
 
-// ── Load PHP result on page load ──
-const phpResultData = null
-if (phpResultData) {
-    showPanel('phash')
-    document.getElementById('phpEmptyState').style.display = 'none'
-    document.getElementById('phpResultWrap').style.display = 'block'
-    document.getElementById('phpResult').value = phpResultData.hash
-    document.getElementById('phpPassword').value = phpResultData.input
-    document.getElementById('phpAlgo').value = phpResultData.algo
-    document.getElementById('phpMeta').innerHTML =
-        `<span class="meta-badge">Algorithmus <span class="val">${esc(phpResultData.algo)}</span></span>` +
-        `<span class="meta-badge">Länge <span class="val">${phpResultData.hash.length} Zeichen</span></span>`
-}
-
-// Tab switching with persistence
-function showPanel(name) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
-    const tab = document.querySelector(`.tab[data-panel="${name}"]`)
-    if (tab) tab.classList.add('active')
-    const panel = document.getElementById('panel-' + name)
-    if (panel) panel.classList.add('active')
-    localStorage.setItem('tab_hashForge', name)
-}
-
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => showPanel(tab.dataset.panel))
-})
-
-// Restore last active tab
-;(() => {
-    const saved = localStorage.getItem('tab_hashForge')
-    if (saved && document.querySelector(`.tab[data-panel="${saved}"]`)) {
-        showPanel(saved)
-    }
-})()
-
 // ══════════════════════════════════
 //  SHA Hashing (Web Crypto API)
 // ══════════════════════════════════
@@ -205,7 +168,7 @@ function updateLengthDisplay() {
 
 function toggleOpt(el) {
     el.classList.toggle('active')
-    if (!document.querySelectorAll('.gen-option.active').length) {
+    if (!document.querySelectorAll('.toggle-option.active').length) {
         el.classList.add('active')
         showToast(t('hashForge.toast_min_option'))
     }
@@ -213,7 +176,7 @@ function toggleOpt(el) {
 
 function generatePassword() {
     const length = parseInt(document.getElementById('genLength').value)
-    const opts = document.querySelectorAll('.gen-option.active')
+    const opts = document.querySelectorAll('.toggle-option.active')
     let charset = ''
     opts.forEach(o => {
         const t = o.dataset.opt
@@ -319,29 +282,3 @@ function compareHashes() {
         `<span class="meta-badge">Differenzen <span class="val">${diffCount}</span></span>`
 }
 
-// ── Helpers ──
-function copyResult(id, btn) { copyText(document.getElementById(id).value, btn); }
-
-function copyText(text, btn) {
-    if (!text) return
-    navigator.clipboard.writeText(text).then(() => {
-        const original = btn.innerHTML
-        btn.innerHTML = '✓ Kopiert'
-        btn.classList.add('copied')
-        showToast(t('common.clipboard'))
-        setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 1600)
-    })
-}
-
-function showToast(msg) {
-    const t = document.getElementById('toast')
-    t.textContent = msg
-    t.classList.add('show')
-    setTimeout(() => t.classList.remove('show'), 2200)
-}
-
-function esc(str) {
-    const d = document.createElement('div')
-    d.textContent = str
-    return d.innerHTML
-}

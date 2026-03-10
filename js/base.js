@@ -7,6 +7,66 @@ const Base = {
     sparkLab: '1.0 (08.03.26)',
 }
 
+// ═══════════════════════════════════
+//  Shared utilities
+// ═══════════════════════════════════
+
+function showToast(msg) {
+    const el = document.getElementById('toast')
+    if (!el) return
+    el.textContent = msg
+    el.classList.add('show')
+    setTimeout(() => el.classList.remove('show'), 2200)
+}
+
+function esc(str) {
+    const d = document.createElement('div')
+    d.textContent = str
+    return d.innerHTML
+}
+
+const escapeHtml = esc
+
+function escapeAttr(str) {
+    return str.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;')
+}
+
+function copyText(text, btn) {
+    if (!text) return
+    navigator.clipboard.writeText(text).then(() => {
+        showToast(t('common.clipboard'))
+        if (btn) {
+            const original = btn.innerHTML
+            btn.innerHTML = t('common.copied')
+            btn.classList.add('copied')
+            setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied') }, 1600)
+        }
+    })
+}
+
+function copyResult(id, btn) {
+    copyText(document.getElementById(id).value, btn)
+}
+
+// ═══════════════════════════════════
+//  Tab system with persistence
+// ═══════════════════════════════════
+
+function showPanel(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
+    const tab = document.querySelector(`.tab[data-panel="${name}"]`)
+    if (tab) tab.classList.add('active')
+    const panel = document.getElementById('panel-' + name)
+    if (panel) panel.classList.add('active')
+    const page = location.pathname.split('/').pop().replace('.html', '') || 'index'
+    localStorage.setItem('tab_' + page, name)
+}
+
+// ═══════════════════════════════════
+//  Version injection
+// ═══════════════════════════════════
+
 function injectVersions() {
     document.querySelectorAll('[data-version]').forEach(el => {
         const key = el.getAttribute('data-version')
@@ -86,5 +146,17 @@ document.addEventListener('DOMContentLoaded', () => {
     injectVersions()
     enhanceNumberInputs()
     injectLangSwitcher()
+
+    // Tab initialization
+    const tabs = document.querySelectorAll('.tab[data-panel]')
+    if (tabs.length) {
+        tabs.forEach(tab => tab.addEventListener('click', () => showPanel(tab.dataset.panel)))
+        const page = location.pathname.split('/').pop().replace('.html', '') || 'index'
+        const saved = localStorage.getItem('tab_' + page)
+        if (saved && document.querySelector(`.tab[data-panel="${saved}"]`)) {
+            showPanel(saved)
+        }
+    }
+
     I18n.init()
 })

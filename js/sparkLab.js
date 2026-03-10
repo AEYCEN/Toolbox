@@ -1,23 +1,3 @@
-// ── Tab switching with persistence ──
-function showPanel(name) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
-    const tab = document.querySelector(`.tab[data-panel="${name}"]`)
-    if (tab) tab.classList.add('active')
-    const panel = document.getElementById('panel-' + name)
-    if (panel) panel.classList.add('active')
-    localStorage.setItem('tab_sparkLab', name)
-}
-
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => showPanel(tab.dataset.panel))
-})
-
-;(() => {
-    const saved = localStorage.getItem('tab_sparkLab')
-    if (saved && document.querySelector(`.tab[data-panel="${saved}"]`)) showPanel(saved)
-})()
-
 // ══════════════════════════════════
 //  1. Energy Cost Calculator
 // ══════════════════════════════════
@@ -410,24 +390,6 @@ function fmtUnit(val, unit) {
     if (val < 0.001 && val > 0) return (val * 1e6).toFixed(2) + ' µ' + unit
     if (val < 1 && val > 0) return (val * 1e3).toFixed(2) + ' m' + unit
     return parseFloat(val.toPrecision(6)) + ' ' + unit
-}
-
-function copyText(text, btn) {
-    if (!text) return
-    navigator.clipboard.writeText(text).then(() => {
-        const original = btn.innerHTML
-        btn.innerHTML = t('common.copied')
-        btn.classList.add('copied')
-        showToast(t('common.clipboard'))
-        setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied') }, 1600)
-    })
-}
-
-function showToast(msg) {
-    const el = document.getElementById('toast')
-    el.textContent = msg
-    el.classList.add('show')
-    setTimeout(() => el.classList.remove('show'), 2200)
 }
 
 // Init color code on load
