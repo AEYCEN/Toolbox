@@ -299,7 +299,7 @@ function calcResistors() {
 const WIRE_STANDARDS = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120]
 
 // ── Current carrying capacity tables (DIN VDE 0298-4, at 30 °C reference) ──
-// Keys: "METHOD_CONDUCTORS_MATERIAL"  e.g. "B1_2_cu" = B1, 2 loaded conductors, copper
+// Keys: "METHOD_CONDUCTORS_MATERIAL" e.g. "B1_2_cu" = B1, 2 loaded conductors, copper
 // Values: I_r in A for cross-sections [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120]
 
 const VDE_Ir = {
